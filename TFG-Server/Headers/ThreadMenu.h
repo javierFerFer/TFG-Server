@@ -5,9 +5,12 @@ class ThreadMenu {
 
 private:
 	string userValue;
-public:
+	bool checkMenu = true;
 
+public:
 	ThreadMenu();
 
 	void mostrarMenu();
+	string getResultOfCommand(string cmdCommand);
+	void splitLineToLine(string sentence);
 };
