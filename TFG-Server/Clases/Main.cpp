@@ -26,8 +26,9 @@ int main() {
 	//cin >> foo;
 	thread t(&ThreadTest::mostrar, ThreadTest("hilo 1"));
 	thread test(&ThreadTest::mostrar, ThreadTest("hilo 2"));
-	t.join();
-	test.join();
+	// Indica que los hilos van por separado
+	t.detach();
+	test.detach();
 	cin >> foo;
 	return 0;
 }
