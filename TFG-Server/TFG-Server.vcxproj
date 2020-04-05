@@ -78,13 +78,23 @@
     <ClInclude Include="Headers\Main.h" />
     <ClInclude Include="Headers\TestSockets.h" />
     <ClInclude Include="Headers\ThreadMenu.h" />
+    <ClInclude Include="Headers\ThreadTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />
     <ClCompile Include="Clases\TestSockets.cpp" />
     <ClCompile Include="Clases\ThreadMenu.cpp" />
+    <ClCompile Include="Clases\ThreadTest.cpp" />
   </ItemGroup>
-  <ItemDefinitionGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <ThreadSafeStatics>Yes</ThreadSafeStatics>
+      <AdditionalOptions>-pthread</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <LibraryDependencies>pthread</LibraryDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>

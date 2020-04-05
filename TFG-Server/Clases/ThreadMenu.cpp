@@ -53,7 +53,6 @@ void ThreadMenu::splitLineToLine(string sentenceParam) {
 
 	if (sentenceParam != "") {
 		while (std::getline(ss, to, '\n')) {
-			
 			if (to.find("12345") != std::string::npos) {
 				if (to.find("ALLOW") != std::string::npos) {
 					cout << "El servidor está activado" << endl;
