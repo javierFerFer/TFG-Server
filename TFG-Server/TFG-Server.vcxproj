@@ -76,9 +76,13 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClInclude Include="Headers\Main.h" />
+    <ClInclude Include="Headers\TestSockets.h" />
+    <ClInclude Include="Headers\ThreadMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />
+    <ClCompile Include="Clases\TestSockets.cpp" />
+    <ClCompile Include="Clases\ThreadMenu.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
