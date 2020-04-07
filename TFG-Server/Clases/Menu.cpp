@@ -19,6 +19,8 @@ void Menu::checkPort() {
 	resultCommand = getResultOfCommand(ufwCommand);
 	vector<string> resultCommandSplit = splitLineToLine(resultCommand);
 	checkProgramPort(resultCommandSplit);
+	
+	//resetPortVariables();
 }
 
 void Menu::mostrarMenu() {
@@ -70,6 +72,7 @@ void Menu::checkProgramPort(vector<string> vectorParam) {
 			checkProgramPortBool = true;
 			if (vectorParam[counterLines].find(statusPortOpen) != string::npos) {
 				cout << "Encontrado y abierto"<< endl;
+				checkProgramPortOpenOrClose = true;
 				break;
 			} else if (vectorParam[counterLines].find(statusPortClose) != string::npos) {
 				cout << "Encontrado, pero cerrado" << endl;
@@ -78,12 +81,17 @@ void Menu::checkProgramPort(vector<string> vectorParam) {
 			break;
 		}
 	}
+
 	if (!checkProgramPortBool) {
 		cout << "Puerto no encontrado" << endl;
 	}
-
-	checkProgramPortBool = false;
 }
+
+void Menu::resetPortVariables() {
+	checkProgramPortBool = false;
+	checkProgramPortOpenOrClose = false;
+}
+
 
 
 

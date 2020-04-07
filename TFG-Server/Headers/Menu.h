@@ -18,6 +18,7 @@ private:
 
 	bool checkMenu = true;
 	bool checkProgramPortBool = false;
+	bool checkProgramPortOpenOrClose = false;
 	bool checkProgramServiceBool = false;
 
 public:
@@ -27,6 +28,7 @@ public:
 	void checkPort();
 	vector<string> splitLineToLine(string sentence);
 	void checkProgramPort(vector <string> vectorParam);
+	void resetPortVariables();
 
 	string getResultOfCommand(string cmdCommand);
 };
