@@ -14,7 +14,7 @@ ThreadTest::ThreadTest(string param) {
 void ThreadTest::mostrar() {
 	int foo;
 	if (nameThread == "hilo 1") {
-		std::this_thread::sleep_for(std::chrono::milliseconds(4000));
+		std::this_thread::sleep_for(std::chrono::milliseconds(40000));
 	}
 	for (size_t i = 0; i < 10; i++) {
 		cout << "Soy el hilo " + nameThread << endl;

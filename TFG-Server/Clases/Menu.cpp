@@ -1,9 +1,7 @@
 //todos los include de la clase
 #include "../Headers/Main.h"
-#include "../Headers/ThreadMenu.h"
-#include <iostream>
+#include "../Headers/Menu.h"
 #include <sstream>
-using namespace std;
 
 
 /*
@@ -12,11 +10,18 @@ Main del programa
 */
 
 // Constructor de la clase, se ejecuta al crear un objeto de la misma
-ThreadMenu::ThreadMenu(){
-	mostrarMenu();
+Menu::Menu(){
+	checkPort();
+	//mostrarMenu();
 }
 
-void ThreadMenu::mostrarMenu() {
+void Menu::checkPort() {
+	resultCommand = getResultOfCommand(ufwCommand);
+	vector<string> resultCommandSplit = splitLineToLine(resultCommand);
+	checkProgramPort(resultCommandSplit);
+}
+
+void Menu::mostrarMenu() {
 	while (checkMenu) {
 		cout << "Opciones del menu:" << endl;
 		cout << "1. Activar el servidor" << endl;
@@ -47,29 +52,44 @@ void ThreadMenu::mostrarMenu() {
 	}
 }
 
-void ThreadMenu::splitLineToLine(string sentenceParam) {
-	std::stringstream ss(sentenceParam);
-	std::string to;
-
+vector<string> Menu::splitLineToLine(string sentenceParam) {
+	stringstream ss(sentenceParam);
+	string to;
+	vector <string> splitResult;
 	if (sentenceParam != "") {
-		while (std::getline(ss, to, '\n')) {
-			if (to.find("12345") != std::string::npos) {
-				if (to.find("ALLOW") != std::string::npos) {
-					cout << "El servidor está activado" << endl;
-					cout << endl;
-					break;
-				} else if (to.find("DENY") != std::string::npos) {
-					cout << "El servidor está desactivado" << endl;
-					cout << endl;
-					break;
-				}
-				break;
-			}
+		while (getline(ss, to, '\n')) {
+			splitResult.push_back(to);
 		}
 	}
+	return splitResult;
 }
 
-string ThreadMenu::getResultOfCommand(string cmdCommandParam) {
+void Menu::checkProgramPort(vector<string> vectorParam) {
+	for (int counterLines = 0; counterLines < vectorParam.size(); counterLines++) {
+		if (vectorParam[counterLines].find(port) != string::npos) {
+			checkProgramPortBool = true;
+			if (vectorParam[counterLines].find(statusPortOpen) != string::npos) {
+				cout << "Encontrado y abierto"<< endl;
+				break;
+			} else if (vectorParam[counterLines].find(statusPortClose) != string::npos) {
+				cout << "Encontrado, pero cerrado" << endl;
+				break;
+			}
+			break;
+		}
+	}
+	if (!checkProgramPortBool) {
+		cout << "Puerto no encontrado" << endl;
+	}
+
+	checkProgramPortBool = false;
+}
+
+
+
+
+
+string Menu::getResultOfCommand(string cmdCommandParam) {
 
 	string data;
 	FILE* stream;

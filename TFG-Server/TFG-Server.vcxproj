@@ -77,13 +77,13 @@
   <ItemGroup>
     <ClInclude Include="Headers\Main.h" />
     <ClInclude Include="Headers\TestSockets.h" />
-    <ClInclude Include="Headers\ThreadMenu.h" />
+    <ClInclude Include="Headers\Menu.h" />
     <ClInclude Include="Headers\ThreadTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />
     <ClCompile Include="Clases\TestSockets.cpp" />
-    <ClCompile Include="Clases\ThreadMenu.cpp" />
+    <ClCompile Include="Clases\Menu.cpp" />
     <ClCompile Include="Clases\ThreadTest.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
