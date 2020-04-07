@@ -9,6 +9,7 @@
 #include <string.h>
 #include<iostream>
 #include<iostream>
+#include "../Headers/TestSockets.h"
 
 using namespace std;
 
@@ -18,7 +19,8 @@ using namespace std;
 Main del programa
 
 */
-int TestSockets() {
+
+TestSockets::TestSockets() {
 	int server_fd, new_socket, valread;
 	struct sockaddr_in address;
 	int opt = 1;
@@ -68,5 +70,4 @@ int TestSockets() {
 	int answerUserNumber;
 	cout << "Introduce el nombre del perro" << endl;
 	cin >> answerUserNumber;
-	return 0;
 }
