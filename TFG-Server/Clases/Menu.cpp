@@ -2,6 +2,7 @@
 #include "../Headers/Main.h"
 #include "../Headers/Menu.h"
 #include <sstream>
+#include <thread>
 
 
 /*
@@ -74,21 +75,47 @@ void Menu::mostrarMenu() {
 			// Error, el servidor ya está corriendo
 			}
 		} else if (userValue == "2") {
+			checkPort();
 			// ver el estado del servidor
 			// Muestra estado de los puertos y si el servidor está funcionando
 		} else if (userValue == "3") {
+			
+			bool checkProgramRunning = false;
+
+			checkServerRunning();
+
+			if (checkProgramServiceBool) {
+				checkProgramRunning = true;
+			} else {
+				checkProgramRunning = false;
+			}
+
+			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
 			// Desactivar el servidor
 			execCommand(killServerProcess);
+
+			// Retardo de dos segundos para dar tiempo al servidor a ejecutar el comando indicado
+			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
 			checkServerRunning();
-			if (!checkProgramServiceBool) {
+
+			if (!checkProgramServiceBool && checkProgramRunning) {
 				cout << "El servidor ha sido detenido satisfactoriamente" << endl;
 				cout << endl;
+
+			} else if (!checkProgramServiceBool && !checkProgramRunning){
+				cout << "El servidor no está en funcionamiento" << endl;
+			} else {
+				cout << "El servidor no se ha podido detener" << endl;
 			}
+
 		} else if (userValue == "4") {
 			// Modificar la clave RSA
 		} else if (userValue == "5") {
 			exit(0);
 		} else {
+
 			// Error de valor introducido
 			cout << "Ha introducido un valor inválido"<<endl;
 		}
@@ -156,8 +183,22 @@ void Menu::checkServerRunning() {
 void Menu::createServer() {
 	string programMenuName = getNameProgram();
 	execCommand(commandCopyProgram);
+	bool copyProgram = searchServiceProgram();
+
+	// Busca el servicio hasta que este ha sido copiado, no se puede ejecutar si no se ha terminado de copiar antes
+	while (!copyProgram) {
+		copyProgram = searchServiceProgram();
+	}
+
 	if (execCommand(commandLaunchService)) {
-		cout << "El servidor se lanzó correctamente" << endl;
+		// Se espera 2 segundos para dar tiempo al lanzamiento del servidor
+		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+		checkServerRunning();
+		if (checkProgramServiceBool) {
+			cout << "El servidor se lanzó correctamente" << endl;
+		} else {
+			cout << "Hubo algún fallo al lanzar el servidor" << endl;
+		}
 	} else {
 		cout << "Hubo algún fallo al lanzar el servidor" <<endl;
 	}
@@ -191,6 +232,22 @@ bool Menu::countServerProcess() {
 	// Más de un proceso servidor abierto, sale del programa
 		return false;
 	}
+}
+
+bool Menu::searchServiceProgram() {
+	string resultSearch = getResultOfCommand(lsCommand);
+	vector<string> resultSearchSplit = splitLineToLine(resultSearch);
+	bool foundValue = false;
+
+	for (int lsCounter = 0; lsCounter < resultSearchSplit.size(); lsCounter++) {
+		if (resultSearchSplit[lsCounter].find(nameProgramService) != string::npos) {
+			foundValue = true;
+			break;
+		} else {
+			foundValue = false;
+		}
+	}
+	return foundValue;
 }
 
 string Menu::getNameProgram() {

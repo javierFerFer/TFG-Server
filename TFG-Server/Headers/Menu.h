@@ -13,6 +13,7 @@ private:
 	const string statusPortOpen = "ALLOW";
 	const string statusPortClose = "DENY";
 	const string ufwCommand = "ufw status";
+	const string lsCommand = "ls";
 	const string nameProgramService = "TFG-back.out";
 	const string listAllProcessCommand = "pgrep ";
 	const string clearConsoleCommand = "clear";
@@ -40,8 +41,10 @@ public:
 	void checkServerRunning();
 	void createServer();
 	void execServer();
+
 	bool execCommand(string command);
 	bool countServerProcess();
+	bool searchServiceProgram();
 
 	string getNameProgram();
 	vector<string> splitLineToLine(string sentence);
