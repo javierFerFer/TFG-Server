@@ -2,14 +2,16 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Headers\Main.h" />
-    <ClInclude Include="Headers\TestSockets.h" />
     <ClInclude Include="Headers\ThreadTest.h" />
     <ClInclude Include="Headers\Menu.h" />
+    <ClInclude Include="Headers\SocketObject.h" />
+    <ClInclude Include="Headers\MasterSocket.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />
-    <ClCompile Include="Clases\TestSockets.cpp" />
     <ClCompile Include="Clases\ThreadTest.cpp" />
     <ClCompile Include="Clases\Menu.cpp" />
+    <ClCompile Include="Clases\SocketObject.cpp" />
+    <ClCompile Include="Clases\MasterSocket.cpp" />
   </ItemGroup>
 </Project>

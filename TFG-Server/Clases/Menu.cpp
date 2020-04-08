@@ -57,7 +57,7 @@ void Menu::mostrarMenu() {
 	while (true) {
 		cout << "Opciones del menu:" << endl;
 		cout << "1. Activar el servidor" << endl;
-		cout << "2. Ver estado del puerto del servidor" << endl;
+		cout << "2. Ver estado del servidor" << endl;
 		cout << "3. Desactivar el servidor" << endl;
 		cout << "4. Modificar clave RSA" << endl;
 		cout << "5. Salir" << endl;
@@ -76,6 +76,17 @@ void Menu::mostrarMenu() {
 			}
 		} else if (userValue == "2") {
 			checkPort();
+			checkServerRunning();
+			
+			// Sleep para dar tiempo al servidor a ejecutar el comando 'checkServerRunning'
+			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+			if (checkProgramServiceBool) {
+				cout << "El servidor se encuentra en funcionamiento" << endl;
+			} else {
+				cout << "El servidor no está en funcionamiento" << endl;
+			}
+
 			// ver el estado del servidor
 			// Muestra estado de los puertos y si el servidor está funcionando
 		} else if (userValue == "3") {
@@ -213,7 +224,7 @@ void Menu::createServer() {
 }
 
 void Menu::execServer() {
-	TestSockets t;
+	MasterSocket t;
 }
 
 bool Menu::execCommand(string commandParam) {
