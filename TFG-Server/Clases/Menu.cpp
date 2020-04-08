@@ -190,17 +190,25 @@ void Menu::createServer() {
 		copyProgram = searchServiceProgram();
 	}
 
-	if (execCommand(commandLaunchService)) {
-		// Se espera 2 segundos para dar tiempo al lanzamiento del servidor
-		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-		checkServerRunning();
-		if (checkProgramServiceBool) {
-			cout << "El servidor se lanzó correctamente" << endl;
+	checkPort();
+
+	if (!checkProgramPortBool) {
+		cout << "El puerto del servidor no se ha encontrado, asegurese de tener ufw instalado" << endl;
+	} else if(!checkProgramPortOpenOrClose){
+		cout << "El puerto del servidor se encuentra cerrado, no se pudo lanzar el servidor" << endl;
+	} else {
+		if (execCommand(commandLaunchService)) {
+			// Se espera 2 segundos para dar tiempo al lanzamiento del servidor
+			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+			checkServerRunning();
+			if (checkProgramServiceBool) {
+				cout << "El servidor se lanzó correctamente" << endl;
+			} else {
+				cout << "Hubo algún fallo al lanzar el servidor" << endl;
+			}
 		} else {
 			cout << "Hubo algún fallo al lanzar el servidor" << endl;
 		}
-	} else {
-		cout << "Hubo algún fallo al lanzar el servidor" <<endl;
 	}
 }
 
