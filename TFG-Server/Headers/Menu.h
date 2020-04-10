@@ -16,10 +16,11 @@ private:
 	const string lsCommand = "ls";
 	const string nameProgramService = "TFG-back.out";
 	const string listAllProcessCommand = "pgrep ";
+	const string callAsService = "&";
 	const string clearConsoleCommand = "clear";
 	const string killServerProcess = "killall -s SIGKILL " + nameProgramService;
 	const string commandCopyProgram = "cp " + getNameProgram() + " " + nameProgramService;
-	const string commandLaunchService = "./" + nameProgramService;
+	const string commandLaunchService = "./" + nameProgramService + callAsService;
 	
 	const int sizeOfOneServerService = 1;
 

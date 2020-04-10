@@ -8,10 +8,11 @@
 #include <string.h>
 #include <vector>
 #include<iostream>
-#include<iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <thread>
+
 
 #define _BSD_SOURCE
 
@@ -19,7 +20,10 @@ using namespace std;
 
 class MasterSocket {
 	private:
-		vector <SocketObject> allSockets;
+
 	public:
 		MasterSocket();
+
+		vector <thread> allSockets;
+
 };

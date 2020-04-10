@@ -54,12 +54,25 @@ MasterSocket::MasterSocket() {
 			perror("accept");
 			exit(EXIT_FAILURE);
 		}
-		SocketObject t(address);
+
+		// Objeto hilo conexión cliente
+		//vector <thread>* temporalList = getAllSockets();
+		thread threadSocketObject(&SocketObject::launchReadThread, SocketObject(address, new_socket, allSockets));
+
+		// Asigna la ejecución del hilo como uno independiente al programa en sí
+		//cout << threadSocketObject.get_id() << endl;
+		
+		//threadSocketObject.detach();
 		//printf("Got connection from: %s:%d\n", inet_ntoa(address.sin_addr), address.sin_port);
-		allSockets.push_back(t);
-		for (int i = 0; i < allSockets.size(); i++) {
-			printf("Got connection from: %s:%d\n", inet_ntoa(allSockets[i].getClientSocket().sin_addr), allSockets[i].getClientSocket().sin_port);
-		}
+		mutex mtx;
+		unique_lock<mutex> lock(mtx);
+		
+		allSockets.push_back(move(threadSocketObject));
+		cout << allSockets.size()<<endl;
+		
+		
+		
+		//printf("Got connection from: %s:%d\n", inet_ntoa(allSockets[i].getClientSocket().sin_addr), allSockets[i].getClientSocket().sin_port);
 	}
 	
 
