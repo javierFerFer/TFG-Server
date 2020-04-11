@@ -13,5 +13,6 @@
     <ClCompile Include="Clases\Menu.cpp" />
     <ClCompile Include="Clases\SocketObject.cpp" />
     <ClCompile Include="Clases\MasterSocket.cpp" />
+    <ClCompile Include="Headers\InternalReadThread.cpp" />
   </ItemGroup>
 </Project>

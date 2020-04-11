@@ -19,10 +19,15 @@
 
 using namespace std;
 
-class SocketObject {
+class internalThreadRead;
+
+class SocketObject{
 private:
 	sockaddr_in clientSocket;
 	int sendReceiveDataSocket;
+	char buffer[1024] = { 0 };
+	int valread;
+
 public:
 	vector <thread>& allSockets;
 	// Constructor modificado
@@ -30,7 +35,9 @@ public:
 
 	};
 
+
 	void launchReadThread();
 	void removeThread(thread::id id);
 
 };
+

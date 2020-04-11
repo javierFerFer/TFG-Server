@@ -66,9 +66,8 @@ MasterSocket::MasterSocket() {
 		//printf("Got connection from: %s:%d\n", inet_ntoa(address.sin_addr), address.sin_port);
 		mutex mtx;
 		unique_lock<mutex> lock(mtx);
-		
 		allSockets.push_back(move(threadSocketObject));
-		cout << allSockets.size()<<endl;
+		//cout << allSockets.size()<<endl;
 		
 		
 		
