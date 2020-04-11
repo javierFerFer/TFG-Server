@@ -25,8 +25,11 @@ class SocketObject{
 private:
 	sockaddr_in clientSocket;
 	int sendReceiveDataSocket;
+	int timeOut = 0;
 	char buffer[1024] = { 0 };
 	int valread;
+	int maxTimeOut = 180;
+	bool checkTimeOut = true;
 
 public:
 	vector <thread>& allSockets;
@@ -37,7 +40,10 @@ public:
 
 
 	void launchReadThread();
+	void timeOutData();
 	void removeThread(thread::id id);
+
+	void spawn();
 
 };
 
