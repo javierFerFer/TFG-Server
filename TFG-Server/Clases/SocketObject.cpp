@@ -1,5 +1,6 @@
 #include "../Headers/SocketObject.h"
-#include <future>
+#include "../Libraries/json.hpp"
+#include "../Headers/JsonObject.h"
 using namespace std;
 
 
@@ -16,8 +17,45 @@ void SocketObject::launchReadThread() {
 		valread = read(sendReceiveDataSocket, buffer, 1024);
 
 		string userData(buffer);
+
+		nlohmann::json jsonObjT;
+		std::stringstream(buffer) >> jsonObjT;
+
+		JsonObject* internalJsonObject = new JsonObject();
+
+		for (auto& element : jsonObjT) {
+			if (element.size() != 1) {
+			// Guarda datos recibidos
+				vector <string> allData(begin(element), end(element));
+				internalJsonObject->content = allData;
+			} else {
+				string title = element;
+				internalJsonObject->title = element;
+			// Guarda titulo
+			}
+		}
 		
-		cout << userData << endl;
+		// crear Json con los datos de la clase
+		nlohmann::json jsonObjVicer;
+		jsonObjVicer["Title"] = internalJsonObject->title;
+		jsonObjVicer["Content"] = internalJsonObject->content;
+
+		// Convertimos el json en un string
+	
+		string bar = jsonObjVicer.dump();
+		
+
+		cout << "valores del vector" << endl;
+		for (int i = 0; i < internalJsonObject->content.size(); i++) {
+			cout << internalJsonObject->content[i] << endl;
+		}
+
+		cout << "titulo" << endl;
+		cout<< internalJsonObject->title<<endl;
+		
+		cout << "objeto convertido a string" << endl;
+		cout << bar << endl;
+
 		unique_lock<mutex> lock(mtx);
 		if (timeOut < maxTimeOut) {
 			timeOut = 0;

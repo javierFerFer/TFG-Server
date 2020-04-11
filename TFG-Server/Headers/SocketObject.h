@@ -5,6 +5,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <string.h>
+#include <sstream>
 #include <vector>
 #include<iostream>
 #include <algorithm>
@@ -18,8 +19,6 @@
 #define _BSD_SOURCE
 
 using namespace std;
-
-class internalThreadRead;
 
 class SocketObject{
 private:
