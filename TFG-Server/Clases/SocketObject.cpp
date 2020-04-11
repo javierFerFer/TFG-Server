@@ -22,7 +22,9 @@ void SocketObject::launchReadThread() {
 		if (timeOut < maxTimeOut) {
 			timeOut = 0;
 			if (userData.find("javi") != string::npos) {
+				// Manda mensaje de finalización de conexión al cliente antes de finalizar
 				checkThreadFunction = false;
+				checkTimeOut = false;
 			}
 		} else {
 			checkThreadFunction = false;
@@ -41,6 +43,7 @@ void SocketObject::timeOutData() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		unique_lock<mutex> lock(mtx);
 		timeOut += 1;
+		cout << timeOut << endl;
 	}
 }
 

@@ -87,7 +87,6 @@
     <ClCompile Include="Clases\Menu.cpp" />
     <ClCompile Include="Clases\ThreadTest.cpp" />
     <ClCompile Include="Clases\SocketObject.cpp" />
-    <ClCompile Include="Headers\InternalReadThread.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

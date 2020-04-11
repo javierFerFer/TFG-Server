@@ -28,7 +28,7 @@ private:
 	int timeOut = 0;
 	char buffer[1024] = { 0 };
 	int valread;
-	int maxTimeOut = 180;
+	int maxTimeOut = 18;
 	bool checkTimeOut = true;
 
 public:
