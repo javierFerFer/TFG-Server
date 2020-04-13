@@ -11,6 +11,7 @@ void SocketObject::launchReadThread() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	bool checkThreadFunction = true;
 
+	// Conexión de pruebas a la base de datos MySQL
 	DataBaseConnect testDB;
 
 	spawn();
