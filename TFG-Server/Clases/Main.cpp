@@ -12,8 +12,8 @@ Main del programa
 */
 
 int main() {
-	//Menu t;
-	MasterSocket t;
+	Menu t;
+	//MasterSocket t;
 	//cin >> foo;
 	//thread t(&ThreadTest::mostrar, ThreadTest("hilo 1"));
 	//thread test(&ThreadTest::mostrar, ThreadTest("hilo 2"));

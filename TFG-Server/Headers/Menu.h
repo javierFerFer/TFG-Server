@@ -10,6 +10,12 @@ class Menu {
 
 private:
 	const string port = "12345";
+	const string RSAKeyName = "test";
+	const string RSAKeyNamePub = "test.pub";
+	const string removeRSAKey = "rm -r test";
+	const string createRSAKeys = "ssh-keygen -b 2048 -t rsa -f " + RSAKeyName + " -q -N ''";
+	const string readPrivateKey = "cat " + RSAKeyName;
+	const string readPublicKey = "nano " + RSAKeyNamePub;
 	const string statusPortOpen = "ALLOW";
 	const string statusPortClose = "DENY";
 	const string ufwCommand = "ufw status";
@@ -42,6 +48,7 @@ public:
 	void checkServerRunning();
 	void createServer();
 	void execServer();
+	void generateRSAKeys();
 
 	bool execCommand(string command);
 	bool countServerProcess();

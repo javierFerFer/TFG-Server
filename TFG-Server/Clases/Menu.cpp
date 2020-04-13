@@ -123,6 +123,7 @@ void Menu::mostrarMenu() {
 
 		} else if (userValue == "4") {
 			// Modificar la clave RSA
+			generateRSAKeys();
 		} else if (userValue == "5") {
 			exit(0);
 		} else {
@@ -225,6 +226,44 @@ void Menu::createServer() {
 
 void Menu::execServer() {
 	MasterSocket t;
+}
+
+void Menu::generateRSAKeys() {
+	bool checkRSAKey = false;
+	string allElementsOnDirectory = getResultOfCommand(lsCommand);
+	vector <string> elementsFound = splitLineToLine(allElementsOnDirectory);
+	for (int i = 0; i < elementsFound.size(); i++) {
+		if (elementsFound[i].find(RSAKeyName) != string::npos || elementsFound[i].find(RSAKeyName) != string::npos) {
+			execCommand(removeRSAKey);
+			execCommand(removeRSAKey + ".pub");
+			// Ejecuta creación de clave RSA
+			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+			execCommand(createRSAKeys);
+			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+			// Comprobación de existencia de clave AQUI
+
+
+			// Lectura clave RSA publica y privada
+			checkRSAKey = true;
+			string privateKey = getResultOfCommand(readPrivateKey);
+			vector <string> linesOfPrivateKey = splitLineToLine(privateKey);
+			string privateKeyData = "";
+			for (int pkLines = 0; pkLines < linesOfPrivateKey.size(); pkLines++) {
+				privateKeyData += linesOfPrivateKey[pkLines];
+			}
+			std::stringstream ss;
+			ss << "mysql -u root -puserpass test -e " << '"' << "UPDATE testeo SET userName = 'hola' " << "WHERE id = '1'" << '"' << ";";
+			std::string s = ss.str();
+			cout << s << endl;
+			//execCommand("mysql -u root -puserpass test -e " << "UPDATE testeo ");
+			break;
+		}
+	}
+	if (!checkRSAKey) {
+		execCommand(createRSAKeys);
+	}
+
 }
 
 bool Menu::execCommand(string commandParam) {
