@@ -74,7 +74,11 @@
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ProjectPublicIncludePath>$(ProjectPublicIncludePath)</ProjectPublicIncludePath>
+  </PropertyGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\DataBaseConnect.h" />
     <ClInclude Include="Headers\JsonObject.h" />
     <ClInclude Include="Headers\Main.h" />
     <ClInclude Include="Headers\SocketObject.h" />
@@ -84,6 +88,7 @@
     <ClInclude Include="Libraries\json.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Clases\DataBaseConnect.cpp" />
     <ClCompile Include="Clases\JsonObject.cpp" />
     <ClCompile Include="Clases\Main.cpp" />
     <ClCompile Include="Clases\MasterSocket.cpp" />
@@ -95,9 +100,11 @@
     <ClCompile>
       <ThreadSafeStatics>Yes</ThreadSafeStatics>
       <AdditionalOptions>-pthread</AdditionalOptions>
+      <AdditionalIncludeDirectories>/usr/include/mysql;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <LibraryDependencies>pthread</LibraryDependencies>
+      <LibraryDependencies>mysqlclient;pthread</LibraryDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

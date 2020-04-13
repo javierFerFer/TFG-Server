@@ -8,6 +8,7 @@
     <ClInclude Include="Headers\MasterSocket.h" />
     <ClInclude Include="Libraries\json.hpp" />
     <ClInclude Include="Headers\JsonObject.h" />
+    <ClInclude Include="Headers\DataBaseConnect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />
@@ -16,5 +17,6 @@
     <ClCompile Include="Clases\SocketObject.cpp" />
     <ClCompile Include="Clases\MasterSocket.cpp" />
     <ClCompile Include="Clases\JsonObject.cpp" />
+    <ClCompile Include="Clases\DataBaseConnect.cpp" />
   </ItemGroup>
 </Project>

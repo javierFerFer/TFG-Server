@@ -1,6 +1,7 @@
 #include "../Headers/SocketObject.h"
 #include "../Libraries/json.hpp"
 #include "../Headers/JsonObject.h"
+#include "../Headers/DataBaseConnect.h"
 using namespace std;
 
 
@@ -9,6 +10,8 @@ void SocketObject::launchReadThread() {
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	bool checkThreadFunction = true;
+
+	DataBaseConnect testDB;
 
 	spawn();
 	mutex mtx;
@@ -29,9 +32,9 @@ void SocketObject::launchReadThread() {
 				vector <string> allData(begin(element), end(element));
 				internalJsonObject->content = allData;
 			} else {
+				// Guarda titulo
 				string title = element;
 				internalJsonObject->title = element;
-			// Guarda titulo
 			}
 		}
 		
@@ -93,7 +96,6 @@ void SocketObject::spawn() {
 void SocketObject::removeThread(thread::id id) {
 	mutex internalMtx;
 	lock_guard<mutex> lock(internalMtx);
-	close(sendReceiveDataSocket);
 	auto iter = find_if(allSockets.begin(), allSockets.end(), [=](thread& t) { return (t.get_id() == id); });
 	if (iter != allSockets.end()) {
 		iter->detach();
