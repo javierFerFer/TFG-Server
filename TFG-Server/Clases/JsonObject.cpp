@@ -1,8 +1,8 @@
 #include "../Headers/JsonObject.h"
 
 JsonObject::JsonObject(string titleParam, vector<string> contentParam) {
-	this->title = titleParam;
-	this->content = contentParam;
+	this->A_Title = titleParam;
+	this->B_Content = contentParam;
 }
 
 JsonObject::JsonObject() {}

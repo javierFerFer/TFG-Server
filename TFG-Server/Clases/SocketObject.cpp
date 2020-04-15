@@ -34,58 +34,78 @@ void SocketObject::launchReadThread() {
 
 		Poco::Crypto::Cipher* pCipher = factory.createCipher(key);
 
-		// Creamos JSon con la clave y se lo enviamos al cliente
-		nlohmann::json keyJson;
-		keyJson["a_Title"] = "key";
-		keyJson["b_Content"] = passwd;
+		// Conversión de valores a objeto antes de ser enviado al cliente
+		JsonObject *keyJSonObject = new JsonObject();
+		keyJSonObject->A_Title = "key";
+
+		vector <string> allKeyData;
+		allKeyData.push_back(passwd);
+		allKeyData.push_back(ivString);
+
+		keyJSonObject->B_Content = allKeyData;
+
+		// Conversión de objeto con datos de encriptado a formato JSON
+		nlohmann::json jsonKeydata;
+		jsonKeydata["A_Title"] = keyJSonObject->A_Title;
+		jsonKeydata["B_Content"] = keyJSonObject->B_Content;
 
 		// Conversión del JSon con la clave a string y envio del mismo (0 = formato que acepta c#)
-		string keyJsonToString = keyJson.dump(0);
-
-		cout << "here" << endl;
-		cout << keyJsonToString << endl;
-		//std::this_thread::sleep_for(std::chrono::milliseconds(30000));
+		string keyJsonToString = jsonKeydata.dump(0);
 
 		// Conversión del string formateado a un array de char
 		char arrayData[keyJsonToString.size() + 1];
 		keyJsonToString.copy(arrayData, keyJsonToString.size() + 1);
 		arrayData[keyJsonToString.size()] = '\0';
+
+		// Envio de los datos correspondientes a la encriptación al cliente
 		send(sendReceiveDataSocket, arrayData, strlen(arrayData), 0);
 		
+		// Hilo de timeOut, de momento desactivado para testeo
+		//spawn();
 
-		spawn();
+
 		mutex mtx;
-
-		// AQUI
-
 		while (checkThreadFunction) {
 
 			valread = read(sendReceiveDataSocket, buffer, 1024);
 
+			// Lectura de datos enviados por el cliente
 			string userData(buffer);
 
+			// Desencriptado de datos
+			std::string decrypted = pCipher->decryptString(userData, Poco::Crypto::Cipher::ENC_BASE64);
 
 			nlohmann::json jsonObjT;
-			std::stringstream(buffer) >> jsonObjT;
+			std::stringstream(decrypted) >> jsonObjT;
 
-			JsonObject* internalJsonObject = new JsonObject();
-
+			JsonObject *internalJsonObject = new JsonObject();
+			
+			// Forma de recorrer todos los elementos del json
 			for (auto& element : jsonObjT) {
+				cout << element << endl;
+				string title = element;
+				// Limpieza de '"' en el título recibido
+				title.erase(remove(title.begin(), title.end(), '"'), title.end());
+				if (title.compare("loginCredentials") == 0) {
+					// Petición de datos de usuario
+					// AQUI
+				}
 				if (element.size() != 1) {
 					// Guarda datos recibidos
 					vector <string> allData(begin(element), end(element));
-					internalJsonObject->content = allData;
+					internalJsonObject->B_Content = allData;
 				} else {
 					// Guarda titulo
 					string title = element;
-					internalJsonObject->title = element;
+					internalJsonObject->A_Title  = element;
 				}
+				break;
 			}
 
 			// crear Json con los datos de la clase
 			nlohmann::json jsonObjVicer;
-			jsonObjVicer["Title"] = internalJsonObject->title;
-			jsonObjVicer["Content"] = internalJsonObject->content;
+			jsonObjVicer["Title"] = internalJsonObject->A_Title;
+			jsonObjVicer["Content"] = internalJsonObject->B_Content;
 
 
 			// Revisión del contenido
@@ -95,12 +115,12 @@ void SocketObject::launchReadThread() {
 
 
 			cout << "valores del vector" << endl;
-			for (int i = 0; i < internalJsonObject->content.size(); i++) {
-				cout << internalJsonObject->content[i] << endl;
+			for (int i = 0; i < internalJsonObject->B_Content.size(); i++) {
+				cout << internalJsonObject->B_Content[i] << endl;
 			}
 
 			cout << "titulo" << endl;
-			cout << internalJsonObject->title << endl;
+			cout << internalJsonObject->A_Title << endl;
 
 			cout << "objeto convertido a string" << endl;
 			cout << bar << endl;
@@ -147,8 +167,16 @@ void SocketObject::spawn() {
 }
 
 string SocketObject::generatePasswd() {
-	int generatePasswd = 111111111111111111111111111111 + (std::rand() % (999999999999999999999999999999 - 111111111111111111111111111111 + 1));
-	return to_string(generatePasswd);
+	srand((unsigned)time(0));
+	int randomNumber;
+	string randomPasswd;
+
+	for (int index = 0; index < 32; index++) {
+		randomNumber = (rand() % 9) + 1;
+		randomPasswd += to_string(randomNumber);
+	}
+	//string clave = "01234567891234560123456789123456";
+	return randomPasswd;
 }
 
 void SocketObject::removeThread(thread::id id) {

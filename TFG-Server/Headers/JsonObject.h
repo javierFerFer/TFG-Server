@@ -21,8 +21,8 @@ class JsonObject {
 private:
 	
 public:
-	string title;
-	vector <string> content;
+	string A_Title;
+	vector <string> B_Content;
 
 	JsonObject(string titleParam, vector<string> contentParam);
 	JsonObject();
