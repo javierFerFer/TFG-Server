@@ -100,10 +100,10 @@
     <ClCompile>
       <ThreadSafeStatics>Yes</ThreadSafeStatics>
       <AdditionalOptions>-pthread</AdditionalOptions>
-      <AdditionalIncludeDirectories>/usr/include/mysql;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>/usr/include/Poco;/usr/include/mysql;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <LibraryDependencies>mysqlclient;pthread</LibraryDependencies>
+      <LibraryDependencies>PocoFoundation;PocoCrypto;mysqlclient;pthread</LibraryDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

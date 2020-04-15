@@ -5,15 +5,22 @@
 #include <netinet/in.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdio.h>
 #include <sstream>
 #include <vector>
-#include<iostream>
+#include <iostream>
 #include <algorithm>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <Poco/Foundation.h>
+#include <Poco/Crypto/Cipher.h>
+#include <Poco/Crypto/CipherKey.h>
+#include <Poco/Crypto/CipherFactory.h>
+#include <openssl/crypto.h>
 #include <thread>
 #include <mutex>
+
 
 
 #define _BSD_SOURCE
@@ -25,9 +32,11 @@ private:
 	sockaddr_in clientSocket;
 	int sendReceiveDataSocket;
 	int timeOut = 0;
-	char buffer[1024] = { 0 };
 	int valread;
 	int maxTimeOut = 18;
+	char buffer[1024] = { 0 };
+	string passwd;
+	string ivString = "0123456789123456";
 	bool checkTimeOut = true;
 
 public:
@@ -41,8 +50,8 @@ public:
 	void launchReadThread();
 	void timeOutData();
 	void removeThread(thread::id id);
-
 	void spawn();
 
+	string generatePasswd();
 };
 

@@ -6,9 +6,9 @@
     <ClInclude Include="Headers\Menu.h" />
     <ClInclude Include="Headers\SocketObject.h" />
     <ClInclude Include="Headers\MasterSocket.h" />
-    <ClInclude Include="Libraries\json.hpp" />
     <ClInclude Include="Headers\JsonObject.h" />
     <ClInclude Include="Headers\DataBaseConnect.h" />
+    <ClInclude Include="Libraries\json.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />

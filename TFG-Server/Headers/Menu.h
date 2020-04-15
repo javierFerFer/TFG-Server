@@ -3,6 +3,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <openssl/err.h>
 #include "../Headers/MasterSocket.h"
 using namespace std;
 

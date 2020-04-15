@@ -4,6 +4,7 @@
 #include <sstream>
 #include <thread>
 
+#define Crypto_CipherFactory_INCLUDED;
 
 /*
 Main del programa
@@ -54,11 +55,14 @@ void Menu::checkPort() {
 
 
 void Menu::mostrarMenu() {
+	
+
 	while (true) {
 		cout << "Opciones del menu:" << endl;
 		cout << "1. Activar el servidor" << endl;
 		cout << "2. Ver estado del servidor" << endl;
 		cout << "3. Desactivar el servidor" << endl;
+		// Remove opción de clave RSA --> Se pasa a usar clave AES de 256 bits
 		cout << "4. Modificar clave RSA" << endl;
 		cout << "5. Salir" << endl;
 		cout << endl;
@@ -250,12 +254,18 @@ void Menu::generateRSAKeys() {
 			vector <string> linesOfPrivateKey = splitLineToLine(privateKey);
 			string privateKeyData = "";
 			for (int pkLines = 0; pkLines < linesOfPrivateKey.size(); pkLines++) {
-				privateKeyData += linesOfPrivateKey[pkLines];
+				if (pkLines != 0 && pkLines != linesOfPrivateKey.size() - 1) {
+					privateKeyData += linesOfPrivateKey[pkLines];
+				}
 			}
+
 			std::stringstream ss;
-			ss << "mysql -u root -puserpass test -e " << '"' << "UPDATE testeo SET userName = 'hola' " << "WHERE id = '1'" << '"' << ";";
+			ss << "mysql -u root -puserpass test -e " << '"' << "UPDATE testeo SET userName = '"<< privateKeyData <<"' " << "WHERE id = '1'" << '"' << ";";
 			std::string s = ss.str();
 			cout << s << endl;
+
+			// AQUI
+			
 			//execCommand("mysql -u root -puserpass test -e " << "UPDATE testeo ");
 			break;
 		}
