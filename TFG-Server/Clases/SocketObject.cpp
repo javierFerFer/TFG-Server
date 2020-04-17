@@ -1,6 +1,7 @@
 #include "../Headers/SocketObject.h"
 #include "../Libraries/json.hpp"
-#include "../Headers/JsonObject.h"
+#include "../Headers/JsonObjectArray.h"
+#include "../Headers/JsonSingleData.h"
 #include "../Headers/DataBaseConnect.h"
 using namespace std;
 
@@ -35,7 +36,7 @@ void SocketObject::launchReadThread() {
 		Poco::Crypto::Cipher* pCipher = factory.createCipher(key);
 
 		// Conversión de valores a objeto antes de ser enviado al cliente
-		JsonObject *keyJSonObject = new JsonObject();
+		JsonObjectArray *keyJSonObject = new JsonObjectArray();
 		keyJSonObject->A_Title = "key";
 
 		vector <string> allKeyData;
@@ -78,17 +79,30 @@ void SocketObject::launchReadThread() {
 			nlohmann::json jsonObjT;
 			std::stringstream(decrypted) >> jsonObjT;
 
-			JsonObject *internalJsonObject = new JsonObject();
+			JsonObjectArray*internalJsonObject = new JsonObjectArray();
 			
 			// Forma de recorrer todos los elementos del json
 			for (auto& element : jsonObjT) {
-				cout << element << endl;
+				
 				string title = element;
 				// Limpieza de '"' en el título recibido
 				title.erase(remove(title.begin(), title.end(), '"'), title.end());
 				if (title.compare("loginCredentials") == 0) {
 					// Petición de datos de usuario
-					// AQUI
+					for (auto& data : jsonObjT) {
+						if (data.size() != 1) {
+						// Recogida del usuario y contraseña
+							vector <string> userLoginData(begin(data), end(data));
+							DataBaseConnect test;
+							bool checkLogin = test.loginQuery(userLoginData[0], userLoginData[1]);
+							if (checkLogin) {
+								// Datos de usuario correctos
+								sendMessage("loginStatus", "correct", pCipher);
+							} else {
+							// Error de login
+							}
+						}
+					}
 				}
 				if (element.size() != 1) {
 					// Guarda datos recibidos
@@ -114,17 +128,6 @@ void SocketObject::launchReadThread() {
 			string bar = jsonObjVicer.dump();
 
 
-			cout << "valores del vector" << endl;
-			for (int i = 0; i < internalJsonObject->B_Content.size(); i++) {
-				cout << internalJsonObject->B_Content[i] << endl;
-			}
-
-			cout << "titulo" << endl;
-			cout << internalJsonObject->A_Title << endl;
-
-			cout << "objeto convertido a string" << endl;
-			cout << bar << endl;
-
 			unique_lock<mutex> lock(mtx);
 			if (timeOut < maxTimeOut) {
 				timeOut = 0;
@@ -141,6 +144,8 @@ void SocketObject::launchReadThread() {
 			}
 		}
 
+	} else {
+	// Error al no ser el mensaje error de get passwd
 	}
 	// Encriptado/desencriptado
 	//std::string encrypted = pCipher->encryptString(plainText, Poco::Crypto::Cipher::ENC_BASE64); //Base64-encoded output
@@ -157,13 +162,36 @@ void SocketObject::timeOutData() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		unique_lock<mutex> lock(mtx);
 		timeOut += 1;
-		cout << timeOut << endl;
 	}
 }
 
 void SocketObject::spawn() {
 	thread timeOutThread(&SocketObject::timeOutData, this);
 	timeOutThread.detach();
+}
+
+void SocketObject::sendMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam) {
+	JsonSingleData* jSonObject = new JsonSingleData();
+	jSonObject->A_Title = titleParam;
+
+	jSonObject->B_Content = messageParam;
+
+	// Conversión de objeto con datos de encriptado a formato JSON
+	nlohmann::json jsonData;
+	jsonData["A_Title"] = jSonObject->A_Title;
+	jsonData["B_Content"] = jSonObject->B_Content;
+
+
+	// Conversión del JSon con la clave a string y envio del mismo (0 = formato que acepta c#)
+	string keyJsonToString = cipherParam->encryptString(jsonData.dump(0), Poco::Crypto::Cipher::ENC_BASE64);
+
+	// Conversión del string formateado a un array de char
+	char arrayData[keyJsonToString.size() + 1];
+	keyJsonToString.copy(arrayData, keyJsonToString.size() + 1);
+	arrayData[keyJsonToString.size()] = '\0';
+
+	// Envio de los datos correspondientes a la encriptación al cliente
+	send(sendReceiveDataSocket, arrayData, strlen(arrayData), 0);
 }
 
 string SocketObject::generatePasswd() {
@@ -188,5 +216,5 @@ void SocketObject::removeThread(thread::id id) {
 		allSockets.erase(iter);
 		//cout << sendReceiveDataSocket << endl;
 	}
-	cout << allSockets.size() << endl;
+	//cout << allSockets.size() << endl;
 }

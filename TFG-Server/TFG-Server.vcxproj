@@ -79,7 +79,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="Headers\DataBaseConnect.h" />
-    <ClInclude Include="Headers\JsonObject.h" />
+    <ClInclude Include="Headers\JsonObjectArray.h" />
+    <ClInclude Include="Headers\JsonSingleData.h" />
     <ClInclude Include="Headers\Main.h" />
     <ClInclude Include="Headers\SocketObject.h" />
     <ClInclude Include="Headers\MasterSocket.h" />
@@ -89,7 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\DataBaseConnect.cpp" />
-    <ClCompile Include="Clases\JsonObject.cpp" />
+    <ClCompile Include="Clases\JsonObjectArray.cpp" />
+    <ClCompile Include="Clases\JsonSingleData.cpp" />
     <ClCompile Include="Clases\Main.cpp" />
     <ClCompile Include="Clases\MasterSocket.cpp" />
     <ClCompile Include="Clases\Menu.cpp" />

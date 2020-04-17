@@ -17,13 +17,13 @@
 using namespace std;
 
 
-class JsonObject {
+class JsonObjectArray {
 private:
 	
 public:
 	string A_Title;
 	vector <string> B_Content;
 
-	JsonObject(string titleParam, vector<string> contentParam);
-	JsonObject();
+	JsonObjectArray(string titleParam, vector<string> contentParam);
+	JsonObjectArray();
 };

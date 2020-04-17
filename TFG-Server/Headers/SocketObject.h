@@ -51,6 +51,7 @@ public:
 	void timeOutData();
 	void removeThread(thread::id id);
 	void spawn();
+	void sendMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam);
 
 	string generatePasswd();
 };
