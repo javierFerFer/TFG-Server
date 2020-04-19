@@ -7,158 +7,176 @@ using namespace std;
 
 
 void SocketObject::launchReadThread() {
-
-	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-	bool checkThreadFunction = true;
-
-	printf("Se ha conectado: %s:%d\n", inet_ntoa(clientSocket.sin_addr), clientSocket.sin_port);
-
-	valread = read(sendReceiveDataSocket, buffer, 1024);
-
-	string userData(buffer);
-
-	if (userData.find("GetPasswd") != std::string::npos) {
-
-	// Generación de clave
-		passwd = generatePasswd();
-		Poco::Crypto::Cipher::ByteVec iv{ ivString.begin(), ivString.end() };
-
-		Poco::Crypto::Cipher::ByteVec key2{ passwd.begin(), passwd.end() };
-
-		Poco::Crypto::CipherFactory& factory = Poco::Crypto::CipherFactory::defaultFactory();
-		Poco::Crypto::CipherKey key("aes-256-cbc", key2, iv); // iterationCount = 1
-
-		Poco::Crypto::Cipher* pCipher = factory.createCipher(key);
-
-		// Conversión de valores a objeto antes de ser enviado al cliente
-		JsonObjectArray *keyJSonObject = new JsonObjectArray();
-		keyJSonObject->A_Title = "key";
-
-		vector <string> allKeyData;
-		allKeyData.push_back(passwd);
-		allKeyData.push_back(ivString);
-
-		keyJSonObject->B_Content = allKeyData;
-
-		// Conversión de objeto con datos de encriptado a formato JSON
-		nlohmann::json jsonKeydata;
-		jsonKeydata["A_Title"] = keyJSonObject->A_Title;
-		jsonKeydata["B_Content"] = keyJSonObject->B_Content;
-
-		// Conversión del JSon con la clave a string y envio del mismo (0 = formato que acepta c#)
-		string keyJsonToString = jsonKeydata.dump(0);
-
-		// Conversión del string formateado a un array de char
-		char arrayData[keyJsonToString.size() + 1];
-		keyJsonToString.copy(arrayData, keyJsonToString.size() + 1);
-		arrayData[keyJsonToString.size()] = '\0';
-
-		// Envio de los datos correspondientes a la encriptación al cliente
-		send(sendReceiveDataSocket, arrayData, strlen(arrayData), 0);
+	//try {
+		std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 		
-		// Hilo de timeOut, de momento desactivado para testeo
-		//spawn();
+
+		printf("Se ha conectado: %s:%d\n", inet_ntoa(clientSocket.sin_addr), clientSocket.sin_port);
+
+		valread = read(sendReceiveDataSocket, buffer, 1024);
+
+		string userData(buffer);
+
+		if (userData.find("GetPasswd") != std::string::npos) {
+
+			// Generación de clave
+			passwd = generatePasswd();
+			Poco::Crypto::Cipher::ByteVec iv{ ivString.begin(), ivString.end() };
+
+			Poco::Crypto::Cipher::ByteVec key2{ passwd.begin(), passwd.end() };
+
+			Poco::Crypto::CipherFactory& factory = Poco::Crypto::CipherFactory::defaultFactory();
+			Poco::Crypto::CipherKey key("aes-256-cbc", key2, iv); // iterationCount = 1
+
+			Poco::Crypto::Cipher* pCipher = factory.createCipher(key);
+
+			// Conversión de valores a objeto antes de ser enviado al cliente
+			JsonObjectArray* keyJSonObject = new JsonObjectArray();
+			keyJSonObject->A_Title = "key";
+
+			vector <string> allKeyData;
+			allKeyData.push_back(passwd);
+			allKeyData.push_back(ivString);
+
+			keyJSonObject->B_Content = allKeyData;
+
+			// Conversión de objeto con datos de encriptado a formato JSON
+			nlohmann::json jsonKeydata;
+			jsonKeydata["A_Title"] = keyJSonObject->A_Title;
+			jsonKeydata["B_Content"] = keyJSonObject->B_Content;
+
+			// Conversión del JSon con la clave a string y envio del mismo (0 = formato que acepta c#)
+			string keyJsonToString = jsonKeydata.dump(0);
+
+			// Conversión del string formateado a un array de char
+			char arrayData[keyJsonToString.size() + 1];
+			keyJsonToString.copy(arrayData, keyJsonToString.size() + 1);
+			arrayData[keyJsonToString.size()] = '\0';
+
+			// Envio de los datos correspondientes a la encriptación al cliente
+			send(sendReceiveDataSocket, arrayData, strlen(arrayData), 0);
 
 
-		mutex mtx;
-		while (checkThreadFunction) {
+			mutex mtx;
+			while (checkThreadFunction) {
 
-			valread = read(sendReceiveDataSocket, buffer, 1024);
+				// Limpieza del buffer para no recibir datos erroneos
+				memset(buffer, 0, sizeof buffer);
 
-			// Lectura de datos enviados por el cliente
-			string userData(buffer);
+				valread = read(sendReceiveDataSocket, buffer, 1024);
 
-			// Desencriptado de datos
-			std::string decrypted = pCipher->decryptString(userData, Poco::Crypto::Cipher::ENC_BASE64);
+				// Lectura de datos enviados por el cliente
+				string userData(buffer);
 
-			nlohmann::json jsonObjT;
-			std::stringstream(decrypted) >> jsonObjT;
+				// Desencriptado de datos
+				std::string decrypted;
 
-			JsonObjectArray*internalJsonObject = new JsonObjectArray();
-			
-			// Forma de recorrer todos los elementos del json
-			for (auto& element : jsonObjT) {
+					decrypted = pCipher->decryptString(userData, Poco::Crypto::Cipher::ENC_BASE64);
+					
+					
+					
+
+				//cout << "AQUI BRO" << decrypted <<endl;
 				
-				string title = element;
-				// Limpieza de '"' en el título recibido
-				title.erase(remove(title.begin(), title.end(), '"'), title.end());
-				if (title.compare("loginCredentials") == 0) {
-					// Petición de datos de usuario
-					for (auto& data : jsonObjT) {
-						if (data.size() != 1) {
-						// Recogida del usuario y contraseña
-							vector <string> userLoginData(begin(data), end(data));
-							
-							bool checkLogin = dataBaseConnection.loginQuery(userLoginData[0], userLoginData[1]);
-							if (checkLogin) {
-								// Datos de usuario correctos
-								sendSigleMessage("loginStatus", "correct", pCipher);
-							} else {
-								// Datos de usuario introducidos inválidos
-								sendSigleMessage("loginStatus", "incorrect", pCipher);
+
+				nlohmann::json jsonObjT;
+				std::stringstream(decrypted) >> jsonObjT;
+
+				JsonObjectArray* internalJsonObject = new JsonObjectArray();
+
+				// Forma de recorrer todos los elementos del json
+				for (auto& element : jsonObjT) {
+
+					string title = element;
+					// Limpieza de '"' en el título recibido
+					title.erase(remove(title.begin(), title.end(), '"'), title.end());
+					if (title.compare("loginCredentials") == 0) {
+						// Petición de datos de usuario
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								// Recogida del usuario y contraseña
+								vector <string> userLoginData(begin(data), end(data));
+
+								bool checkLogin = dataBaseConnection.loginQuery(userLoginData[0], userLoginData[1]);
+								if (checkLogin) {
+									// Datos de usuario correctos
+									sendSigleMessage("loginStatus", "correct", pCipher);
+									// Hilo de timeOut, de momento desactivado para testeo
+									spawn();
+								} else {
+									// Datos de usuario introducidos inválidos
+									sendSigleMessage("loginStatus", "incorrect", pCipher);
+								}
 							}
 						}
+					} else if (title.compare("test") == 0) {
+						// nada
+						break;
+					} else if (title.compare("client_disconnect") == 0) {
+						// Fin de conexión
+						checkThreadFunction = false;
+						checkTimeOut = false;
+						break;
 					}
-				} else if (title.compare("test") == 0) {
-				// nada
+					// Solo debe leer el título
 					break;
-				} else if (title.compare("client_disconnect") == 0) {
-					// Fin de conexión
+					//if (element.size() != 1) {
+					//	// Guarda datos recibidos
+					//	vector <string> allData(begin(element), end(element));
+					//	internalJsonObject->B_Content = allData;
+					//} else {
+					//	// Guarda titulo
+					//	string title = element;
+					//	internalJsonObject->A_Title  = element;
+					//}
+					//break;
+				}
+
+				// crear Json con los datos de la clase
+				//nlohmann::json jsonObjVicer;
+				//jsonObjVicer["Title"] = internalJsonObject->A_Title;
+				//jsonObjVicer["Content"] = internalJsonObject->B_Content;
+
+
+				// Revisión del contenido
+
+				// Convertimos el json en un string
+				//string bar = jsonObjVicer.dump();
+
+
+				unique_lock<mutex> lock(mtx);
+				if (timeOut < maxTimeOut) {
+					// reseteo de time out
+					timeOut = 0;
+				} else {
 					checkThreadFunction = false;
 					checkTimeOut = false;
-					break;
+					sendSigleMessage("connectionStatus", "closedForTimeOut", pCipher);
+					// Mandará mensaje de time out al cliente y se cierra
+					// la conexión
 				}
-				// Solo debe leer el título
-				break;
-				//if (element.size() != 1) {
-				//	// Guarda datos recibidos
-				//	vector <string> allData(begin(element), end(element));
-				//	internalJsonObject->B_Content = allData;
-				//} else {
-				//	// Guarda titulo
-				//	string title = element;
-				//	internalJsonObject->A_Title  = element;
-				//}
-				//break;
 			}
 
-			// crear Json con los datos de la clase
-			//nlohmann::json jsonObjVicer;
-			//jsonObjVicer["Title"] = internalJsonObject->A_Title;
-			//jsonObjVicer["Content"] = internalJsonObject->B_Content;
-
-
-			// Revisión del contenido
-
-			// Convertimos el json en un string
-			//string bar = jsonObjVicer.dump();
-
-
-			unique_lock<mutex> lock(mtx);
-			if (timeOut < maxTimeOut) {
-				// reseteo de time out
-				timeOut = 0;
-			} else {
-				checkThreadFunction = false;
-				checkTimeOut = false;
-				sendSigleMessage("connectionStatus", "closedForTimeOut", pCipher);
-				// Mandará mensaje de time out al cliente y se cierra
-				// la conexión
-			}
+		} else {
+			// Fin de conexión al no ser una petición de obtener clave de encriptación
+			checkThreadFunction = false;
+			checkTimeOut = false;
 		}
-
-	} else {
-	// Fin de conexión al no ser una petición de obtener clave de encriptación
-	checkThreadFunction = false;
-	checkTimeOut = false;
-	}
-	// Encriptado/desencriptado
-	//std::string encrypted = pCipher->encryptString(plainText, Poco::Crypto::Cipher::ENC_BASE64); //Base64-encoded output
-	//cout << "plainText=" << plainText << endl;
-	//cout << "encrypted=" << encrypted << endl;
-	//std::string decrypted = pCipher->decryptString(encrypted, Poco::Crypto::Cipher::ENC_BASE64);
-	//cout << "decrypted=" << decrypted << endl;
-	removeThread(this_thread::get_id());
+		// Encriptado/desencriptado
+		//std::string encrypted = pCipher->encryptString(plainText, Poco::Crypto::Cipher::ENC_BASE64); //Base64-encoded output
+		//cout << "plainText=" << plainText << endl;
+		//cout << "encrypted=" << encrypted << endl;
+		//std::string decrypted = pCipher->decryptString(encrypted, Poco::Crypto::Cipher::ENC_BASE64);
+		//cout << "decrypted=" << decrypted << endl;
+		removeThread(this_thread::get_id());
+	//} catch (...) {
+	//	// En caso de error, se corta la conexión
+	//	// Mandar mensaje de cierre de conexión al cliente
+	//	cout << "ha saltado el catch" << endl;
+	//	checkThreadFunction = false;
+	//	checkTimeOut = false;
+	//	removeThread(this_thread::get_id());
+	//}
 }
 
 void SocketObject::timeOutData() {

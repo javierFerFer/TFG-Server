@@ -21,9 +21,8 @@ DataBaseConnect::DataBaseConnect() {
 }
 
 bool DataBaseConnect::loginQuery(string emailParam, string passwdParam) {
-    string loginQuery = selectAll + teachersTableName + "where email = " + "'" + emailParam + "' and passwd = " + "'" + passwdParam +"'";
-    cout << "MIRAME" <<endl;
-    cout << loginQuery <<endl;
+    string loginQuery = selectAll + teachersTableName + "where email = BINARY " + "'" + emailParam + "' and passwd = " + "BINARY '" + passwdParam +"'";
+    cout << "Consulta " << loginQuery << endl;
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 

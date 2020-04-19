@@ -39,6 +39,7 @@ private:
 	string passwd;
 	string ivString = "0123456789123456";
 	bool checkTimeOut = true;
+	bool checkThreadFunction = true;
 	DataBaseConnect dataBaseConnection;
 
 public:
