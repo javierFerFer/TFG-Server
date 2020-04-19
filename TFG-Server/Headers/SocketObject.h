@@ -20,6 +20,7 @@
 #include <openssl/crypto.h>
 #include <thread>
 #include <mutex>
+#include "../Headers/DataBaseConnect.h"
 
 
 
@@ -38,6 +39,7 @@ private:
 	string passwd;
 	string ivString = "0123456789123456";
 	bool checkTimeOut = true;
+	DataBaseConnect dataBaseConnection;
 
 public:
 	vector <thread>& allSockets;
@@ -51,7 +53,7 @@ public:
 	void timeOutData();
 	void removeThread(thread::id id);
 	void spawn();
-	void sendMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam);
+	void sendSigleMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam);
 
 	string generatePasswd();
 };

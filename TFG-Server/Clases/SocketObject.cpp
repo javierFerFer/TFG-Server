@@ -2,7 +2,6 @@
 #include "../Libraries/json.hpp"
 #include "../Headers/JsonObjectArray.h"
 #include "../Headers/JsonSingleData.h"
-#include "../Headers/DataBaseConnect.h"
 using namespace std;
 
 
@@ -13,10 +12,6 @@ void SocketObject::launchReadThread() {
 	bool checkThreadFunction = true;
 
 	printf("Se ha conectado: %s:%d\n", inet_ntoa(clientSocket.sin_addr), clientSocket.sin_port);
-
-	// Conexión de pruebas a la base de datos MySQL
-	//DataBaseConnect testDB;
-
 
 	valread = read(sendReceiveDataSocket, buffer, 1024);
 
@@ -93,59 +88,69 @@ void SocketObject::launchReadThread() {
 						if (data.size() != 1) {
 						// Recogida del usuario y contraseña
 							vector <string> userLoginData(begin(data), end(data));
-							DataBaseConnect test;
-							bool checkLogin = test.loginQuery(userLoginData[0], userLoginData[1]);
+							
+							bool checkLogin = dataBaseConnection.loginQuery(userLoginData[0], userLoginData[1]);
 							if (checkLogin) {
 								// Datos de usuario correctos
-								sendMessage("loginStatus", "correct", pCipher);
+								sendSigleMessage("loginStatus", "correct", pCipher);
 							} else {
-							// Error de login
+								// Datos de usuario introducidos inválidos
+								sendSigleMessage("loginStatus", "incorrect", pCipher);
 							}
 						}
 					}
+				} else if (title.compare("test") == 0) {
+				// nada
+					break;
+				} else if (title.compare("client_disconnect") == 0) {
+					// Fin de conexión
+					checkThreadFunction = false;
+					checkTimeOut = false;
+					break;
 				}
-				if (element.size() != 1) {
-					// Guarda datos recibidos
-					vector <string> allData(begin(element), end(element));
-					internalJsonObject->B_Content = allData;
-				} else {
-					// Guarda titulo
-					string title = element;
-					internalJsonObject->A_Title  = element;
-				}
+				// Solo debe leer el título
 				break;
+				//if (element.size() != 1) {
+				//	// Guarda datos recibidos
+				//	vector <string> allData(begin(element), end(element));
+				//	internalJsonObject->B_Content = allData;
+				//} else {
+				//	// Guarda titulo
+				//	string title = element;
+				//	internalJsonObject->A_Title  = element;
+				//}
+				//break;
 			}
 
 			// crear Json con los datos de la clase
-			nlohmann::json jsonObjVicer;
-			jsonObjVicer["Title"] = internalJsonObject->A_Title;
-			jsonObjVicer["Content"] = internalJsonObject->B_Content;
+			//nlohmann::json jsonObjVicer;
+			//jsonObjVicer["Title"] = internalJsonObject->A_Title;
+			//jsonObjVicer["Content"] = internalJsonObject->B_Content;
 
 
 			// Revisión del contenido
 
 			// Convertimos el json en un string
-			string bar = jsonObjVicer.dump();
+			//string bar = jsonObjVicer.dump();
 
 
 			unique_lock<mutex> lock(mtx);
 			if (timeOut < maxTimeOut) {
+				// reseteo de time out
 				timeOut = 0;
-				if (userData.find("javi") != string::npos) {
-					// Manda mensaje de finalización de conexión al cliente antes de finalizar
-					checkThreadFunction = false;
-					checkTimeOut = false;
-				}
 			} else {
 				checkThreadFunction = false;
 				checkTimeOut = false;
+				sendSigleMessage("connectionStatus", "closedForTimeOut", pCipher);
 				// Mandará mensaje de time out al cliente y se cierra
 				// la conexión
 			}
 		}
 
 	} else {
-	// Error al no ser el mensaje error de get passwd
+	// Fin de conexión al no ser una petición de obtener clave de encriptación
+	checkThreadFunction = false;
+	checkTimeOut = false;
 	}
 	// Encriptado/desencriptado
 	//std::string encrypted = pCipher->encryptString(plainText, Poco::Crypto::Cipher::ENC_BASE64); //Base64-encoded output
@@ -162,6 +167,7 @@ void SocketObject::timeOutData() {
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 		unique_lock<mutex> lock(mtx);
 		timeOut += 1;
+		cout << timeOut << endl;
 	}
 }
 
@@ -170,7 +176,7 @@ void SocketObject::spawn() {
 	timeOutThread.detach();
 }
 
-void SocketObject::sendMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam) {
+void SocketObject::sendSigleMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam) {
 	JsonSingleData* jSonObject = new JsonSingleData();
 	jSonObject->A_Title = titleParam;
 
@@ -216,5 +222,5 @@ void SocketObject::removeThread(thread::id id) {
 		allSockets.erase(iter);
 		//cout << sendReceiveDataSocket << endl;
 	}
-	//cout << allSockets.size() << endl;
+	cout << allSockets.size() << endl;
 }
