@@ -6,6 +6,52 @@
 
 #define Crypto_CipherFactory_INCLUDED;
 
+#ifndef _COLORS_
+
+#define _COLORS_
+
+
+/* FOREGROUND */
+
+#define RST  "\x1B[0m"
+
+#define KRED  "\x1B[31m"
+
+#define KGRN  "\x1B[32m"
+
+#define KYEL  "\x1B[33m"
+
+#define KBLU  "\x1B[34m"
+
+#define KMAG  "\x1B[35m"
+
+#define KCYN  "\x1B[36m"
+
+#define KWHT  "\x1B[37m"
+
+
+#define FRED(x) KRED + x + RST
+
+#define FGRN(x) KGRN + x + RST
+
+#define FYEL(x) KYEL + x + RST
+
+#define FBLU(x) KBLU + x + RST
+
+#define FMAG(x) KMAG + x + RST
+
+#define FCYN(x) KCYN + x + RST
+
+#define FWHT(x) KWHT + x + RST
+
+
+#define BOLD(x) "\x1B[1m" x RST
+
+#define UNDL(x) "\x1B[4m" x RST
+
+
+#endif  /* _COLORS_ */
+
 /*
 Main del programa
 
@@ -16,11 +62,16 @@ Menu::Menu(){
 
 	checkPort();
 
-	if (checkProgramPortBool && checkProgramPortOpenOrClose) {
+	if (checkProgramPortBool) {
 		checkServerRunning();
 	} else {
 		if (!checkProgramPortBool) {
-			cout << "No se ha podido encontrar el puerto del programa, asegurese de tener ufw configurado en su servidor" <<endl;
+			system("clear");
+			std::this_thread::sleep_for(std::chrono::milliseconds(300));
+			cout << FRED(errorMessagePort) <<endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+			system("clear");
+			std::this_thread::sleep_for(std::chrono::milliseconds(300));
 		}
 	}
 
@@ -55,18 +106,19 @@ void Menu::checkPort() {
 
 
 void Menu::mostrarMenu() {
-	
 
 	while (true) {
+		system("clear");
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		cout << FYEL(banner) << endl;
+		cout << endl;
 		cout << "Opciones del menu:" << endl;
 		cout << "1. Activar el servidor" << endl;
 		cout << "2. Ver estado del servidor" << endl;
 		cout << "3. Desactivar el servidor" << endl;
-		// Remove opción de clave RSA --> Se pasa a usar clave AES de 256 bits
-		cout << "4. Modificar clave RSA" << endl;
-		cout << "5. Salir" << endl;
+		cout << "4. Salir" << endl;
 		cout << endl;
-		cout << "Introduce el índice de la acción que desea realizar" << endl;
+		cout << "Introduce el indice de la accion que desea realizar" << endl;
 		cin >> userValue;
 
 		if (userValue == "1") {
@@ -75,7 +127,12 @@ void Menu::mostrarMenu() {
 			if (!checkProgramServiceBool) {
 				createServer();
 			} else {
-				cout << "el server ya está en funcionamiento"<<endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FRED(messageServerRunningNow) <<endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 			// Error, el servidor ya está corriendo
 			}
 		} else if (userValue == "2") {
@@ -86,9 +143,19 @@ void Menu::mostrarMenu() {
 			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
 			if (checkProgramServiceBool) {
-				cout << "El servidor se encuentra en funcionamiento" << endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FGRN(serverIsRunning) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 			} else {
-				cout << "El servidor no está en funcionamiento" << endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FRED(serverIsNotRunning) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 			}
 
 			// ver el estado del servidor
@@ -116,24 +183,39 @@ void Menu::mostrarMenu() {
 			checkServerRunning();
 
 			if (!checkProgramServiceBool && checkProgramRunning) {
-				cout << "El servidor ha sido detenido satisfactoriamente" << endl;
-				cout << endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FGRN(serverStopSuccess) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 
 			} else if (!checkProgramServiceBool && !checkProgramRunning){
-				cout << "El servidor no está en funcionamiento" << endl;
-			} else {
-				cout << "El servidor no se ha podido detener" << endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FRED(serverIsNotRunning) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+			} else {			
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FRED(serverStopFail) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 			}
 
 		} else if (userValue == "4") {
-			// Modificar la clave RSA
-			generateRSAKeys();
-		} else if (userValue == "5") {
 			exit(0);
 		} else {
-
 			// Error de valor introducido
-			cout << "Ha introducido un valor inválido"<<endl;
+			system("clear");
+			std::this_thread::sleep_for(std::chrono::milliseconds(300));
+			cout << FRED(invalidCaracter) << endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+			system("clear");
+			std::this_thread::sleep_for(std::chrono::milliseconds(300));
 		}
 	}
 }
@@ -157,11 +239,21 @@ void Menu::checkProgramPort(vector<string> vectorParam) {
 		if (vectorParam[counterLines].find(port) != string::npos) {
 			checkProgramPortBool = true;
 			if (vectorParam[counterLines].find(statusPortOpen) != string::npos) {
-				cout << "Estado del puerto del servidor: Encontrado y abierto"<< endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FGRN(statusPortOpenMessage)<< endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 				checkProgramPortOpenOrClose = true;
 				break;
 			} else if (vectorParam[counterLines].find(statusPortClose) != string::npos) {
-				cout << "Estado del puerto del servidor: Encontrado, pero cerrado" << endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FYEL(statusPortClosedMessage) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 				break;
 			}
 			break;
@@ -169,7 +261,12 @@ void Menu::checkProgramPort(vector<string> vectorParam) {
 	}
 
 	if (!checkProgramPortBool) {
-		cout << "Estado del puerto del servidor: Puerto no encontrado" << endl;
+		system("clear");
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		cout << FRED(statusPortNotFound) << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+		system("clear");
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	}
 }
 
@@ -209,71 +306,51 @@ void Menu::createServer() {
 	checkPort();
 
 	if (!checkProgramPortBool) {
-		cout << "El puerto del servidor no se ha encontrado, asegurese de tener ufw instalado" << endl;
+		system("clear");
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		cout << FRED(errorMessageUFW) << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+		system("clear");
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	} else if(!checkProgramPortOpenOrClose){
-		cout << "El puerto del servidor se encuentra cerrado, no se pudo lanzar el servidor" << endl;
+		system("clear");
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
+		cout << FRED(errorPortClosedMessage) << endl;
+		std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+		system("clear");
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));
 	} else {
 		if (execCommand(commandLaunchService)) {
 			// Se espera 2 segundos para dar tiempo al lanzamiento del servidor
 			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 			checkServerRunning();
 			if (checkProgramServiceBool) {
-				cout << "El servidor se lanzó correctamente" << endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FGRN(exectServerSuccesfully) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
 			} else {
-				cout << "Hubo algún fallo al lanzar el servidor" << endl;
+				system("clear");
+				std::this_thread::sleep_for(std::chrono::milliseconds(300));
+				cout << FRED(unknownErrorServer) << endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+				system("clear");
 			}
 		} else {
-			cout << "Hubo algún fallo al lanzar el servidor" << endl;
+			system("clear");
+			std::this_thread::sleep_for(std::chrono::milliseconds(300));
+			cout << FRED(unknownErrorServer) << endl;
+			std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+			system("clear");
+			std::this_thread::sleep_for(std::chrono::milliseconds(300));
 		}
 	}
 }
 
 void Menu::execServer() {
 	MasterSocket t;
-}
-
-void Menu::generateRSAKeys() {
-	bool checkRSAKey = false;
-	string allElementsOnDirectory = getResultOfCommand(lsCommand);
-	vector <string> elementsFound = splitLineToLine(allElementsOnDirectory);
-	for (int i = 0; i < elementsFound.size(); i++) {
-		if (elementsFound[i].find(RSAKeyName) != string::npos || elementsFound[i].find(RSAKeyName) != string::npos) {
-			execCommand(removeRSAKey);
-			execCommand(removeRSAKey + ".pub");
-			// Ejecuta creación de clave RSA
-			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-			execCommand(createRSAKeys);
-			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-
-			// Comprobación de existencia de clave AQUI
-
-
-			// Lectura clave RSA publica y privada
-			checkRSAKey = true;
-			string privateKey = getResultOfCommand(readPrivateKey);
-			vector <string> linesOfPrivateKey = splitLineToLine(privateKey);
-			string privateKeyData = "";
-			for (int pkLines = 0; pkLines < linesOfPrivateKey.size(); pkLines++) {
-				if (pkLines != 0 && pkLines != linesOfPrivateKey.size() - 1) {
-					privateKeyData += linesOfPrivateKey[pkLines];
-				}
-			}
-
-			std::stringstream ss;
-			ss << "mysql -u root -puserpass test -e " << '"' << "UPDATE testeo SET userName = '"<< privateKeyData <<"' " << "WHERE id = '1'" << '"' << ";";
-			std::string s = ss.str();
-			cout << s << endl;
-
-			// AQUI
-			
-			//execCommand("mysql -u root -puserpass test -e " << "UPDATE testeo ");
-			break;
-		}
-	}
-	if (!checkRSAKey) {
-		execCommand(createRSAKeys);
-	}
-
 }
 
 bool Menu::execCommand(string commandParam) {

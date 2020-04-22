@@ -30,7 +30,40 @@ private:
 	const string killServerProcess = "killall -s SIGKILL " + nameProgramService;
 	const string commandCopyProgram = "cp " + getNameProgram() + " " + nameProgramService;
 	const string commandLaunchService = "./" + nameProgramService + callAsService;
-	
+
+	const string banner = R"(
+   _____       ______        _____                                                           
+  / ____|     |  ____|      / ____|                                                          
+ | (___       | |__        | |                                                               
+  \___ \      |  __|       | |                                                               
+  ____) |  _  | |____   _  | |____                                                           
+ |_____/  (_) |______| (_)  \_____|                                                          
+                                                                                             
+                                                                                             
+             _____    __  __   _____   _   _     _____               _   _   ______   _      
+     /\     |  __ \  |  \/  | |_   _| | \ | |   |  __ \      /\     | \ | | |  ____| | |     
+    /  \    | |  | | | \  / |   | |   |  \| |   | |__) |    /  \    |  \| | | |__    | |     
+   / /\ \   | |  | | | |\/| |   | |   | . ` |   |  ___/    / /\ \   | . ` | |  __|   | |     
+  / ____ \  | |__| | | |  | |  _| |_  | |\  |   | |       / ____ \  | |\  | | |____  | |____ 
+ /_/    \_\ |_____/  |_|  |_| |_____| |_| \_|   |_|      /_/    \_\ |_| \_| |______| |______|
+
+)";
+
+	const string errorMessagePort = "No se ha podido encontrar el puerto del programa, asegurese de tener ufw configurado en su servidor";
+	const string statusPortOpenMessage = "Estado del puerto del servidor: Encontrado y abierto";
+	const string statusPortClosedMessage = "Estado del puerto del servidor: Encontrado, pero cerrado";
+	const string errorPortClosedMessage = "El puerto del servidor se encuentra cerrado, no se pudo lanzar el servidor";
+	const string statusPortNotFound = "Estado del puerto del servidor: Puerto no encontrado";
+	const string errorMessageUFW = "El puerto del servidor no se ha encontrado, asegurese de tener ufw instalado";
+	const string exectServerSuccesfully = "El servidor se lanzo correctamente";
+	const string unknownErrorServer = "Hubo algun fallo al lanzar el servidor";
+	const string messageServerRunningNow = "el servidor ya esta en funcionamiento";
+	const string serverIsRunning = "El servidor se encuentra en funcionamiento";
+	const string serverIsNotRunning = "El servidor no esta en funcionamiento";
+	const string serverStopSuccess = "El servidor ha sido detenido satisfactoriamente";
+	const string serverStopFail = "El servidor no se ha podido detener";
+	const string invalidCaracter = "Ha introducido un valor invalido";
+
 	const int sizeOfOneServerService = 1;
 
 	string userValue;
@@ -51,7 +84,6 @@ public:
 	void checkServerRunning();
 	void createServer();
 	void execServer();
-	void generateRSAKeys();
 
 	bool execCommand(string command);
 	bool countServerProcess();
