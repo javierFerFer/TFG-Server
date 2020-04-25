@@ -71,8 +71,8 @@ void SocketObject::launchReadThread() {
 				// Desencriptado de datos
 				std::string decrypted;
 
-					decrypted = pCipher->decryptString(userData, Poco::Crypto::Cipher::ENC_BASE64);
 					
+					decrypted = pCipher->decryptString(userData, Poco::Crypto::Cipher::ENC_BASE64);
 					
 					
 
@@ -90,6 +90,7 @@ void SocketObject::launchReadThread() {
 					string title = element;
 					// Limpieza de '"' en el título recibido
 					title.erase(remove(title.begin(), title.end(), '"'), title.end());
+
 					if (title.compare("loginCredentials") == 0) {
 						// Petición de datos de usuario
 						for (auto& data : jsonObjT) {
@@ -117,6 +118,37 @@ void SocketObject::launchReadThread() {
 						checkThreadFunction = false;
 						checkTimeOut = false;
 						break;
+					} else if (title.compare("getNameOfMail") == 0) {
+						for (auto& element : jsonObjT) {
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getNameOfMail") != 0) {
+								string nameOfUser = dataBaseConnection.nameQuery(dataOfMessage);
+								if (nameOfUser.length() != 0) {
+									sendSigleMessage("userNameData", nameOfUser, pCipher);
+								} else {
+								// Nombre no encontrado, cierre de conexión del cliente
+								}
+							}
+						}
+					} else if (title.compare("getAllSubjects") == 0) {
+						for (auto& element : jsonObjT) {
+							string getAllSubjects = element;
+							// Limpieza de '"' en el título recibido
+							getAllSubjects.erase(remove(getAllSubjects.begin(), getAllSubjects.end(), '"'), getAllSubjects.end());
+
+							if (getAllSubjects.compare("getAllSubjects") != 0) {
+								vector<string> allSubjects = dataBaseConnection.getAllNamesOfSubjects(getAllSubjects);
+								if (allSubjects.size() != 0) {
+									// Enviar asignaturas aqui
+									sendMoreSingleDataMessage("allSubjects", allSubjects, pCipher);
+								} else {
+									// Nombre no encontrado, cierre de conexión del cliente
+								}
+							}
+						}
 					}
 					// Solo debe leer el título
 					break;
@@ -208,6 +240,31 @@ void SocketObject::sendSigleMessage(string titleParam, string messageParam, Poco
 
 	// Conversión del JSon con la clave a string y envio del mismo (0 = formato que acepta c#)
 	string keyJsonToString = cipherParam->encryptString(jsonData.dump(0), Poco::Crypto::Cipher::ENC_BASE64);
+
+	// Conversión del string formateado a un array de char
+	char arrayData[keyJsonToString.size() + 1];
+	keyJsonToString.copy(arrayData, keyJsonToString.size() + 1);
+	arrayData[keyJsonToString.size()] = '\0';
+
+	// Envio de los datos correspondientes a la encriptación al cliente
+	send(sendReceiveDataSocket, arrayData, strlen(arrayData), 0);
+}
+
+void SocketObject::sendMoreSingleDataMessage(string titleParam, vector<string> messageParam, Poco::Crypto::Cipher* cipherParam) {
+	JsonObjectArray* jSonObject = new JsonObjectArray();
+	jSonObject->A_Title = titleParam;
+
+	jSonObject->B_Content = messageParam;
+
+	// Conversión de objeto con datos de encriptado a formato JSON
+	nlohmann::json jsonData;
+	jsonData["A_Title"] = jSonObject->A_Title;
+	jsonData["B_Content"] = jSonObject->B_Content;
+
+	// Conversión del JSon con la clave a string y envio del mismo (0 = formato que acepta c#)
+	string keyJsonToString = cipherParam->encryptString(jsonData.dump(0), Poco::Crypto::Cipher::ENC_BASE64);
+
+
 
 	// Conversión del string formateado a un array de char
 	char arrayData[keyJsonToString.size() + 1];

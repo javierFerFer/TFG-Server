@@ -55,6 +55,7 @@ public:
 	void removeThread(thread::id id);
 	void spawn();
 	void sendSigleMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam);
+	void sendMoreSingleDataMessage(string titleParam, vector<string>messageParam, Poco::Crypto::Cipher* cipherParam);
 
 	string generatePasswd();
 };

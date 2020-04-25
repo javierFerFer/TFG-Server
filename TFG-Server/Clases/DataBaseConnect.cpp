@@ -37,3 +37,55 @@ bool DataBaseConnect::loginQuery(string emailParam, string passwdParam) {
         return false;
     }
 }
+
+string DataBaseConnect::nameQuery(string emailParam) {
+    string loginQuery = selectName + teachersTableName + "where email = BINARY " + "'" + emailParam + "'";
+    cout << "Consulta " << loginQuery << endl;
+    mysql_query(conn, loginQuery.data());
+    res = mysql_store_result(conn);
+
+
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    if ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                return row[i];
+            } else {
+                return "";
+            }
+        }
+    } else {
+        return "";
+    }
+}
+
+vector<string> DataBaseConnect::getAllNamesOfSubjects(string emailParam) {
+    vector <string> allSubjects;
+
+    for (int counter = 0; counter < 5; counter++) {
+        string allSubjectsQuery = selectSubject + teachersTableName + ", " + subjects + "where " + teachersTableNameWithOutSpaces + ".email = '" + emailParam + "' and "
+            + teachersTableNameWithOutSpaces + ".asign_" + to_string((counter + 1)) + " = " + subjectsTableNameWithOutSpaces + ".cod_asign";
+        cout << "Consulta " << allSubjectsQuery << endl;
+        mysql_query(conn, allSubjectsQuery.data());
+        res = mysql_store_result(conn);
+
+        // get the number of the columns
+        int num_fields = mysql_num_fields(res);
+        // Fetch all rows from the result
+        if ((row = mysql_fetch_row(res))) {
+            for (int i = 0; i < num_fields; i++) {
+                // Make sure row[i] is valid!
+                if (row[i] != NULL) {
+                    allSubjects.push_back(row[i]);
+                }
+            }
+        }
+    }
+
+    return allSubjects;
+
+}

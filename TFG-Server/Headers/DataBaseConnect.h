@@ -1,6 +1,7 @@
 #include "../Headers/Main.h"
 #include<iostream>
 #include<mysql/mysql.h>
+#include <vector>
 #include<stdio.h>
 
 using namespace std;
@@ -22,16 +23,22 @@ private:
 	unsigned int opt_flags = 0; /* CONNECTION FLAGS, DO NOT CHANGE */
 
 	// All tables here
-	string teachersTableName = " profesorado ";
-	
+	const string teachersTableName = " profesorado ";
+	const string teachersTableNameWithOutSpaces = "profesorado";
+	const string subjects = " asignaturas ";
+	const string subjectsTableNameWithOutSpaces = "asignaturas";
+
 	// All MySQL sentences
-	string selectAll = "select * from ";
+	const string selectAll = "select * from ";
+	const string selectName = "select nombre from ";
+	const string selectSubject = "select asignaturas.nombre_asign from ";
 
 public:
 
 	DataBaseConnect();
 
 	bool loginQuery(string emailParam, string passwdParam);
-
+	string nameQuery(string emailParam);
+	vector <string> getAllNamesOfSubjects(string emailParam);
 };
 
