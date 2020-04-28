@@ -41,6 +41,7 @@ private:
 	bool checkTimeOut = true;
 	bool checkThreadFunction = true;
 	DataBaseConnect dataBaseConnection;
+	Poco::Crypto::Cipher* pCipher;
 
 public:
 	vector <thread>& allSockets;
