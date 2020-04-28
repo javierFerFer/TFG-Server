@@ -122,6 +122,7 @@ void SocketObject::launchReadThread() {
 						checkThreadFunction = false;
 						checkTimeOut = false;
 						break;
+
 					} else if (title.compare("getNameOfMail") == 0) {
 						for (auto& element : jsonObjT) {
 							string dataOfMessage = element;
@@ -145,12 +146,7 @@ void SocketObject::launchReadThread() {
 
 							if (getAllSubjects.compare("getAllSubjects") != 0) {
 								vector<string> allSubjects = dataBaseConnection.getAllNamesOfSubjects(getAllSubjects);
-								if (allSubjects.size() != 0) {
-									// Enviar asignaturas aqui
-									sendMoreSingleDataMessage("allSubjects", allSubjects, pCipher);
-								} else {
-									// Nombre no encontrado, cierre de conexión del cliente
-								}
+								sendMoreSingleDataMessage("allSubjects", allSubjects, pCipher);
 							}
 						}
 					} else if (title.compare("getThemes") == 0) {
@@ -162,13 +158,70 @@ void SocketObject::launchReadThread() {
 
 							if (dataOfMessage.compare("getThemes") != 0) {
 								vector <string> allThemes = dataBaseConnection.getAllNamesOfThemes(dataOfMessage);
-								
-								cout << "AQUI" << endl;
+								sendMoreSingleDataMessage("allThemesNames", allThemes, pCipher);
+							}
+						}
+					} else if (title.compare("findNameOfTheme") == 0) {
+						for (auto& element : jsonObjT) {
 
-								if (allThemes.size() != 0) {
-									sendMoreSingleDataMessage("allThemesNames", allThemes, pCipher);
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("findNameOfTheme") != 0) {
+								string checkNameOfThemeExist;
+								bool checkName = dataBaseConnection.checkNameOfThemeExist(dataOfMessage);
+								if (checkName) {
+									checkNameOfThemeExist = "true";
 								} else {
-									// Nombre no encontrado, cierre de conexión del cliente
+									checkNameOfThemeExist = "false";
+								}
+								sendSigleMessage("checkIfThemeExist", checkNameOfThemeExist, pCipher);
+							}
+						}
+					} else if (title.compare("findQuestion") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("findQuestion") != 0) {
+								string checkNameOfQuestionExist;
+								bool checkName = dataBaseConnection.checkNameOfQuestionExist(dataOfMessage);
+								if (checkName) {
+									checkNameOfQuestionExist = "true";
+								} else {
+									checkNameOfQuestionExist = "false";
+								}
+								sendSigleMessage("checkIfQuestionExist", checkNameOfQuestionExist, pCipher);
+							}
+						}
+					} else if (title.compare("insertNewTheme") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								// Recogida del usuario y contraseña
+								vector <string> newThemeData(begin(data), end(data));
+								bool insertStatus = dataBaseConnection.insertNewTheme(newThemeData);
+								if (insertStatus) {
+									sendSigleMessage("insertNewThemeStatus", "true", pCipher);
+								} else {
+									sendSigleMessage("insertNewThemeStatus", "false", pCipher);
+								}
+							}
+						}
+					} else if (title.compare("insertNewQuestion") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								// Recogida del usuario y contraseña
+								vector <string> newQuestionData(begin(data), end(data));
+								bool insertStatus = dataBaseConnection.insertNewQuestion(newQuestionData);
+								if (insertStatus) {
+								// Insercción realizada con exito
+									sendSigleMessage("insertNewQuestionStatus", "true", pCipher);
+								} else {
+								// Mensaje de error, no se pudo insertar el dato correspondiente
+									sendSigleMessage("insertNewQuestionStatus", "false", pCipher);
 								}
 							}
 						}

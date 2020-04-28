@@ -34,7 +34,7 @@ private:
 	int sendReceiveDataSocket;
 	int timeOut = 0;
 	int valread;
-	int maxTimeOut = 18;
+	int maxTimeOut = 180;
 	char buffer[1024] = { 0 };
 	string passwd;
 	string ivString = "0123456789123456";
