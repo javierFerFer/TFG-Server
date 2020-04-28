@@ -27,11 +27,14 @@ private:
 	const string teachersTableNameWithOutSpaces = "profesorado";
 	const string subjects = " asignaturas ";
 	const string subjectsTableNameWithOutSpaces = "asignaturas";
+	const string themesTableName = "temas ";
 
 	// All MySQL sentences
 	const string selectAll = "select * from ";
 	const string selectName = "select nombre from ";
 	const string selectSubject = "select asignaturas.nombre_asign from ";
+	const string selectThemes = "select nombre from ";
+	const string select_cod_asign = "select cod_asign from ";
 
 public:
 
@@ -40,5 +43,6 @@ public:
 	bool loginQuery(string emailParam, string passwdParam);
 	string nameQuery(string emailParam);
 	vector <string> getAllNamesOfSubjects(string emailParam);
+	vector <string> getAllNamesOfThemes(string subjectParam);
 };
 

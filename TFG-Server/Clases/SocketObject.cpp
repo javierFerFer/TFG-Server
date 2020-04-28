@@ -153,6 +153,25 @@ void SocketObject::launchReadThread() {
 								}
 							}
 						}
+					} else if (title.compare("getThemes") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getThemes") != 0) {
+								vector <string> allThemes = dataBaseConnection.getAllNamesOfThemes(dataOfMessage);
+								
+								cout << "AQUI" << endl;
+
+								if (allThemes.size() != 0) {
+									sendMoreSingleDataMessage("allThemesNames", allThemes, pCipher);
+								} else {
+									// Nombre no encontrado, cierre de conexión del cliente
+								}
+							}
+						}
 					}
 					// Solo debe leer el título
 					break;
@@ -299,5 +318,5 @@ void SocketObject::removeThread(thread::id id) {
 		allSockets.erase(iter);
 		//cout << sendReceiveDataSocket << endl;
 	}
-	cout << allSockets.size() << endl;
+	cout << "conexiones activas " << allSockets.size() << endl;
 }

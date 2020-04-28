@@ -89,3 +89,27 @@ vector<string> DataBaseConnect::getAllNamesOfSubjects(string emailParam) {
     return allSubjects;
 
 }
+
+vector<string> DataBaseConnect::getAllNamesOfThemes(string subjectParam) {
+    vector <string> allThemes;
+
+    string loginQuery = selectThemes + themesTableName + "where cod_asign = ( "  + select_cod_asign + subjectsTableNameWithOutSpaces + " where nombre_asign = '" + subjectParam + "')";
+    cout << "Consulta " << loginQuery << endl;
+    
+    mysql_query(conn, loginQuery.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allThemes.push_back(row[i]);
+            }
+        }
+    }
+
+    return allThemes;
+}
