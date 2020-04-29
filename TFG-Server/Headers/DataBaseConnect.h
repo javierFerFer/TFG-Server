@@ -29,6 +29,7 @@ private:
 	const string subjectsTableNameWithOutSpaces = "asignaturas";
 	const string themesTableName = "temas ";
 	const string normal_question_table = "preguntas_tipo_normal ";
+	const string test_question_table = "preguntas_tipo_test ";
 
 	// All MySQL sentences
 	const string selectAll = "select * from ";
@@ -44,6 +45,7 @@ private:
 
 	const string insertNewThemeSentence = "insert into " + themesTableName + "(id_tema, nombre, cod_asign) values( ";
 	const string insertNewQuestionQuery = "insert into " + normal_question_table + "(id, pregunta, tema_perteneciente, modelo_perteneciente) values( ";
+	const string insertNewTestQuestionQuery = "insert into " + test_question_table + "(id, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta, tema_perteneciente, modelo_perteneciente) values( ";
 
 public:
 
@@ -52,8 +54,10 @@ public:
 	bool loginQuery(string emailParam, string passwdParam);
 	bool checkNameOfThemeExist(string nameOfThemeParam);
 	bool checkNameOfQuestionExist(string nameOfQuestionParam);
+	bool checkNameOfQuestionTestExist(string nameOfQuestionParam);
 	bool insertNewTheme(vector<string> allNewThemeData);
 	bool insertNewQuestion(vector <string> allNewQuestionData);
+	bool insertNewTestQuestion(vector <string> allNewQuestionData);
 	string nameQuery(string emailParam);
 	vector <string> getAllNamesOfSubjects(string emailParam);
 	vector <string> getAllNamesOfThemes(string subjectParam);

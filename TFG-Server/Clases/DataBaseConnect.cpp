@@ -78,6 +78,22 @@ bool DataBaseConnect::checkNameOfQuestionExist(string nameOfQuestionParam) {
     }
 }
 
+bool DataBaseConnect::checkNameOfQuestionTestExist(string nameOfQuestionParam) {
+    string loginQuery = select_id_preguta_normal + test_question_table + "where pregunta = BINARY " + "'" + nameOfQuestionParam + "'";
+    mysql_query(conn, loginQuery.data());
+    res = mysql_store_result(conn);
+
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    if ((row = mysql_fetch_row(res))) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool DataBaseConnect::insertNewTheme(vector<string> allNewThemeData) {
     try {
         string max_ID;
@@ -179,6 +195,61 @@ bool DataBaseConnect::insertNewQuestion(vector<string> allNewQuestionData) {
                 res = mysql_store_result(conn);
             }
         }
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
+bool DataBaseConnect::insertNewTestQuestion(vector<string> allNewQuestionData) {
+    try {
+        string max_ID;
+        string id_tema;
+
+        
+            
+                string questionToInsert = allNewQuestionData[0];
+                string get_max_id_query = select_max_id_question + test_question_table;
+
+                mysql_query(conn, get_max_id_query.data());
+                res = mysql_store_result(conn);
+
+                // get the number of the columns
+                int num_fields = mysql_num_fields(res);
+                // Fetch all rows from the result
+                if ((row = mysql_fetch_row(res))) {
+                    for (int i = 0; i < num_fields; i++) {
+                        // Make sure row[i] is valid!
+                        if (row[i] != NULL) {
+                            max_ID = row[i];
+                        } else {
+                            max_ID = "0";
+                        }
+                    }
+                }
+
+                string get_cod_theme = select_id_tema_reverse + themesTableName + " where nombre = BINARY " + "'" + allNewQuestionData[allNewQuestionData.size() -1] + "'";
+                mysql_query(conn, get_cod_theme.data());
+                res = mysql_store_result(conn);
+
+                // get the number of the columns
+                num_fields = mysql_num_fields(res);
+                // Fetch all rows from the result
+                if ((row = mysql_fetch_row(res))) {
+                    for (int i = 0; i < num_fields; i++) {
+                        // Make sure row[i] is valid!
+                        if (row[i] != NULL) {
+                            id_tema = row[i];
+                        }
+                    }
+                }
+            
+                string insertQuestion = insertNewTestQuestionQuery + to_string(stoi(max_ID) + 1) + ", '" + allNewQuestionData[0]  + "', '" + allNewQuestionData[1]  + "', '" + allNewQuestionData[2] + "', '" + allNewQuestionData[3]  + "', '" + allNewQuestionData[4]  + "', '" + allNewQuestionData[5] + "' , " + id_tema + ", null)";
+                cout << "CONSULTA: " << insertQuestion << endl;
+                
+                mysql_query(conn, insertQuestion.data());
+                res = mysql_store_result(conn);
+        
         return true;
     } catch (...) {
         return false;

@@ -161,7 +161,20 @@ void SocketObject::launchReadThread() {
 								sendMoreSingleDataMessage("allThemesNames", allThemes, pCipher);
 							}
 						}
-					} else if (title.compare("findNameOfTheme") == 0) {
+					} else if (title.compare("getThemeForTest") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getThemeForTest") != 0) {
+								vector <string> allThemes = dataBaseConnection.getAllNamesOfThemes(dataOfMessage);
+								sendMoreSingleDataMessage("allThemesForTest", allThemes, pCipher);
+							}
+						}
+					
+					}else if (title.compare("findNameOfTheme") == 0) {
 						for (auto& element : jsonObjT) {
 
 							string dataOfMessage = element;
@@ -197,7 +210,25 @@ void SocketObject::launchReadThread() {
 								sendSigleMessage("checkIfQuestionExist", checkNameOfQuestionExist, pCipher);
 							}
 						}
-					} else if (title.compare("insertNewTheme") == 0) {
+					} else if (title.compare("findQuestionTest") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("findQuestionTest") != 0) {
+								string checkNameOfQuestionExist;
+								bool checkName = dataBaseConnection.checkNameOfQuestionTestExist(dataOfMessage);
+								if (checkName) {
+									checkNameOfQuestionExist = "true";
+								} else {
+									checkNameOfQuestionExist = "false";
+								}
+								sendSigleMessage("checkTestQuestion", checkNameOfQuestionExist, pCipher);
+							}
+						}
+					}else if (title.compare("insertNewTheme") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {
 								// Recogida del usuario y contraseña
@@ -210,7 +241,20 @@ void SocketObject::launchReadThread() {
 								}
 							}
 						}
-					} else if (title.compare("insertNewQuestion") == 0) {
+					} else if (title.compare("insertTestNewTheme") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								// Recogida del usuario y contraseña
+								vector <string> newThemeData(begin(data), end(data));
+								bool insertStatus = dataBaseConnection.insertNewTheme(newThemeData);
+								if (insertStatus) {
+									sendSigleMessage("insertNewTestStatus", "true", pCipher);
+								} else {
+									sendSigleMessage("insertNewTestStatus", "false", pCipher);
+								}
+							}
+						}
+					}else if (title.compare("insertNewQuestion") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {
 								// Recogida del usuario y contraseña
@@ -225,7 +269,21 @@ void SocketObject::launchReadThread() {
 								}
 							}
 						}
-					} else if (title.compare("selectedThemeQuestionAdd") == 0) {
+					} else if (title.compare("insertNewTestQuestion") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								vector <string> newQuestionData(begin(data), end(data));
+								bool insertStatus = dataBaseConnection.insertNewTestQuestion(newQuestionData);
+								if (insertStatus) {
+									// Insercción realizada con exito
+									sendSigleMessage("insertNewTestQuestion", "true", pCipher);
+								} else {
+									// Mensaje de error, no se pudo insertar el dato correspondiente
+									sendSigleMessage("insertNewTestQuestion", "false", pCipher);
+								}
+							}
+						}
+					}else if (title.compare("selectedThemeQuestionAdd") == 0) {
 						for (auto& element : jsonObjT) {
 
 							string dataOfMessage = element;
@@ -241,6 +299,24 @@ void SocketObject::launchReadThread() {
 									checkNameOfQuestionExist = "false";
 								}
 								sendSigleMessage("checkIfQuestionSelectedTheme", checkNameOfQuestionExist, pCipher);
+							}
+						}
+					} else if (title.compare("selectedTestThemeQuestionAdd") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("selectedTestThemeQuestionAdd") != 0) {
+								string checkNameOfQuestionExist;
+								bool checkName = dataBaseConnection.checkNameOfQuestionTestExist(dataOfMessage);
+								if (checkName) {
+									checkNameOfQuestionExist = "true";
+								} else {
+									checkNameOfQuestionExist = "false";
+								}
+								sendSigleMessage("checkTestIfQuestionSelectedTheme", checkNameOfQuestionExist, pCipher);
 							}
 						}
 					}
