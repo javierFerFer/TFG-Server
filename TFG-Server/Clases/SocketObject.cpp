@@ -225,6 +225,24 @@ void SocketObject::launchReadThread() {
 								}
 							}
 						}
+					} else if (title.compare("selectedThemeQuestionAdd") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("selectedThemeQuestionAdd") != 0) {
+								string checkNameOfQuestionExist;
+								bool checkName = dataBaseConnection.checkNameOfQuestionExist(dataOfMessage);
+								if (checkName) {
+									checkNameOfQuestionExist = "true";
+								} else {
+									checkNameOfQuestionExist = "false";
+								}
+								sendSigleMessage("checkIfQuestionSelectedTheme", checkNameOfQuestionExist, pCipher);
+							}
+						}
 					}
 					// Solo debe leer el título
 					break;

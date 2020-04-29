@@ -8,7 +8,12 @@ using namespace std;
 DataBaseConnect::DataBaseConnect() {
 
     /* INITIALIZE CONNECTION HANDLER, DO NOT CHANGE */
+
     conn = mysql_init(NULL);
+    mysql_options(conn, MYSQL_SET_CHARSET_NAME, "utf8mb4");
+    mysql_options(conn, MYSQL_INIT_COMMAND, "SET NAMES utf8mb4");
+
+    
 
     /* THIS CONNECTS TO SERVER, DO NOT CHANGE ANYTHING HERE */
     mysql_real_connect(conn, opt_host_name, opt_user_name, opt_password,
@@ -21,6 +26,7 @@ DataBaseConnect::DataBaseConnect() {
 }
 
 bool DataBaseConnect::loginQuery(string emailParam, string passwdParam) {
+
     string loginQuery = selectAll + teachersTableName + "where email = BINARY " + "'" + emailParam + "' and passwd = " + "BINARY '" + passwdParam +"'";
     cout << "Consulta " << loginQuery << endl;
     mysql_query(conn, loginQuery.data());
