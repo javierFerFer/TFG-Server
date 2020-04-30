@@ -319,6 +319,39 @@ void SocketObject::launchReadThread() {
 								sendSigleMessage("checkTestIfQuestionSelectedTheme", checkNameOfQuestionExist, pCipher);
 							}
 						}
+					} else if (title.compare("getAllNormalQuestionsSpecificNameOfSUbject") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllNormalQuestionsSpecificNameOfSUbject") != 0) {
+
+								vector <string> allQuestions = dataBaseConnection.getAllNormalQuestions(dataOfMessage);
+								// Según la longitud del vector, 
+								if (allQuestions.size() == 0) {
+									sendSigleMessage("normalQuestionsNotFound", "", pCipher);
+								} else {
+									sendMoreSingleDataMessage("allNormalQuestionsSpecificSubject", allQuestions, pCipher);
+								}
+								
+							}
+						}
+					} else if (title.compare("addNewNormalModification") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								vector <string> dataOfNewModification(begin(data), end(data));
+								bool insertStatus = dataBaseConnection.insertNewNormalModification(dataOfNewModification);
+								if (insertStatus) {
+									// Insercción realizada con exito
+									sendSigleMessage("insertNewNormalModification", "true", pCipher);
+								} else {
+									// Mensaje de error, no se pudo insertar el dato correspondiente
+									sendSigleMessage("insertNewNormalModification", "false", pCipher);
+								}
+							}
+						}
 					}
 					// Solo debe leer el título
 					break;

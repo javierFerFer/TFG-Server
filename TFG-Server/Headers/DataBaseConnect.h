@@ -29,6 +29,7 @@ private:
 	const string subjectsTableNameWithOutSpaces = "asignaturas";
 	const string themesTableName = "temas ";
 	const string normal_question_table = "preguntas_tipo_normal ";
+	const string normal_question_modification_table = "modificaciones_pendientes_normal ";
 	const string test_question_table = "preguntas_tipo_test ";
 
 	// All MySQL sentences
@@ -38,6 +39,7 @@ private:
 	const string selectName = "select nombre from ";
 	const string selectSubject = "select asignaturas.nombre_asign from ";
 	const string selectThemes = "select nombre from ";
+	const string select_id_question_specific_subject_normal_questions = "select id, pregunta from ";
 	const string select_cod_asign = "select cod_asign from ";
 	const string select_id_tema_reverse = "select id_tema from ";
 	const string select_max_id_theme = "select max(id_tema) from ";
@@ -45,6 +47,7 @@ private:
 
 	const string insertNewThemeSentence = "insert into " + themesTableName + "(id_tema, nombre, cod_asign) values( ";
 	const string insertNewQuestionQuery = "insert into " + normal_question_table + "(id, pregunta, tema_perteneciente, modelo_perteneciente) values( ";
+	const string insertNewModificationQuestionQuery = "insert into " + normal_question_modification_table + "(id, id_reference, pregunta) values( ";
 	const string insertNewTestQuestionQuery = "insert into " + test_question_table + "(id, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta, tema_perteneciente, modelo_perteneciente) values( ";
 
 public:
@@ -58,8 +61,10 @@ public:
 	bool insertNewTheme(vector<string> allNewThemeData);
 	bool insertNewQuestion(vector <string> allNewQuestionData);
 	bool insertNewTestQuestion(vector <string> allNewQuestionData);
+	bool insertNewNormalModification(vector <string> allDataNewModification);
 	string nameQuery(string emailParam);
 	vector <string> getAllNamesOfSubjects(string emailParam);
 	vector <string> getAllNamesOfThemes(string subjectParam);
+	vector <string> getAllNormalQuestions(string nameOfSubjectParam);
 };
 

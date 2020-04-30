@@ -27,9 +27,9 @@ DataBaseConnect::DataBaseConnect() {
 
 bool DataBaseConnect::loginQuery(string emailParam, string passwdParam) {
 
-    string loginQuery = selectAll + teachersTableName + "where email = BINARY " + "'" + emailParam + "' and passwd = " + "BINARY '" + passwdParam +"'";
-    cout << "Consulta " << loginQuery << endl;
-    mysql_query(conn, loginQuery.data());
+    string loginQueryString = selectAll + teachersTableName + "where email = BINARY " + "'" + emailParam + "' and passwd = " + "BINARY '" + passwdParam +"'";
+    cout << "Consulta " << loginQueryString << endl;
+    mysql_query(conn, loginQueryString.data());
     res = mysql_store_result(conn);
 
     
@@ -256,6 +256,45 @@ bool DataBaseConnect::insertNewTestQuestion(vector<string> allNewQuestionData) {
     }
 }
 
+bool DataBaseConnect::insertNewNormalModification(vector<string> allDataNewModification) {
+    try {
+        string max_ID;
+
+        for (int counter = 0; counter < allDataNewModification.size(); counter++) {
+            if (counter == 0) {
+                string questionToInsert = allDataNewModification[0];
+                string get_max_id_query = select_max_id_question + normal_question_modification_table;
+
+                mysql_query(conn, get_max_id_query.data());
+                res = mysql_store_result(conn);
+
+                // get the number of the columns
+                int num_fields = mysql_num_fields(res);
+                // Fetch all rows from the result
+                if ((row = mysql_fetch_row(res))) {
+                    for (int i = 0; i < num_fields; i++) {
+                        // Make sure row[i] is valid!
+                        if (row[i] != NULL) {
+                            max_ID = row[i];
+                        } else {
+                            max_ID = "0";
+                        }
+                    }
+                }
+
+            } else {
+                string insertQuestion = insertNewModificationQuestionQuery + to_string(stoi(max_ID) + 1) + ", " + allDataNewModification[0] + " , '" + allDataNewModification[1] + "')";
+
+                mysql_query(conn, insertQuestion.data());
+                res = mysql_store_result(conn);
+            }
+        }
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
 string DataBaseConnect::nameQuery(string emailParam) {
     string loginQuery = selectName + teachersTableName + "where email = BINARY " + "'" + emailParam + "'";
     cout << "Consulta " << loginQuery << endl;
@@ -311,10 +350,10 @@ vector<string> DataBaseConnect::getAllNamesOfSubjects(string emailParam) {
 vector<string> DataBaseConnect::getAllNamesOfThemes(string subjectParam) {
     vector <string> allThemes;
 
-    string loginQuery = selectThemes + themesTableName + "where cod_asign = ( "  + select_cod_asign + subjectsTableNameWithOutSpaces + " where nombre_asign = '" + subjectParam + "')";
-    cout << "Consulta " << loginQuery << endl;
+    string namesQuery = selectThemes + themesTableName + "where cod_asign = ( "  + select_cod_asign + subjectsTableNameWithOutSpaces + " where nombre_asign = '" + subjectParam + "')";
+    cout << "Consulta " << namesQuery << endl;
     
-    mysql_query(conn, loginQuery.data());
+    mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
 
     // get the number of the columns
@@ -330,4 +369,30 @@ vector<string> DataBaseConnect::getAllNamesOfThemes(string subjectParam) {
     }
 
     return allThemes;
+}
+
+vector<string> DataBaseConnect::getAllNormalQuestions(string nameOfSubjectParam) {
+    vector <string> allQuestionsSpecificSubject;
+
+    string query = select_id_question_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente in ( " + select_id_tema_reverse + 
+        themesTableName + " where cod_asign = (" + select_cod_asign + subjects + " where nombre_asign = '" + nameOfSubjectParam + "'))";
+    cout << "Consulta  " << query << endl;
+
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allQuestionsSpecificSubject.push_back(row[i]);
+            }
+        }
+    }
+
+
+    return allQuestionsSpecificSubject;
 }
