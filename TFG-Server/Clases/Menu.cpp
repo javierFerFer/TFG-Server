@@ -174,37 +174,49 @@ void Menu::mostrarMenu() {
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
-			// Desactivar el servidor
-			execCommand(killServerProcess);
-
-			// Retardo de dos segundos para dar tiempo al servidor a ejecutar el comando indicado
-			std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-
-			checkServerRunning();
-
-			if (!checkProgramServiceBool && checkProgramRunning) {
 				system("clear");
 				std::this_thread::sleep_for(std::chrono::milliseconds(300));
-				cout << FGRN(serverStopSuccess) << endl;
+				cout << "Se cerraran todas las conexiones de los clientes que esten conectados actualmente, 'y' para continuar, cualquier otra tecla para salir" << endl;
+				string userAnswer;
+				cin >> userAnswer;
+				if (userAnswer == "Y" | userAnswer == "y") {
+					// Desactivar el servidor
+					execCommand(killServerProcess);
+
+					// Retardo de dos segundos para dar tiempo al servidor a ejecutar el comando indicado
+					std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+					checkServerRunning();
+
+					if (!checkProgramServiceBool && checkProgramRunning) {
+						system("clear");
+						std::this_thread::sleep_for(std::chrono::milliseconds(300));
+						cout << FGRN(serverStopSuccess) << endl;
+						std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+						system("clear");
+						std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+					} else if (!checkProgramServiceBool && !checkProgramRunning) {
+						system("clear");
+						std::this_thread::sleep_for(std::chrono::milliseconds(300));
+						cout << FRED(serverIsNotRunning) << endl;
+						std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+						system("clear");
+						std::this_thread::sleep_for(std::chrono::milliseconds(300));
+					} else {
+						system("clear");
+						std::this_thread::sleep_for(std::chrono::milliseconds(300));
+						cout << FRED(serverStopFail) << endl;
+						std::this_thread::sleep_for(std::chrono::milliseconds(4700));
+						system("clear");
+						std::this_thread::sleep_for(std::chrono::milliseconds(300));
+					}
+				} else {
+					system("clear");
+					std::this_thread::sleep_for(std::chrono::milliseconds(300));
+					cout << FYEL(serverNotClosed)<< endl;
+				}
 				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
-				system("clear");
-				std::this_thread::sleep_for(std::chrono::milliseconds(300));
-
-			} else if (!checkProgramServiceBool && !checkProgramRunning){
-				system("clear");
-				std::this_thread::sleep_for(std::chrono::milliseconds(300));
-				cout << FRED(serverIsNotRunning) << endl;
-				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
-				system("clear");
-				std::this_thread::sleep_for(std::chrono::milliseconds(300));
-			} else {			
-				system("clear");
-				std::this_thread::sleep_for(std::chrono::milliseconds(300));
-				cout << FRED(serverStopFail) << endl;
-				std::this_thread::sleep_for(std::chrono::milliseconds(4700));
-				system("clear");
-				std::this_thread::sleep_for(std::chrono::milliseconds(300));
-			}
 
 		} else if (userValue == "4") {
 			exit(0);

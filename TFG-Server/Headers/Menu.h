@@ -63,6 +63,7 @@ private:
 	const string serverStopSuccess = "El servidor ha sido detenido satisfactoriamente";
 	const string serverStopFail = "El servidor no se ha podido detener";
 	const string invalidCaracter = "Ha introducido un valor invalido";
+	const string serverNotClosed = "El servidor no ha sido cerrado";
 
 	const int sizeOfOneServerService = 1;
 
