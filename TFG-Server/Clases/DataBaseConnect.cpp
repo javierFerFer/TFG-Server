@@ -284,7 +284,6 @@ bool DataBaseConnect::insertNewNormalModification(vector<string> allDataNewModif
 
             } else {
                 string insertQuestion = insertNewModificationQuestionQuery + to_string(stoi(max_ID) + 1) + ", " + allDataNewModification[0] + " , '" + allDataNewModification[1] + "')";
-
                 mysql_query(conn, insertQuestion.data());
                 res = mysql_store_result(conn);
             }
@@ -377,6 +376,32 @@ vector<string> DataBaseConnect::getAllNormalQuestions(string nameOfSubjectParam)
     string query = select_id_question_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente in ( " + select_id_tema_reverse + 
         themesTableName + " where cod_asign = (" + select_cod_asign + subjects + " where nombre_asign = '" + nameOfSubjectParam + "'))";
     cout << "Consulta  " << query << endl;
+
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allQuestionsSpecificSubject.push_back(row[i]);
+            }
+        }
+    }
+
+
+    return allQuestionsSpecificSubject;
+}
+
+vector<string> DataBaseConnect::getAllTestQuestions(string nameOfSubjectParam) {
+    vector <string> allQuestionsSpecificSubject;
+
+    string query = select_id_question_specific_subject_test_questions + test_question_table + "where tema_perteneciente in ( " + select_id_tema_reverse +
+        themesTableName + " where cod_asign = (" + select_cod_asign + subjects + " where nombre_asign = '" + nameOfSubjectParam + "'))";
+    cout << "Consulta  ACA" << query << endl;
 
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);

@@ -40,6 +40,7 @@ private:
 	const string selectSubject = "select asignaturas.nombre_asign from ";
 	const string selectThemes = "select nombre from ";
 	const string select_id_question_specific_subject_normal_questions = "select id, pregunta from ";
+	const string select_id_question_specific_subject_test_questions = "select id, pregunta , respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta from ";
 	const string select_cod_asign = "select cod_asign from ";
 	const string select_id_tema_reverse = "select id_tema from ";
 	const string select_max_id_theme = "select max(id_tema) from ";
@@ -66,5 +67,6 @@ public:
 	vector <string> getAllNamesOfSubjects(string emailParam);
 	vector <string> getAllNamesOfThemes(string subjectParam);
 	vector <string> getAllNormalQuestions(string nameOfSubjectParam);
+	vector <string> getAllTestQuestions(string nameOfSubjectParam);
 };
 

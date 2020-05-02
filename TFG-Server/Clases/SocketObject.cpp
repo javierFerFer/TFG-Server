@@ -352,6 +352,25 @@ void SocketObject::launchReadThread() {
 								}
 							}
 						}
+					} else if (title.compare("getAllTestQuestionsSpecificNameOfSUbject") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllTestQuestionsSpecificNameOfSUbject") != 0) {
+
+								vector <string> allQuestions = dataBaseConnection.getAllTestQuestions(dataOfMessage);
+								// Según la longitud del vector, 
+								if (allQuestions.size() == 0) {
+									sendSigleMessage("TestQuestionsNotFound", "", pCipher);
+								} else {
+									sendMoreSingleDataMessage("allTestQuestionsSpecificSubject", allQuestions, pCipher);
+								}
+
+							}
+						}
 					}
 					// Solo debe leer el título
 					break;
