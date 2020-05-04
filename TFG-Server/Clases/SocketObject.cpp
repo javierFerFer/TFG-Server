@@ -371,6 +371,20 @@ void SocketObject::launchReadThread() {
 
 							}
 						}
+					} else if (title.compare("addNewTestModification") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								vector <string> dataOfNeTestModification(begin(data), end(data));
+								bool insertStatus = dataBaseConnection.insertNewTestModification(dataOfNeTestModification);
+								if (insertStatus) {
+									// Insercción realizada con exito
+									sendSigleMessage("insertNewModificationTest", "true", pCipher);
+								} else {
+									// Mensaje de error, no se pudo insertar el dato correspondiente
+									sendSigleMessage("insertNewModificationTest", "false", pCipher);
+								}
+							}
+						}
 					}
 					// Solo debe leer el título
 					break;

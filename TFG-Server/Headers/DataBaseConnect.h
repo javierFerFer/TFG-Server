@@ -30,6 +30,7 @@ private:
 	const string themesTableName = "temas ";
 	const string normal_question_table = "preguntas_tipo_normal ";
 	const string normal_question_modification_table = "modificaciones_pendientes_normal ";
+	const string test_question_modification_table = "modificaciones_pendientes_test ";
 	const string test_question_table = "preguntas_tipo_test ";
 
 	// All MySQL sentences
@@ -49,6 +50,7 @@ private:
 	const string insertNewThemeSentence = "insert into " + themesTableName + "(id_tema, nombre, cod_asign) values( ";
 	const string insertNewQuestionQuery = "insert into " + normal_question_table + "(id, pregunta, tema_perteneciente, modelo_perteneciente) values( ";
 	const string insertNewModificationQuestionQuery = "insert into " + normal_question_modification_table + "(id, id_reference, pregunta) values( ";
+	const string insertNewModificationQuestionQueryTest= "insert into " + test_question_modification_table + "(id, id_reference, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta) values( ";
 	const string insertNewTestQuestionQuery = "insert into " + test_question_table + "(id, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta, tema_perteneciente, modelo_perteneciente) values( ";
 
 public:
@@ -63,6 +65,7 @@ public:
 	bool insertNewQuestion(vector <string> allNewQuestionData);
 	bool insertNewTestQuestion(vector <string> allNewQuestionData);
 	bool insertNewNormalModification(vector <string> allDataNewModification);
+	bool insertNewTestModification(vector <string> allDataNewModification);
 	string nameQuery(string emailParam);
 	vector <string> getAllNamesOfSubjects(string emailParam);
 	vector <string> getAllNamesOfThemes(string subjectParam);

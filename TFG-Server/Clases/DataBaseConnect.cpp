@@ -294,6 +294,40 @@ bool DataBaseConnect::insertNewNormalModification(vector<string> allDataNewModif
     }
 }
 
+bool DataBaseConnect::insertNewTestModification(vector<string> allDataNewModification) {
+    try {
+        string max_ID;
+
+                string questionToInsert = allDataNewModification[0];
+                string get_max_id_query = select_max_id_question + test_question_modification_table;
+
+                mysql_query(conn, get_max_id_query.data());
+                res = mysql_store_result(conn);
+
+                // get the number of the columns
+                int num_fields = mysql_num_fields(res);
+                // Fetch all rows from the result
+                if ((row = mysql_fetch_row(res))) {
+                    for (int i = 0; i < num_fields; i++) {
+                        // Make sure row[i] is valid!
+                        if (row[i] != NULL) {
+                            max_ID = row[i];
+                        } else {
+                            max_ID = "0";
+                        }
+                    }
+                }
+
+                string insertQuestion = insertNewModificationQuestionQueryTest + to_string(stoi(max_ID) + 1) + ", " + allDataNewModification[0] + " , '" + allDataNewModification[1] + "'" + " , '" + allDataNewModification[2] + "'" + " , '" + allDataNewModification[3] + "'" + " , '" + allDataNewModification[4] + "'" + " , '" + allDataNewModification[5] + "'" + " , '" + allDataNewModification[6] + "'" +")";
+                
+                mysql_query(conn, insertQuestion.data());
+                res = mysql_store_result(conn);
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
 string DataBaseConnect::nameQuery(string emailParam) {
     string loginQuery = selectName + teachersTableName + "where email = BINARY " + "'" + emailParam + "'";
     cout << "Consulta " << loginQuery << endl;
