@@ -20,6 +20,16 @@
 #include <openssl/crypto.h>
 #include <thread>
 #include <mutex>
+
+#include <hpdf.h>
+
+#include <stdio.h>
+#include <wchar.h>
+#include <locale.h>
+#include <stdlib.h>
+
+#include <podofo/podofo.h>
+
 #include "../Headers/DataBaseConnect.h"
 
 
@@ -27,6 +37,8 @@
 #define _BSD_SOURCE
 
 using namespace std;
+
+
 
 class SocketObject{
 private:
@@ -38,6 +50,7 @@ private:
 	char buffer[1024] = { 0 };
 	string passwd;
 	string ivString = "0123456789123456";
+	string errMsg = "Error al crear el examen";
 	bool checkTimeOut = true;
 	bool checkThreadFunction = true;
 	DataBaseConnect dataBaseConnection;
@@ -57,6 +70,7 @@ public:
 	void spawn();
 	void sendSigleMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam);
 	void sendMoreSingleDataMessage(string titleParam, vector<string>messageParam, Poco::Crypto::Cipher* cipherParam);
+
 
 	string generatePasswd();
 };

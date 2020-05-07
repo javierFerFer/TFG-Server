@@ -76,6 +76,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ProjectPublicIncludePath>$(ProjectPublicIncludePath)</ProjectPublicIncludePath>
+    <RemoteCCompileToolExe>g++</RemoteCCompileToolExe>
+    <RemoteCppCompileToolExe>g++</RemoteCppCompileToolExe>
+    <RemoteLdToolExe>g++</RemoteLdToolExe>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="Headers\DataBaseConnect.h" />
@@ -87,6 +90,8 @@
     <ClInclude Include="Headers\Menu.h" />
     <ClInclude Include="Headers\ThreadTest.h" />
     <ClInclude Include="Libraries\json.hpp" />
+    <ClInclude Include="Libraries\pdf\metrics.h" />
+    <ClInclude Include="Libraries\pdf\pdf.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\DataBaseConnect.cpp" />
@@ -97,15 +102,18 @@
     <ClCompile Include="Clases\Menu.cpp" />
     <ClCompile Include="Clases\ThreadTest.cpp" />
     <ClCompile Include="Clases\SocketObject.cpp" />
+    <ClCompile Include="Libraries\pdf\metrics.cpp" />
+    <ClCompile Include="Libraries\pdf\pdf.cpp" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <ThreadSafeStatics>Yes</ThreadSafeStatics>
       <AdditionalOptions>-pthread</AdditionalOptions>
-      <AdditionalIncludeDirectories>/usr/include/Poco;/usr/include/mysql;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>/usr/include/Aspose.PDF.Cpp;/usr/include/asposecpplib;/usr/include/podofo;/usr/include/Poco;/usr/include/mysql;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
     </ClCompile>
     <Link>
-      <LibraryDependencies>PocoFoundation;PocoCrypto;mysqlclient;pthread</LibraryDependencies>
+      <LibraryDependencies>PocoFoundation;PocoCrypto;hpdf;podofo;mysqlclient;Aspose.PDF.Cpp_gcc6;pthread</LibraryDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

@@ -10,6 +10,8 @@
     <ClInclude Include="Libraries\json.hpp" />
     <ClInclude Include="Headers\JsonObjectArray.h" />
     <ClInclude Include="Headers\JsonSingleData.h" />
+    <ClInclude Include="Libraries\pdf\metrics.h" />
+    <ClInclude Include="Libraries\pdf\pdf.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />
@@ -20,5 +22,7 @@
     <ClCompile Include="Clases\DataBaseConnect.cpp" />
     <ClCompile Include="Clases\JsonObjectArray.cpp" />
     <ClCompile Include="Clases\JsonSingleData.cpp" />
+    <ClCompile Include="Libraries\pdf\metrics.cpp" />
+    <ClCompile Include="Libraries\pdf\pdf.cpp" />
   </ItemGroup>
 </Project>

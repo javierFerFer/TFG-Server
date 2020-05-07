@@ -28,6 +28,7 @@ private:
 	const string subjects = " asignaturas ";
 	const string subjectsTableNameWithOutSpaces = "asignaturas";
 	const string themesTableName = "temas ";
+	const string normalModelsTableName = "modelo_normal ";
 	const string normal_question_table = "preguntas_tipo_normal ";
 	const string normal_question_modification_table = "modificaciones_pendientes_normal ";
 	const string test_question_modification_table = "modificaciones_pendientes_test ";
@@ -36,6 +37,7 @@ private:
 	// All MySQL sentences
 	const string selectAll = "select * from ";
 	const string select_id_tema = "select nombre from ";
+	const string select_name_normal_model = "select nombre_modelo from ";
 	const string select_id_preguta_normal = "select id from ";
 	const string selectName = "select nombre from ";
 	const string selectSubject = "select asignaturas.nombre_asign from ";
@@ -51,6 +53,7 @@ private:
 	const string insertNewQuestionQuery = "insert into " + normal_question_table + "(id, pregunta, tema_perteneciente, modelo_perteneciente) values( ";
 	const string insertNewModificationQuestionQuery = "insert into " + normal_question_modification_table + "(id, id_reference, pregunta) values( ";
 	const string insertNewModificationQuestionQueryTest= "insert into " + test_question_modification_table + "(id, id_reference, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta) values( ";
+	const string insertNewNormalModelQuery= "insert into " + normalModelsTableName + "(id, nombre_modelo, descripcion, tema_perteneciente, autor_email) values( ";
 	const string insertNewTestQuestionQuery = "insert into " + test_question_table + "(id, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta, tema_perteneciente, modelo_perteneciente) values( ";
 
 public:
@@ -60,16 +63,21 @@ public:
 	bool loginQuery(string emailParam, string passwdParam);
 	bool checkNameOfThemeExist(string nameOfThemeParam);
 	bool checkNameOfQuestionExist(string nameOfQuestionParam);
+	bool checkNameOfNormalQuestionExist(string nameOfQuestionParam);
 	bool checkNameOfQuestionTestExist(string nameOfQuestionParam);
 	bool insertNewTheme(vector<string> allNewThemeData);
 	bool insertNewQuestion(vector <string> allNewQuestionData);
 	bool insertNewTestQuestion(vector <string> allNewQuestionData);
 	bool insertNewNormalModification(vector <string> allDataNewModification);
 	bool insertNewTestModification(vector <string> allDataNewModification);
+	bool updateNormalQuestionsNewModel(vector <string> allQuestionsNewNormalModel);
+	string insertNewNormalModel(vector <string> allDataNormalModel);
 	string nameQuery(string emailParam);
+	string select(string value);
 	vector <string> getAllNamesOfSubjects(string emailParam);
 	vector <string> getAllNamesOfThemes(string subjectParam);
 	vector <string> getAllNormalQuestions(string nameOfSubjectParam);
 	vector <string> getAllTestQuestions(string nameOfSubjectParam);
+	vector <string> getAllNormalQuestionsSpecificTheme(string nameOfTheme);
 };
 
