@@ -498,13 +498,15 @@ void SocketObject::launchReadThread() {
 								painter.SetPage(pPage);
 								const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo
 								PdfFont* pFont = document.CreateFont("Arial"); // LiberationSerif has polish characters 
-								const char* tempString = allQuestions[allQuestions.size() - 1].c_str();
+								const char* tempString = allQuestions[1].c_str();
 
 								//cout << "ACAAAA" << tempString << endl;
 
 								PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
 								painter.SetFont(pFont);
-								painter.DrawText(100.0, pPage->GetPageSize().GetHeight() - 100.0, pString);
+								//painter.DrawText(100.0, pPage->GetPageSize().GetHeight() - 100.0, pString);
+								painter.Rectangle(100.0, pPage->GetPageSize().GetHeight() - 100.0, 300.0, 100.0);
+								painter.DrawMultiLineText(100.0, pPage->GetPageSize().GetHeight() - 100.0, 300.0, 100.0, pString);
 								painter.FinishPage();
 								document.Close();
 
