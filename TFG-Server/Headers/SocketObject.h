@@ -20,6 +20,7 @@
 #include <openssl/crypto.h>
 #include <thread>
 #include <mutex>
+#include <math.h>
 
 #include <hpdf.h>
 
@@ -47,7 +48,7 @@ private:
 	int timeOut = 0;
 	int valread;
 	int maxTimeOut = 180;
-	char buffer[1024] = { 0 };
+	char buffer[12024] = { 0 };
 	string passwd;
 	string ivString = "0123456789123456";
 	string errMsg = "Error al crear el examen";
@@ -73,5 +74,7 @@ public:
 
 
 	string generatePasswd();
+	string getResultOfCommands(string consoleCommand);
+	vector<string> splitLineToLine(string resultOfCommand);
 };
 

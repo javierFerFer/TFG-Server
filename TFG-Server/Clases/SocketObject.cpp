@@ -7,6 +7,7 @@
 
 #include "../Libraries/pdf/pdf.h"
 #include "../Libraries/pdf/metrics.h"
+#include <iomanip>
 
 using namespace std;
 using namespace PoDoFo;
@@ -84,7 +85,7 @@ void SocketObject::launchReadThread() {
 				// Limpieza del buffer para no recibir datos erroneos
 				memset(buffer, 0, sizeof buffer);
 
-				valread = read(sendReceiveDataSocket, buffer, 1024);
+				valread = read(sendReceiveDataSocket, buffer, 120024);
 
 				unique_lock<mutex> lock(mtx);
 				if (timeOut < maxTimeOut) {
@@ -489,26 +490,162 @@ void SocketObject::launchReadThread() {
 							if (data.size() != 1) {
 								vector <string> allQuestions(begin(data), end(data));
 
-								PdfStreamedDocument document("polish.pdf");
+								string nameOfPDFStr = passwd;
+								nameOfPDFStr.append(".pdf");
+
+								PdfStreamedDocument document(nameOfPDFStr.c_str());
 								PdfPainter painter;
-								PdfPage* pPage;
+
+								string tempStringAppend;
+
+								int externalCounter = 0;
+
+								float valueOfQuestion = 10.0 / ((allQuestions.size() - 1) / 2);
+
+								std::stringstream stream;
+								stream << std::fixed << std::setprecision(3) << valueOfQuestion;
+								std::string valueOfQuestionRounded = stream.str();
+
+								float checkIfDecimal = stof(valueOfQuestionRounded);
+
+								if (checkIfDecimal == (int) checkIfDecimal) {
+									valueOfQuestionRounded = to_string((int)checkIfDecimal);
+								}
+
+								string valueOfQuestionString = " \n(Valor de la pregunta: ";
+								valueOfQuestionString.append(valueOfQuestionRounded);
+								valueOfQuestionString.append(")");
 
 
-								pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
-								painter.SetPage(pPage);
-								const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo
-								PdfFont* pFont = document.CreateFont("Arial"); // LiberationSerif has polish characters 
-								const char* tempString = allQuestions[1].c_str();
+								for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 2) - 1; counterPages++) {
+									PdfPage* pPage;
+									const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo
+									PdfFont* pFont = document.CreateFont("Arial"); // LiberationSerif has polish characters 
+									const char* tempString;
 
-								//cout << "ACAAAA" << tempString << endl;
+									if (counterPages == 0) {
+										// Primera página en ser credada
+										pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
+										painter.SetPage(pPage);	
 
-								PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
-								painter.SetFont(pFont);
-								//painter.DrawText(100.0, pPage->GetPageSize().GetHeight() - 100.0, pString);
-								painter.Rectangle(100.0, pPage->GetPageSize().GetHeight() - 100.0, 300.0, 100.0);
-								painter.DrawMultiLineText(100.0, pPage->GetPageSize().GetHeight() - 100.0, 300.0, 100.0, pString);
+										tempString = "Fecha:\n\nNombre:\n\nApellidos: ";
+
+										//cout << "ACAAAA" << tempString << endl;
+
+										PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+										
+										pFont->SetFontSize(12);
+										painter.SetFont(pFont);
+										//painter.DrawText(100.0, pPage->GetPageSize().GetHeight() - 100.0, pString);
+										painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0);
+										painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0, pString);
+
+										tempStringAppend = "Tema: ";
+										tempStringAppend.append(allQuestions[allQuestions.size() - 1]);
+										tempString = tempStringAppend.c_str();
+
+										pFont->SetFontSize(22);
+										PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+										painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 270.0, 300.0, 100.0);
+										painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25 , pPage->GetPageSize().GetHeight() - 270.0, 300.0, 100.0, subjectPDF);
+
+										externalCounter++;
+
+									} else if (counterPages % 2 == 0) {
+
+										pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
+										painter.SetPage(pPage);
+
+										pFont->SetFontSize(12);
+										tempStringAppend = "";
+										int index = externalCounter + 2;
+										if (index == allQuestions.size()) {
+											break;
+										}
+										tempStringAppend.append(allQuestions[externalCounter + 2]);
+										tempStringAppend.append(valueOfQuestionString);
+
+										tempString = tempStringAppend.c_str();
+
+										PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+										painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 100.0);
+										painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 100.0, tempPString);
+
+
+										pFont->SetFontSize(12);
+										tempStringAppend = "";
+										index = externalCounter + 4;
+										if (index == allQuestions.size()) {
+											break;
+										}
+
+										tempStringAppend.append(allQuestions[externalCounter + 4]);
+										tempStringAppend.append(valueOfQuestionString);
+
+										tempString = tempStringAppend.c_str();
+
+										PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+										painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0);
+										painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0, tempPStringSecondQuestion);
+
+										externalCounter += 6;
+										if (externalCounter == allQuestions.size()) {
+											break;
+										}
+
+									} else if (counterPages % 2 != 0) {
+										double size = 350;
+										if (counterPages != 1) {
+											pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
+											painter.SetPage(pPage);
+											size = 250;
+										}
+
+										pFont->SetFontSize(12);
+										tempStringAppend = "";
+										int index = externalCounter;
+										if (index == allQuestions.size()) {
+											break;
+										}
+										tempStringAppend.append(allQuestions[externalCounter]);
+										tempStringAppend.append(valueOfQuestionString);
+
+										tempString = tempStringAppend.c_str();
+
+										PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+										painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0);
+										painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0, tempPString);
+
+
+										pFont->SetFontSize(12);
+										index = externalCounter + 2;
+										if (index == allQuestions.size()) {
+											break;
+										}
+										tempStringAppend = "";
+
+										tempStringAppend.append(allQuestions[externalCounter + 2]);
+										tempStringAppend.append(valueOfQuestionString);
+
+										PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+										painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0);
+										painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0, tempPStringSecondQuestion);
+										
+										externalCounter += 2;
+									}
+								}
 								painter.FinishPage();
 								document.Close();
+
+								// Envio de aviso al usuario de examen generado correctamente
+
+
+								// Envio por correo del fichero en base al correo del usuario
+								string resultCommand = getResultOfCommands("ls");
+								vector<string> resultCommandSplit = splitLineToLine(resultCommand);
+								for (int i = 0; i < resultCommandSplit.size(); i++) {
+									cout << resultCommandSplit[i] << endl;
+								}
 
 							}
 						}
@@ -651,6 +788,34 @@ string SocketObject::generatePasswd() {
 	}
 	//string clave = "01234567891234560123456789123456";
 	return randomPasswd;
+}
+
+string SocketObject::getResultOfCommands(string consoleCommand) {
+	string data;
+	FILE* stream;
+	const int max_buffer = 256;
+	char buffer[max_buffer];
+	consoleCommand.append(" 2>&1");
+
+	stream = popen(consoleCommand.c_str(), "r");
+	if (stream) {
+		while (!feof(stream))
+			if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
+		pclose(stream);
+	}
+	return data;
+}
+
+vector<string> SocketObject::splitLineToLine(string resultOfCommand) {
+	stringstream ss(resultOfCommand);
+	string to;
+	vector <string> splitResult;
+	if (resultOfCommand != "") {
+		while (getline(ss, to, '\n')) {
+			splitResult.push_back(to);
+		}
+	}
+	return splitResult;
 }
 
 void SocketObject::removeThread(thread::id id) {
