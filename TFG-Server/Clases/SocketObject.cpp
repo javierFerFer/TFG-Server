@@ -439,6 +439,25 @@ void SocketObject::launchReadThread() {
 
 							}
 						}
+					} else if (title.compare("getAllTestQuestionsSpecificTheme") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllTestQuestionsSpecificTheme") != 0) {
+
+								vector <string> allQuestions = dataBaseConnection.getAllTestQuestionsSpecificTheme(dataOfMessage);
+								// Según la longitud del vector, 
+								if (allQuestions.size() == 0) {
+									sendSigleMessage("testQuestionsCreateExamNotFound", "", pCipher);
+								} else {
+									sendMoreSingleDataMessage("allTestCreateExamQuestions", allQuestions, pCipher);
+								}
+
+							}
+						}
 					} else if (title.compare("findNameNormalModel") == 0) {
 						for (auto& element : jsonObjT) {
 
@@ -457,6 +476,24 @@ void SocketObject::launchReadThread() {
 								sendSigleMessage("checkNormalNameModelExist", checkNameOfQuestionExist, pCipher);
 							}
 						}
+					} else if (title.compare("findNameTestModel") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("findNameTestModel") != 0) {
+								string checkNameOfQuestionExist;
+								bool checkName = dataBaseConnection.checkNameOfTestQuestionExist(dataOfMessage);
+								if (checkName) {
+									checkNameOfQuestionExist = "true";
+								} else {
+									checkNameOfQuestionExist = "false";
+								}
+								sendSigleMessage("checkTestNameModelExist", checkNameOfQuestionExist, pCipher);
+							}
+						}
 					} else if (title.compare("createNormalModel") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {
@@ -471,6 +508,20 @@ void SocketObject::launchReadThread() {
 								}
 							}
 						}
+					} else if (title.compare("createTestModel") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								vector <string> dataOfNewModel(begin(data), end(data));
+								string insertStatus = dataBaseConnection.insertNewTestModel(dataOfNewModel);
+								if (insertStatus.compare("0") != 0) {
+									// Creación del modelo realizada con éxito
+									sendSigleMessage("createTestModel", insertStatus, pCipher);
+								} else {
+									// Creación del modelo erronea
+									sendSigleMessage("createTestModel", insertStatus, pCipher);
+								}
+							}
+						}
 					} else if (title.compare("updateAllNormalQuestionsNewNormalModel") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {
@@ -482,6 +533,20 @@ void SocketObject::launchReadThread() {
 								} else {
 									// Creación del modelo erronea
 									sendSigleMessage("updateNormalQuestionNewModelSuccess", "false", pCipher);
+								}
+							}
+						}
+					} else if (title.compare("updateAllTestQuestionsNewNormalModel") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								vector <string> allQuestionsToUpdate(begin(data), end(data));
+								bool insertStatus = dataBaseConnection.updateTestQuestionsNewModel(allQuestionsToUpdate);
+								if (insertStatus) {
+									// Actualización de las preguntas realizada con éxito
+									sendSigleMessage("updateTestQuestionNewModelStatus", "true", pCipher);
+								} else {
+									// Creación del modelo erronea
+									sendSigleMessage("updateTestQuestionNewModelSuccess", "false", pCipher);
 								}
 							}
 						}
@@ -544,7 +609,7 @@ void SocketObject::launchReadThread() {
 										tempStringAppend.append(allQuestions[allQuestions.size() - 1]);
 										tempString = tempStringAppend.c_str();
 
-										pFont->SetFontSize(22);
+										pFont->SetFontSize(20);
 										PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
 										painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 270.0, 300.0, 100.0);
 										painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25 , pPage->GetPageSize().GetHeight() - 270.0, 300.0, 100.0, subjectPDF);
@@ -648,6 +713,17 @@ void SocketObject::launchReadThread() {
 								
 							}
 						}
+					} else if (title.compare("createTestExamFiles") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								vector <string> allQuestions(begin(data), end(data));
+								generateTestExam(allQuestions, true);
+								generateTestExam(allQuestions, false);
+
+								sendSigleMessage("TestExamCreatedSucces", "", pCipher);
+							}
+
+						}
 					} else if (title.compare("sendNormalExam") == 0) {
 						for (auto& element : jsonObjT) {
 							string serverMessage = element;
@@ -661,7 +737,22 @@ void SocketObject::launchReadThread() {
 
 							}
 						}
-						
+					} else if (title.compare("sendTestExam") == 0) {
+						for (auto& element : jsonObjT) {
+							string serverMessage = element;
+							// Limpieza de '"' en el título recibido
+							serverMessage.erase(remove(serverMessage.begin(), serverMessage.end(), '"'), serverMessage.end());
+
+							if (serverMessage.compare("sendTestExam") != 0) {
+
+								getResultOfCommands("echo «datos de examen de tipo Test» | mail -s «examen_con_respuesta» " + serverMessage + " -A " + passwd + "_con_respuesta.pdf");
+								std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+								getResultOfCommands("rm -r " + passwd + "_con_respuesta.pdf");
+								getResultOfCommands("echo «datos de examen de tipo Test» | mail -s «examen_sin_respuesta» " + serverMessage + " -A " + passwd + "_sin_respuesta.pdf");
+								std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+								getResultOfCommands("rm -r " + passwd + "_sin_respuesta.pdf");
+							}
+						}
 					}
 
 
@@ -788,6 +879,390 @@ void SocketObject::sendMoreSingleDataMessage(string titleParam, vector<string> m
 
 	// Envio de los datos correspondientes a la encriptación al cliente
 	send(sendReceiveDataSocket, arrayData, strlen(arrayData), 0);
+}
+
+void SocketObject::generateTestExam(vector <string> allQuestions, bool generateWithNotAnswer) {
+	string nameOfPDFStr = passwd;
+	if (generateWithNotAnswer) {
+		nameOfPDFStr.append("_con_respuesta.pdf");
+	} else {
+		nameOfPDFStr.append("_sin_respuesta.pdf");
+	}
+
+	PdfStreamedDocument document(nameOfPDFStr.c_str());
+	PdfPainter painter;
+
+	string tempStringAppend;
+
+	int externalCounter = 0;
+
+	float valueOfQuestion = 10.0 / ((allQuestions.size() - 1) / 7);
+
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(3) << valueOfQuestion;
+	std::string valueOfQuestionRounded = stream.str();
+
+	float checkIfDecimal = stof(valueOfQuestionRounded);
+
+	if (checkIfDecimal == (int)checkIfDecimal) {
+		valueOfQuestionRounded = to_string((int)checkIfDecimal);
+	}
+
+	string valueOfQuestionString = " \n(Valor de la pregunta: ";
+	valueOfQuestionString.append(valueOfQuestionRounded);
+	valueOfQuestionString.append(")");
+
+
+	for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 7) - 1; counterPages++) {
+		PdfPage* pPage;
+		const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo
+		PdfFont* pFont = document.CreateFont("Arial"); // LiberationSerif has polish characters 
+		const char* tempString;
+
+		if (counterPages == 0) {
+			if (generateWithNotAnswer) {
+				// Primera página en ser credada
+				pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
+				painter.SetPage(pPage);
+
+				pFont->SetFontSize(12);
+				painter.SetFont(pFont);
+
+				tempStringAppend = "Tema: ";
+				tempStringAppend.append(allQuestions[allQuestions.size() - 1]);
+				tempString = tempStringAppend.c_str();
+
+				pFont->SetFontSize(20);
+				PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+				painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 180.0, 300.0, 100.0);
+				painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 180.0, 300.0, 100.0, subjectPDF);
+
+				externalCounter++;
+			} else {
+				// Primera página en ser credada
+				pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
+				painter.SetPage(pPage);
+
+				tempString = "Fecha:\n\nNombre:\n\nApellidos: ";
+
+				//cout << "ACAAAA" << tempString << endl;
+
+				PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+
+				pFont->SetFontSize(12);
+				painter.SetFont(pFont);
+				//painter.DrawText(100.0, pPage->GetPageSize().GetHeight() - 100.0, pString);
+				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0);
+				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0, pString);
+
+				tempStringAppend = "Tema: ";
+				tempStringAppend.append(allQuestions[allQuestions.size() - 1]);
+				tempString = tempStringAppend.c_str();
+
+				pFont->SetFontSize(20);
+				PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+				painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 230.0, 300.0, 100.0);
+				painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 230.0, 300.0, 100.0, subjectPDF);
+				externalCounter++;
+			}
+			
+
+		} else if (counterPages % 2 == 0) {
+
+			int index = externalCounter;
+			if (index == allQuestions.size()) {
+				break;
+			}
+
+			pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
+			painter.SetPage(pPage);
+
+			pFont->SetFontSize(12);
+			tempStringAppend = "";
+
+
+			tempStringAppend.append("Pregunta: ");
+			tempStringAppend.append(allQuestions[externalCounter]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			tempStringAppend.append("A    ");
+			tempStringAppend.append(allQuestions[externalCounter + 1]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("B    ");
+			tempStringAppend.append(allQuestions[externalCounter + 2]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("C    ");
+			tempStringAppend.append(allQuestions[externalCounter + 3]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("D    ");
+			tempStringAppend.append(allQuestions[externalCounter + 4]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			if (generateWithNotAnswer) {
+				tempStringAppend.append("Opción correcta:   ");
+				tempStringAppend.append(allQuestions[externalCounter + 5]);
+				tempStringAppend.append("\n");
+			}
+			tempStringAppend.append(valueOfQuestionString);
+
+			tempString = tempStringAppend.c_str();
+
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 170.0);
+			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 170.0, tempPString);
+
+
+			pFont->SetFontSize(12);
+			tempStringAppend = "";
+			index = externalCounter + 7;
+			if (index == allQuestions.size()) {
+				break;
+			}
+
+			pFont->SetFontSize(12);
+			tempStringAppend = "";
+
+			tempStringAppend.append("Pregunta: ");
+			tempStringAppend.append(allQuestions[externalCounter + 7]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			tempStringAppend.append("A    ");
+			tempStringAppend.append(allQuestions[externalCounter + 8]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("B    ");
+			tempStringAppend.append(allQuestions[externalCounter + 9]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("C    ");
+			tempStringAppend.append(allQuestions[externalCounter + 10]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("D    ");
+			tempStringAppend.append(allQuestions[externalCounter + 11]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			if (generateWithNotAnswer) {
+				tempStringAppend.append("Opción correcta:   ");
+				tempStringAppend.append(allQuestions[externalCounter + 12]);
+				tempStringAppend.append("\n");
+			}
+			tempStringAppend.append(valueOfQuestionString);
+
+			tempString = tempStringAppend.c_str();
+
+			PdfString tempPStringTwo(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0);
+			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0, tempPStringTwo);
+
+
+			pFont->SetFontSize(12);
+			index = externalCounter + 14;
+			if (index == allQuestions.size()) {
+				break;
+			}
+			tempStringAppend = "";
+
+			tempStringAppend.append("Pregunta: ");
+			tempStringAppend.append(allQuestions[externalCounter + 14]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			tempStringAppend.append("A    ");
+			tempStringAppend.append(allQuestions[externalCounter + 15]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("B    ");
+			tempStringAppend.append(allQuestions[externalCounter + 16]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("C    ");
+			tempStringAppend.append(allQuestions[externalCounter + 17]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("D    ");
+			tempStringAppend.append(allQuestions[externalCounter + 18]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			if (generateWithNotAnswer) {
+				tempStringAppend.append("Opción correcta:   ");
+				tempStringAppend.append(allQuestions[externalCounter + 19]);
+				tempStringAppend.append("\n");
+			}
+			tempStringAppend.append(valueOfQuestionString);
+
+			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0);
+			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0, tempPStringSecondQuestion);
+
+			externalCounter += 21;
+			if (externalCounter == allQuestions.size()) {
+				break;
+			}
+
+		} else if (counterPages % 2 != 0) {
+			int index = externalCounter;
+			if (index == allQuestions.size()) {
+				break;
+			}
+			double size = 350;
+			if (counterPages != 1) {
+				pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
+				painter.SetPage(pPage);
+				size = 250;
+			}
+
+			pFont->SetFontSize(12);
+			tempStringAppend = "";
+			tempStringAppend.append("Pregunta: ");
+			tempStringAppend.append(allQuestions[externalCounter]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			tempStringAppend.append("A    ");
+			tempStringAppend.append(allQuestions[externalCounter + 1]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("B    ");
+			tempStringAppend.append(allQuestions[externalCounter + 2]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("C    ");
+			tempStringAppend.append(allQuestions[externalCounter + 3]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("D    ");
+			tempStringAppend.append(allQuestions[externalCounter + 4]);
+			tempStringAppend.append("\n");
+			tempStringAppend.append("\n");
+			if (generateWithNotAnswer) {
+				tempStringAppend.append("Opción correcta:   ");
+				tempStringAppend.append(allQuestions[externalCounter + 5]);
+				tempStringAppend.append("\n");
+			}
+			tempStringAppend.append(valueOfQuestionString);
+
+			tempString = tempStringAppend.c_str();
+
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0);
+			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0, tempPString);
+
+			if (counterPages != 1) {
+				index = externalCounter + 7;
+				if (index == allQuestions.size()) {
+					break;
+				}
+				pFont->SetFontSize(12);
+				tempStringAppend = "";
+
+				tempStringAppend.append("Pregunta: ");
+				tempStringAppend.append(allQuestions[externalCounter + 7]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("\n");
+				tempStringAppend.append("A    ");
+				tempStringAppend.append(allQuestions[externalCounter + 8]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("B    ");
+				tempStringAppend.append(allQuestions[externalCounter + 9]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("C    ");
+				tempStringAppend.append(allQuestions[externalCounter + 10]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("D    ");
+				tempStringAppend.append(allQuestions[externalCounter + 11]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("\n");
+				if (generateWithNotAnswer) {
+					tempStringAppend.append("Opción correcta:   ");
+					tempStringAppend.append(allQuestions[externalCounter + 12]);
+					tempStringAppend.append("\n");
+				}
+				tempStringAppend.append(valueOfQuestionString);
+
+				tempString = tempStringAppend.c_str();
+
+				PdfString tempPStringTwo(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0);
+				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0, tempPStringTwo);
+
+
+				pFont->SetFontSize(12);
+				index = externalCounter + 14;
+				if (index == allQuestions.size()) {
+					break;
+				}
+				tempStringAppend = "";
+
+				tempStringAppend.append("Pregunta: ");
+				tempStringAppend.append(allQuestions[externalCounter + 14]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("\n");
+				tempStringAppend.append("A    ");
+				tempStringAppend.append(allQuestions[externalCounter + 15]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("B    ");
+				tempStringAppend.append(allQuestions[externalCounter + 16]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("C    ");
+				tempStringAppend.append(allQuestions[externalCounter + 17]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("D    ");
+				tempStringAppend.append(allQuestions[externalCounter + 18]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("\n");
+				if (generateWithNotAnswer) {
+					tempStringAppend.append("Opción correcta:   ");
+					tempStringAppend.append(allQuestions[externalCounter + 19]);
+					tempStringAppend.append("\n");
+				}
+				tempStringAppend.append(valueOfQuestionString);
+
+				PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0);
+				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0, tempPStringSecondQuestion);
+
+				externalCounter += 21;
+			} else {
+				pFont->SetFontSize(12);
+				index = externalCounter + 7;
+				if (index == allQuestions.size()) {
+					break;
+				}
+				tempStringAppend = "";
+
+				tempStringAppend.append("Pregunta: ");
+				tempStringAppend.append(allQuestions[externalCounter + 7]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("\n");
+				tempStringAppend.append("A    ");
+				tempStringAppend.append(allQuestions[externalCounter + 8]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("B    ");
+				tempStringAppend.append(allQuestions[externalCounter + 9]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("C    ");
+				tempStringAppend.append(allQuestions[externalCounter + 10]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("D    ");
+				tempStringAppend.append(allQuestions[externalCounter + 11]);
+				tempStringAppend.append("\n");
+				tempStringAppend.append("\n");
+				if (generateWithNotAnswer) {
+					tempStringAppend.append("Opción correcta:   ");
+					tempStringAppend.append(allQuestions[externalCounter + 12]);
+					tempStringAppend.append("\n");
+				}
+				tempStringAppend.append(valueOfQuestionString);
+
+				PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0);
+				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0, tempPStringSecondQuestion);
+
+				externalCounter += 14;
+			}
+
+
+		}
+	}
+	painter.FinishPage();
+	document.Close();
+	// Envio de aviso al usuario de examen generado correctamente
+
+
+	//sendSigleMessage("normalExamCreatedSucces", "", pCipher);
+
+	// Envio por correo del fichero en base al correo del usuario
+
 }
 
 string SocketObject::generatePasswd() {

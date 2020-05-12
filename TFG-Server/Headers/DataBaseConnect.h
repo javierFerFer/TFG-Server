@@ -29,6 +29,7 @@ private:
 	const string subjectsTableNameWithOutSpaces = "asignaturas";
 	const string themesTableName = "temas ";
 	const string normalModelsTableName = "modelo_normal ";
+	const string testModelsTableName = "modelo_test ";
 	const string normal_question_table = "preguntas_tipo_normal ";
 	const string normal_question_modification_table = "modificaciones_pendientes_normal ";
 	const string test_question_modification_table = "modificaciones_pendientes_test ";
@@ -54,6 +55,7 @@ private:
 	const string insertNewModificationQuestionQuery = "insert into " + normal_question_modification_table + "(id, id_reference, pregunta) values( ";
 	const string insertNewModificationQuestionQueryTest= "insert into " + test_question_modification_table + "(id, id_reference, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta) values( ";
 	const string insertNewNormalModelQuery= "insert into " + normalModelsTableName + "(id, nombre_modelo, descripcion, tema_perteneciente, autor_email) values( ";
+	const string insertNewTestModelQuery= "insert into " + testModelsTableName + "(id, nombre_modelo, descripcion, tema_perteneciente, autor_email) values( ";
 	const string insertNewTestQuestionQuery = "insert into " + test_question_table + "(id, pregunta, respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta, tema_perteneciente, modelo_perteneciente) values( ";
 
 public:
@@ -64,6 +66,7 @@ public:
 	bool checkNameOfThemeExist(string nameOfThemeParam);
 	bool checkNameOfQuestionExist(string nameOfQuestionParam);
 	bool checkNameOfNormalQuestionExist(string nameOfQuestionParam);
+	bool checkNameOfTestQuestionExist(string nameOfQuestionParam);
 	bool checkNameOfQuestionTestExist(string nameOfQuestionParam);
 	bool insertNewTheme(vector<string> allNewThemeData);
 	bool insertNewQuestion(vector <string> allNewQuestionData);
@@ -71,13 +74,18 @@ public:
 	bool insertNewNormalModification(vector <string> allDataNewModification);
 	bool insertNewTestModification(vector <string> allDataNewModification);
 	bool updateNormalQuestionsNewModel(vector <string> allQuestionsNewNormalModel);
+	bool updateTestQuestionsNewModel(vector <string> allQuestionsNewTestModel);
+
 	string insertNewNormalModel(vector <string> allDataNormalModel);
+	string insertNewTestModel(vector <string> allDataTestModel);
 	string nameQuery(string emailParam);
 	string select(string value);
+
 	vector <string> getAllNamesOfSubjects(string emailParam);
 	vector <string> getAllNamesOfThemes(string subjectParam);
 	vector <string> getAllNormalQuestions(string nameOfSubjectParam);
 	vector <string> getAllTestQuestions(string nameOfSubjectParam);
 	vector <string> getAllNormalQuestionsSpecificTheme(string nameOfTheme);
+	vector <string> getAllTestQuestionsSpecificTheme(string nameOfTheme);
 };
 

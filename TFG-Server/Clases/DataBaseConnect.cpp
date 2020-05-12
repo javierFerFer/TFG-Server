@@ -97,6 +97,23 @@ bool DataBaseConnect::checkNameOfNormalQuestionExist(string nameOfNormalModel) {
     }
 }
 
+bool DataBaseConnect::checkNameOfTestQuestionExist(string nameOfTestModel) {
+    string queryString = select_name_normal_model + testModelsTableName + "where nombre_modelo = BINARY " + "'" + nameOfTestModel + "'";
+    cout << "Consulta AQUII" << queryString << endl;
+    mysql_query(conn, queryString.data());
+    res = mysql_store_result(conn);
+
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    if ((row = mysql_fetch_row(res))) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool DataBaseConnect::checkNameOfQuestionTestExist(string nameOfQuestionParam) {
     string loginQuery = select_id_preguta_normal + test_question_table + "where pregunta = BINARY " + "'" + nameOfQuestionParam + "'";
     mysql_query(conn, loginQuery.data());
@@ -363,6 +380,22 @@ bool DataBaseConnect::updateNormalQuestionsNewModel(vector<string> allQuestionsN
     }
 }
 
+bool DataBaseConnect::updateTestQuestionsNewModel(vector<string> allQuestionsNewTestModel) {
+    try {
+
+        string ID_model = allQuestionsNewTestModel[0];
+
+        for (int i = 1; i < allQuestionsNewTestModel.size(); i += 7) {
+            string updateQuery = "update " + test_question_table + " set modelo_perteneciente = CASE WHEN modelo_perteneciente is null THEN '" + '"' + ID_model + '"' + "' ELSE JSON_MERGE(modelo_perteneciente, '" + '"' + ID_model + '"' + "') END where (id = " + allQuestionsNewTestModel[i] + ")";
+            mysql_query(conn, updateQuery.data());
+            res = mysql_store_result(conn);
+        }
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+
 string DataBaseConnect::insertNewNormalModel(vector<string> allDataNormalModel) {
     try {
         string max_ID;
@@ -406,6 +439,58 @@ string DataBaseConnect::insertNewNormalModel(vector<string> allDataNormalModel) 
         }
 
         string insertQuestion = insertNewNormalModelQuery + to_string(stoi(max_ID) + 1) + ", '" + allDataNormalModel[0] + "' , '" + allDataNormalModel[1] + "'" + " , " + id_tema + " , '" + allDataNormalModel[3] + "')";
+
+        mysql_query(conn, insertQuestion.data());
+        res = mysql_store_result(conn);
+        return to_string(stoi(max_ID) + 1);
+    } catch (...) {
+        return "0";
+    }
+}
+
+string DataBaseConnect::insertNewTestModel(vector<string> allDataTestModel) {
+    try {
+        string max_ID;
+        string id_tema;
+
+        string get_max_id_query = select_max_id_question + testModelsTableName;
+
+
+        mysql_query(conn, get_max_id_query.data());
+        res = mysql_store_result(conn);
+
+        // get the number of the columns
+        int num_fields = mysql_num_fields(res);
+        // Fetch all rows from the result
+        if ((row = mysql_fetch_row(res))) {
+            for (int i = 0; i < num_fields; i++) {
+                // Make sure row[i] is valid!
+                if (row[i] != NULL) {
+                    max_ID = row[i];
+                } else {
+                    max_ID = "0";
+                }
+            }
+        }
+
+        string get_cod_theme = select_id_tema_reverse + themesTableName + " where nombre = BINARY " + "'" + allDataTestModel[2] + "'";
+
+        mysql_query(conn, get_cod_theme.data());
+        res = mysql_store_result(conn);
+
+        // get the number of the columns
+        num_fields = mysql_num_fields(res);
+        // Fetch all rows from the result
+        if ((row = mysql_fetch_row(res))) {
+            for (int i = 0; i < num_fields; i++) {
+                // Make sure row[i] is valid!
+                if (row[i] != NULL) {
+                    id_tema = row[i];
+                }
+            }
+        }
+
+        string insertQuestion = insertNewTestModelQuery + to_string(stoi(max_ID) + 1) + ", '" + allDataTestModel[0] + "' , '" + allDataTestModel[1] + "'" + " , " + id_tema + " , '" + allDataTestModel[3] + "')";
 
         mysql_query(conn, insertQuestion.data());
         res = mysql_store_result(conn);
@@ -590,4 +675,28 @@ vector<string> DataBaseConnect::getAllNormalQuestionsSpecificTheme(string nameOf
     }
 
     return allNormalQuestionsSpecificTheme;
+}
+
+vector<string> DataBaseConnect::getAllTestQuestionsSpecificTheme(string nameOfTheme) {
+    vector <string> allTestQuestionsSpecificTheme;
+
+    string namesQuery = select_id_question_specific_subject_test_questions + test_question_table + "where tema_perteneciente = ( " + select_id_tema_reverse + themesTableName + " where nombre = '" + nameOfTheme + "')";
+    cout << "Consulta" << namesQuery << endl;
+
+    mysql_query(conn, namesQuery.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allTestQuestionsSpecificTheme.push_back(row[i]);
+            }
+        }
+    }
+
+    return allTestQuestionsSpecificTheme;
 }
