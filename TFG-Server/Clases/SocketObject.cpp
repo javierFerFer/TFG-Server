@@ -553,15 +553,18 @@ void SocketObject::launchReadThread() {
 
 									} else if (counterPages % 2 == 0) {
 
+										int index = externalCounter + 2;
+										if (index == allQuestions.size()) {
+											break;
+										}
+
 										pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
 										painter.SetPage(pPage);
 
 										pFont->SetFontSize(12);
 										tempStringAppend = "";
-										int index = externalCounter + 2;
-										if (index == allQuestions.size()) {
-											break;
-										}
+
+
 										tempStringAppend.append(allQuestions[externalCounter + 2]);
 										tempStringAppend.append(valueOfQuestionString);
 
@@ -594,6 +597,10 @@ void SocketObject::launchReadThread() {
 										}
 
 									} else if (counterPages % 2 != 0) {
+										int index = externalCounter;
+										if (index == allQuestions.size()) {
+											break;
+										}
 										double size = 350;
 										if (counterPages != 1) {
 											pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
@@ -603,10 +610,6 @@ void SocketObject::launchReadThread() {
 
 										pFont->SetFontSize(12);
 										tempStringAppend = "";
-										int index = externalCounter;
-										if (index == allQuestions.size()) {
-											break;
-										}
 										tempStringAppend.append(allQuestions[externalCounter]);
 										tempStringAppend.append(valueOfQuestionString);
 
@@ -636,19 +639,29 @@ void SocketObject::launchReadThread() {
 								}
 								painter.FinishPage();
 								document.Close();
-
 								// Envio de aviso al usuario de examen generado correctamente
 
 
+								sendSigleMessage("normalExamCreatedSucces", "", pCipher);
+
 								// Envio por correo del fichero en base al correo del usuario
-								string resultCommand = getResultOfCommands("ls");
-								vector<string> resultCommandSplit = splitLineToLine(resultCommand);
-								for (int i = 0; i < resultCommandSplit.size(); i++) {
-									cout << resultCommandSplit[i] << endl;
-								}
+								
+							}
+						}
+					} else if (title.compare("sendNormalExam") == 0) {
+						for (auto& element : jsonObjT) {
+							string serverMessage = element;
+							// Limpieza de '"' en el título recibido
+							serverMessage.erase(remove(serverMessage.begin(), serverMessage.end(), '"'), serverMessage.end());
+
+							if (serverMessage.compare("sendNormalExam") != 0) {
+								getResultOfCommands("echo «datos de examen de tipo normal» | mail -s «examen» " + serverMessage + " -A " + passwd + ".pdf");
+								std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+								getResultOfCommands("rm -r " + passwd + ".pdf");
 
 							}
 						}
+						
 					}
 
 
@@ -790,20 +803,18 @@ string SocketObject::generatePasswd() {
 	return randomPasswd;
 }
 
-string SocketObject::getResultOfCommands(string consoleCommand) {
-	string data;
-	FILE* stream;
-	const int max_buffer = 256;
-	char buffer[max_buffer];
-	consoleCommand.append(" 2>&1");
+bool SocketObject::getResultOfCommands(string consoleCommand) {
+	try {
+		FILE* stream;
+		const int max_buffer = 256;
+		char buffer[max_buffer];
+		consoleCommand.append(" 2>&1");
 
-	stream = popen(consoleCommand.c_str(), "r");
-	if (stream) {
-		while (!feof(stream))
-			if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
-		pclose(stream);
+		stream = popen(consoleCommand.c_str(), "r");
+		return true;
+	} catch (...) {
+		return false;
 	}
-	return data;
 }
 
 vector<string> SocketObject::splitLineToLine(string resultOfCommand) {

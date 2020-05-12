@@ -74,7 +74,7 @@ public:
 
 
 	string generatePasswd();
-	string getResultOfCommands(string consoleCommand);
+	bool getResultOfCommands(string consoleCommand);
 	vector<string> splitLineToLine(string resultOfCommand);
 };
 
