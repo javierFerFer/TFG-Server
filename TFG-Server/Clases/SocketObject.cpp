@@ -30,7 +30,7 @@ error_handler(HPDF_STATUS   error_no,
 int no = 0;
 
 void SocketObject::launchReadThread() {
-	//try {
+	try {
 	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	setlocale(LC_ALL, "");
 
@@ -698,14 +698,14 @@ void SocketObject::launchReadThread() {
 	//std::string decrypted = pCipher->decryptString(encrypted, Poco::Crypto::Cipher::ENC_BASE64);
 	//cout << "decrypted=" << decrypted << endl;
 	removeThread(this_thread::get_id());
-	//} catch (...) {
-	//	// En caso de error, se corta la conexión
-	//	// Mandar mensaje de cierre de conexión al cliente
-	//	cout << "ha saltado el catch" << endl;
-	//	checkThreadFunction = false;
-	//	checkTimeOut = false;
-	//	removeThread(this_thread::get_id());
-	//}
+	} catch (...) {
+		// En caso de error, se corta la conexión
+		// Mandar mensaje de cierre de conexión al cliente
+		cout << "ha saltado el catch" << endl;
+		checkThreadFunction = false;
+		checkTimeOut = false;
+		removeThread(this_thread::get_id());
+	}
 }
 
 
@@ -819,13 +819,17 @@ vector<string> SocketObject::splitLineToLine(string resultOfCommand) {
 }
 
 void SocketObject::removeThread(thread::id id) {
-	mutex internalMtx;
-	lock_guard<mutex> lock(internalMtx);
-	auto iter = find_if(allSockets.begin(), allSockets.end(), [=](thread& t) { return (t.get_id() == id); });
-	if (iter != allSockets.end()) {
-		iter->detach();
-		allSockets.erase(iter);
-		//cout << sendReceiveDataSocket << endl;
+	try {
+		mutex internalMtx;
+		lock_guard<mutex> lock(internalMtx);
+		auto iter = find_if(allSockets.begin(), allSockets.end(), [=](thread& t) { return (t.get_id() == id); });
+		if (iter != allSockets.end()) {
+			iter->detach();
+			allSockets.erase(iter);
+			//cout << sendReceiveDataSocket << endl;
+		}
+		cout << "conexiones activas " << allSockets.size() << endl;
+	} catch (...) {
+		cout << "No se ha podido borrar el objeto del array de conexiones" << endl;
 	}
-	cout << "conexiones activas " << allSockets.size() << endl;
 }
