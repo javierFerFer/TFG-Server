@@ -196,7 +196,19 @@ void SocketObject::launchReadThread() {
 								sendMoreSingleDataMessage("allNamesFromSpecificSubject", allThemes, pCipher);
 							}
 						}
-					}else if (title.compare("getThemeForTest") == 0) {
+					} else if (title.compare("getAllModelsThemesFromSignature") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllModelsThemesFromSignature") != 0) {
+								vector <string> allThemes = dataBaseConnection.getAllNamesOfThemes(dataOfMessage);
+								sendMoreSingleDataMessage("allNamesModelsFromSpecificSubject", allThemes, pCipher);
+							}
+						}
+					} else if (title.compare("getThemeForTest") == 0) {
 						for (auto& element : jsonObjT) {
 
 							string dataOfMessage = element;
