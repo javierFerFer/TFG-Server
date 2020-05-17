@@ -700,3 +700,25 @@ vector<string> DataBaseConnect::getAllTestQuestionsSpecificTheme(string nameOfTh
 
     return allTestQuestionsSpecificTheme;
 }
+
+vector<string> DataBaseConnect::getAllNormalModels(string nameOfSubject) {
+	
+    vector <string> allDataNormalModels;
+
+    string query = selectAllNormalDataModels + normalModelsTableName + "where tema_perteneciente = (select id_tema from temas where nombre = BINARY '" + nameOfSubject + "')";
+
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allDataNormalModels.push_back(row[i]);
+            }
+        }
+    }
+    return allDataNormalModels;
+}

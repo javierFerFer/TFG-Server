@@ -765,6 +765,17 @@ void SocketObject::launchReadThread() {
 								getResultOfCommands("rm -r " + passwd + "_sin_respuesta.pdf");
 							}
 						}
+					} else if (title.compare("getAllNormalModels") == 0) {
+						for (auto& element : jsonObjT) {
+							string serverMessage = element;
+							// Limpieza de '"' en el título recibido
+							serverMessage.erase(remove(serverMessage.begin(), serverMessage.end(), '"'), serverMessage.end());
+
+							if (serverMessage.compare("getAllNormalModels") != 0) {
+								vector <string> allDataNormalModels = dataBaseConnection.getAllNormalModels(serverMessage);
+								sendMoreSingleDataMessage("allNormalDataModels", allDataNormalModels, pCipher);
+							}
+						}
 					}
 
 
