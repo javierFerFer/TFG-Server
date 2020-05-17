@@ -46,6 +46,7 @@ private:
 	const string select_id_question_specific_subject_normal_questions = "select id, pregunta from ";
 	const string select_id_question_specific_subject_test_questions = "select id, pregunta , respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta from ";
 	const string selectAllNormalDataModels = "select id, nombre_modelo, descripcion, autor_email from ";
+	const string select_id_question_specific_normal_model = "select id, pregunta from ";
 	const string select_cod_asign = "select cod_asign from ";
 	const string select_id_tema_reverse = "select id_tema from ";
 	const string select_max_id_theme = "select max(id_tema) from ";
@@ -89,5 +90,6 @@ public:
 	vector <string> getAllNormalQuestionsSpecificTheme(string nameOfTheme);
 	vector <string> getAllTestQuestionsSpecificTheme(string nameOfTheme);
 	vector <string> getAllNormalModels(string nameOfSubject);
+	vector <string> getAllQuestionsOfSpecificNormalModel(string idModel);
 };
 

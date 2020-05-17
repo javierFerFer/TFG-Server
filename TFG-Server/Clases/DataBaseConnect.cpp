@@ -722,3 +722,24 @@ vector<string> DataBaseConnect::getAllNormalModels(string nameOfSubject) {
     }
     return allDataNormalModels;
 }
+
+vector<string> DataBaseConnect::getAllQuestionsOfSpecificNormalModel(string idModel) {
+    vector <string> allDataNormalModelsQuestions;
+
+    string query = select_id_question_specific_normal_model + normal_question_table + "where JSON_CONTAINS(modelo_perteneciente, '" + '"' + idModel + '"' + "')";
+
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allDataNormalModelsQuestions.push_back(row[i]);
+            }
+        }
+    }
+    return allDataNormalModelsQuestions;
+}

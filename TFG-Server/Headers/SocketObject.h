@@ -72,6 +72,7 @@ public:
 	void sendSigleMessage(string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam);
 	void sendMoreSingleDataMessage(string titleParam, vector<string>messageParam, Poco::Crypto::Cipher* cipherParam);
 
+	void generateNormalExam(vector <string> allQuestions);
 	void generateTestExam(vector <string> allQuestions, bool generateWithNotAnswer);
 
 	string generatePasswd();
