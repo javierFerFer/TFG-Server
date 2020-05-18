@@ -580,6 +580,17 @@ void SocketObject::launchReadThread() {
 								sendSigleMessage("normalModelExamCreated", "", pCipher);
 							}
 						}
+					} else if (title.compare("SelectedTestModelcreateTestExamFiles") == 0) {
+						for (auto& data : jsonObjT) {
+							if (data.size() != 1) {
+								vector <string> allQuestions(begin(data), end(data));
+
+								generateTestExam(allQuestions, true);
+								generateTestExam(allQuestions, false);
+
+								sendSigleMessage("testModelExamCreated", "", pCipher);
+							}
+						}
 					} else if (title.compare("createTestExamFiles") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {
@@ -631,6 +642,18 @@ void SocketObject::launchReadThread() {
 								sendMoreSingleDataMessage("allNormalDataModels", allDataNormalModels, pCipher);
 							}
 						}
+					} else if (title.compare("getAllTestModels") == 0) {
+						for (auto& element : jsonObjT) {
+							string serverMessage = element;
+							// Limpieza de '"' en el título recibido
+							serverMessage.erase(remove(serverMessage.begin(), serverMessage.end(), '"'), serverMessage.end());
+
+							if (serverMessage.compare("getAllTestModels") != 0) {
+								vector <string> allDataTestModels = dataBaseConnection.getAllTestModels(serverMessage);
+								sendMoreSingleDataMessage("allTestDataModels", allDataTestModels, pCipher);
+							}
+						}
+					
 					} else if (title.compare("getAllNormalQuestionsOfSpecificNormalModel") == 0) {
 						for (auto& element : jsonObjT) {
 
@@ -642,6 +665,19 @@ void SocketObject::launchReadThread() {
 
 								vector <string> allQuestions = dataBaseConnection.getAllQuestionsOfSpecificNormalModel(dataOfMessage);
 								sendMoreSingleDataMessage("allNormalModelQuestionsList", allQuestions, pCipher);
+							}
+						}
+					} else if (title.compare("getAllTestQuestionsOfSpecificTestModel") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllTestQuestionsOfSpecificTestModel") != 0) {
+
+								vector <string> allQuestions = dataBaseConnection.getAllQuestionsOfSpecificTestModel(dataOfMessage);
+								sendMoreSingleDataMessage("allTestModelQuestionsList", allQuestions, pCipher);
 							}
 						}
 					}

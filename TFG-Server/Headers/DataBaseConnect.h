@@ -90,6 +90,8 @@ public:
 	vector <string> getAllNormalQuestionsSpecificTheme(string nameOfTheme);
 	vector <string> getAllTestQuestionsSpecificTheme(string nameOfTheme);
 	vector <string> getAllNormalModels(string nameOfSubject);
+	vector <string> getAllTestModels(string nameOfSubject);
 	vector <string> getAllQuestionsOfSpecificNormalModel(string idModel);
+	vector <string> getAllQuestionsOfSpecificTestModel(string idModel);
 };
 
