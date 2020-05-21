@@ -43,6 +43,7 @@ private:
 	const string selectName = "select nombre from ";
 	const string selectSubject = "select asignaturas.nombre_asign from ";
 	const string selectThemes = "select nombre from ";
+	const string selectAdminDepart = "select admin_depart from ";
 	const string select_id_question_specific_subject_normal_questions = "select id, pregunta from ";
 	const string select_id_question_specific_subject_test_questions = "select id, pregunta , respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta from ";
 	const string selectAllNormalDataModels = "select id, nombre_modelo, descripcion, autor_email from ";
@@ -82,6 +83,7 @@ public:
 	string insertNewTestModel(vector <string> allDataTestModel);
 	string nameQuery(string emailParam);
 	string select(string value);
+	string checkUserPermissionsToChange(string emailParam);
 
 	vector <string> getAllNamesOfSubjects(string emailParam);
 	vector <string> getAllNamesOfThemes(string subjectParam);

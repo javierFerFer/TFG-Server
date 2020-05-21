@@ -680,6 +680,25 @@ void SocketObject::launchReadThread() {
 								sendMoreSingleDataMessage("allTestModelQuestionsList", allQuestions, pCipher);
 							}
 						}
+					} else if (title.compare("checkPermissions") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("checkPermissions") != 0) {
+
+								string checkPermissionsOfUser = dataBaseConnection.checkUserPermissionsToChange(dataOfMessage);
+								if (checkPermissionsOfUser.length() != 0) {
+									sendSigleMessage("statusPermissionsOfChanges", checkPermissionsOfUser, pCipher);
+								} else {
+								// No tiene permisos para los cambios
+									sendSigleMessage("statusPermissionsOfChanges", "withOutPermissions", pCipher);
+								}
+								
+							}
+						}
 					}
 
 

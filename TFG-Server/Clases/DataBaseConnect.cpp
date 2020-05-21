@@ -549,6 +549,32 @@ string DataBaseConnect::select(string value) {
     }
 }
 
+string DataBaseConnect::checkUserPermissionsToChange(string emailParam) {
+
+    string query = selectAdminDepart + teachersTableName + " where email = admin_depart";
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    if ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                return row[i];
+            } else {
+                return "";
+            }
+        }
+    } else {
+        return "";
+    }
+
+}
+
 vector<string> DataBaseConnect::getAllNamesOfSubjects(string emailParam) {
     vector <string> allSubjects;
 
