@@ -551,7 +551,8 @@ string DataBaseConnect::select(string value) {
 
 string DataBaseConnect::checkUserPermissionsToChange(string emailParam) {
 
-    string query = selectAdminDepart + teachersTableName + " where email = admin_depart";
+    string query = selectAdminDepart + teachersTableName + " where email = admin_depart AND email = '" + emailParam + "'";
+
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
@@ -652,6 +653,38 @@ vector<string> DataBaseConnect::getAllNormalQuestions(string nameOfSubjectParam)
     return allQuestionsSpecificSubject;
 }
 
+vector<string> DataBaseConnect::getAllNormalQuestionsForModification(string emailUser) {
+    vector <string> allNormalSpecificModifications;
+    vector <string> allNormalQuestionsID;
+    vector <string> allNamesOfThemes;
+
+    vector <string> allSubjectsOfUser = getAllNamesOfSubjects(emailUser);
+
+    for (int counterOfSubjects = 0; counterOfSubjects < allSubjectsOfUser.size(); counterOfSubjects++) {
+        vector <string> NamesOfThemes = getAllNamesOfThemes(allSubjectsOfUser[counterOfSubjects]);
+        allNamesOfThemes.insert(allNamesOfThemes.end(), NamesOfThemes.begin(), NamesOfThemes.end());
+    }
+
+    for (int counterOfThemes = 0; counterOfThemes < allNamesOfThemes.size(); counterOfThemes++) {
+        vector <string> normalQuesions = getAllNormalQuestionsSpecificThemeWithoutName(allNamesOfThemes[counterOfThemes]);
+        allNormalQuestionsID.insert(allNormalQuestionsID.end(), normalQuesions.begin(), normalQuesions.end());
+    }
+
+    for (int idCounter = 0; idCounter < allNormalQuestionsID.size(); idCounter++) {
+        vector <string> normalModifications = getAllNormalModificationsQuestions(allNormalQuestionsID[idCounter]);
+        allNormalSpecificModifications.insert(allNormalSpecificModifications.end(), normalModifications.begin(), normalModifications.end());
+    }
+
+    for (int i = 0; i < allNormalSpecificModifications.size(); i++) {
+        cout << "acaaa " << allNormalSpecificModifications[i] << endl;
+    }
+
+    // AQUIIIIIIIIIIIIIIIII
+
+    return allNormalSpecificModifications;
+
+}
+
 vector<string> DataBaseConnect::getAllTestQuestions(string nameOfSubjectParam) {
     vector <string> allQuestionsSpecificSubject;
 
@@ -683,6 +716,31 @@ vector<string> DataBaseConnect::getAllNormalQuestionsSpecificTheme(string nameOf
     vector <string> allNormalQuestionsSpecificTheme;
 
     string namesQuery = select_id_question_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente = ( " + select_id_tema_reverse + themesTableName + " where nombre = '" + nameOfTheme + "')";
+    cout << "Consulta" << namesQuery << endl;
+
+    mysql_query(conn, namesQuery.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allNormalQuestionsSpecificTheme.push_back(row[i]);
+            }
+        }
+    }
+
+    return allNormalQuestionsSpecificTheme;
+}
+
+vector<string> DataBaseConnect::getAllNormalQuestionsSpecificThemeWithoutName(string nameOfTheme) {
+
+    vector <string> allNormalQuestionsSpecificTheme;
+
+    string namesQuery = select_id_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente = ( " + select_id_tema_reverse + themesTableName + " where nombre = '" + nameOfTheme + "')";
     cout << "Consulta" << namesQuery << endl;
 
     mysql_query(conn, namesQuery.data());
@@ -810,4 +868,25 @@ vector<string> DataBaseConnect::getAllQuestionsOfSpecificTestModel(string idMode
         }
     }
     return allDataTestModelsQuestions;
+}
+
+vector<string> DataBaseConnect::getAllNormalModificationsQuestions(string idReference) {
+    vector <string> allDataNormalModifications;
+
+    string query = select_id_id_reference_question_normal + normal_question_modification_table + " where id_reference = " + idReference;
+
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allDataNormalModifications.push_back(row[i]);
+            }
+        }
+    }
+    return allDataNormalModifications;
 }

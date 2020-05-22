@@ -385,6 +385,25 @@ void SocketObject::launchReadThread() {
 								
 							}
 						}
+					} else if (title.compare("getAllNormalQuestionsForMod") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllNormalQuestionsForMod") != 0) {
+
+								vector <string> allQuestionsForModification = dataBaseConnection.getAllNormalQuestionsForModification(dataOfMessage);
+								// Según la longitud del vector, 
+								if (allQuestionsForModification.size() == 0) {
+									sendSigleMessage("normalForModificationQuestionsNotFound", "", pCipher);
+								} else {
+									sendMoreSingleDataMessage("allNormalForModificationQuestions", allQuestionsForModification, pCipher);
+								}
+
+							}
+						}
 					} else if (title.compare("addNewNormalModification") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {
