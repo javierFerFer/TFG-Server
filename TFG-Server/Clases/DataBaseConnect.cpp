@@ -654,7 +654,7 @@ vector<string> DataBaseConnect::getAllNormalQuestions(string nameOfSubjectParam)
 }
 
 vector<string> DataBaseConnect::getAllNormalQuestionsForModification(string emailUser) {
-    vector <string> allNormalSpecificModifications;
+    vector <string> allData;
     vector <string> allNormalQuestionsID;
     vector <string> allNamesOfThemes;
 
@@ -670,18 +670,13 @@ vector<string> DataBaseConnect::getAllNormalQuestionsForModification(string emai
         allNormalQuestionsID.insert(allNormalQuestionsID.end(), normalQuesions.begin(), normalQuesions.end());
     }
 
-    for (int idCounter = 0; idCounter < allNormalQuestionsID.size(); idCounter++) {
-        vector <string> normalModifications = getAllNormalModificationsQuestions(allNormalQuestionsID[idCounter]);
-        allNormalSpecificModifications.insert(allNormalSpecificModifications.end(), normalModifications.begin(), normalModifications.end());
+    for (int counterQuestions = 0; counterQuestions < allNormalQuestionsID.size(); counterQuestions++) {
+        vector <string> tempData = getAllNormalModificationsQuestions(allNormalQuestionsID[counterQuestions]);
+        allData.insert(allData.end(), tempData.begin(), tempData.end());
+
     }
 
-    for (int i = 0; i < allNormalSpecificModifications.size(); i++) {
-        cout << "acaaa " << allNormalSpecificModifications[i] << endl;
-    }
-
-    // AQUIIIIIIIIIIIIIIIII
-
-    return allNormalSpecificModifications;
+    return allData;
 
 }
 
@@ -873,7 +868,7 @@ vector<string> DataBaseConnect::getAllQuestionsOfSpecificTestModel(string idMode
 vector<string> DataBaseConnect::getAllNormalModificationsQuestions(string idReference) {
     vector <string> allDataNormalModifications;
 
-    string query = select_id_id_reference_question_normal + normal_question_modification_table + " where id_reference = " + idReference;
+    string query = select_id_id_reference_question_normal + normal_question_modification_table + "left join preguntas_tipo_normal on modificaciones_pendientes_normal.id_reference = preguntas_tipo_normal.id where preguntas_tipo_normal.id = " + idReference;
 
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
