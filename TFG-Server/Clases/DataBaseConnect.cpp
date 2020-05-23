@@ -408,6 +408,139 @@ void DataBaseConnect::activeNormalModification(string idNormalModification) {
     }
 }
 
+void DataBaseConnect::deleteNormalModification(string idNormalModification) {
+    try {
+        string deleteModification = "delete from " + normal_question_modification_table + " where id = " + idNormalModification;
+        mysql_query(conn, deleteModification.data());
+    } catch (...) {
+
+    }
+}
+
+void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
+    try {
+        string internalID;
+        string lengthJSONModels;
+
+        string query = select_id_reference + normal_question_modification_table + " where id = " + idNormalModification;
+                
+        mysql_query(conn, query.data());
+        res = mysql_store_result(conn);
+
+        // get the number of the columns
+        int num_fields = mysql_num_fields(res);
+        if ((row = mysql_fetch_row(res))) {
+            for (int i = 0; i < num_fields; i++) {
+                // Make sure row[i] is valid!
+                if (row[i] != NULL) {
+                    internalID = row[i];
+                } else {
+                    internalID = "0";
+                }
+            }
+        }
+
+        if(internalID.compare("0") != 0){
+            string removeAllNormalModificationOfQuestions = "delete from " + normal_question_modification_table + " where id_reference = " + internalID;
+
+            mysql_query(conn, removeAllNormalModificationOfQuestions.data());
+            res = mysql_store_result(conn);
+
+            string getLengthJSON = selectJsonLength + "modelo_perteneciente) from " + normal_question_table + " where id = " + internalID;
+
+            mysql_query(conn, getLengthJSON.data());
+            res = mysql_store_result(conn);
+
+            // get the number of the columns
+            num_fields = mysql_num_fields(res);
+            if ((row = mysql_fetch_row(res))) {
+                for (int i = 0; i < num_fields; i++) {
+                    // Make sure row[i] is valid!
+                    if (row[i] != NULL) {
+                        lengthJSONModels = row[i];
+                    } else {
+                        lengthJSONModels = "0";
+                    }
+                }
+            }
+            if (lengthJSONModels.compare("0") != 0) {
+                vector <string> allNumbersOfModels;
+                vector <string> allNumbersOfModelsToDelete;
+
+                for (int counterOfModels = 0; counterOfModels < stoi(lengthJSONModels); counterOfModels++) {
+                    string getNumberOfModel = selectJsonExtract + "modelo_perteneciente, '$[" + to_string(counterOfModels) + "]') from " + normal_question_table +  " where id = " + internalID;
+
+                    mysql_query(conn, getNumberOfModel.data());
+                    res = mysql_store_result(conn);
+
+                    // get the number of the columns
+                    num_fields = mysql_num_fields(res);
+                    if ((row = mysql_fetch_row(res))) {
+                        for (int i = 0; i < num_fields; i++) {
+                            if (row[i] != NULL) {
+                                string tempData = row[i];
+                                tempData = tempData.substr(1, tempData.size() - 2);
+                                allNumbersOfModels.push_back(tempData);
+                            }
+                        }
+                    }
+                }
+
+                // Borrado de la pregunta normal
+                string deleteNormalQuest = "delete from " + normal_question_table + " where id = " + internalID;
+
+                
+                mysql_query(conn, deleteNormalQuest.data());
+                res = mysql_store_result(conn);
+
+                // Comprobación de que el modelo/s a los que pertenecía dicha pregunta tienen al menos una pregunta asociada
+
+                for (int counterMod = 0; counterMod < allNumbersOfModels.size(); counterMod++) {
+                    string getCountOfQuestions = selectCoutID + normal_question_table +  " where JSON_CONTAINS(modelo_perteneciente, " + "'" + '"' + allNumbersOfModels[counterMod] + '"' + "'" + ")";
+
+                    cout << "CONSULTA " << getCountOfQuestions << endl;
+
+                    mysql_query(conn, getCountOfQuestions.data());
+                    res = mysql_store_result(conn);
+
+                    // get the number of the columns
+                    num_fields = mysql_num_fields(res);
+                    if ((row = mysql_fetch_row(res))) {
+                        for (int i = 0; i < num_fields; i++) {
+                            string tempData = row[i];
+                            if (tempData.compare("0") == 0) {
+                                // Borrado del modelo
+                                allNumbersOfModelsToDelete.push_back(allNumbersOfModels[counterMod]);
+                            }
+                        }
+                    }
+                }
+
+                if (allNumbersOfModels.size() != 0) {
+                    for (int counterOfModelsToDelete = 0; counterOfModelsToDelete < allNumbersOfModelsToDelete.size(); counterOfModelsToDelete++) {
+                        // Borrado de todos los modelos normales sin preguntas asociadas
+                        string deleteQuery = "delete from modelo_normal where id = " + allNumbersOfModelsToDelete[counterOfModelsToDelete];
+
+                        mysql_query(conn, deleteQuery.data());
+                        res = mysql_store_result(conn);
+                    }
+                }
+
+            } else {
+            // Borrado de la pregunta en base a su ID
+                string deleteNormalQuest = "delete from " + normal_question_table + " where id = " + internalID;
+
+
+                mysql_query(conn, deleteNormalQuest.data());
+                res = mysql_store_result(conn);
+            }
+        }
+
+    } catch (...) {
+
+    }
+}
+
 string DataBaseConnect::insertNewNormalModel(vector<string> allDataNormalModel) {
     try {
         string max_ID;

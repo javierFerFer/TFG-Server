@@ -413,7 +413,28 @@ void SocketObject::launchReadThread() {
 
 							if (dataOfMessage.compare("updateNormalModification") != 0) {
 								dataBaseConnection.activeNormalModification(dataOfMessage);
-								//sendMoreSingleDataMessage("allThemesNames", allThemes, pCipher);
+							}
+						}
+					} else if (title.compare("deleteNormalModification") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("deleteNormalModification") != 0) {
+								dataBaseConnection.deleteNormalModification(dataOfMessage);
+							}
+						}
+					} else if (title.compare("deleteNormalQuestion") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("deleteNormalQuestion") != 0) {
+								dataBaseConnection.deleteNormalQuestion(dataOfMessage);
 							}
 						}
 					} else if (title.compare("addNewNormalModification") == 0) {
@@ -886,7 +907,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 	valueOfQuestionString.append(")");
 
 
-	for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 2) - 1; counterPages++) {
+	for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 2); counterPages++) {
 		PdfPage* pPage;
 		const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo
 		PdfFont* pFont = document.CreateFont("Arial"); // LiberationSerif has polish characters 
@@ -919,7 +940,39 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 			painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 270.0, 300.0, 100.0, subjectPDF);
 
 			externalCounter++;
+			if (((allQuestions.size() - 1) / 2) == 1) {
+			int index = externalCounter;
 
+			double size = 350;
+
+			pFont->SetFontSize(12);
+			tempStringAppend = "";
+			tempStringAppend.append(allQuestions[externalCounter]);
+			tempStringAppend.append(valueOfQuestionString);
+
+			tempString = tempStringAppend.c_str();
+
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0);
+			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0, tempPString);
+
+
+			pFont->SetFontSize(12);
+			index = externalCounter + 2;
+			if (index == allQuestions.size()) {
+				break;
+			}
+			tempStringAppend = "";
+
+			tempStringAppend.append(allQuestions[externalCounter + 2]);
+			tempStringAppend.append(valueOfQuestionString);
+
+			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0);
+			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0, tempPStringSecondQuestion);
+
+			externalCounter += 2;
+			}
 		} else if (counterPages % 2 == 0) {
 
 			int index = externalCounter + 2;
@@ -1044,7 +1097,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 	valueOfQuestionString.append(valueOfQuestionRounded);
 	valueOfQuestionString.append(")");
 
-
+	// Revisar ese -1 al final
 	for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 7) - 1; counterPages++) {
 		PdfPage* pPage;
 		const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo

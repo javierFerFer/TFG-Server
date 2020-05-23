@@ -37,6 +37,9 @@ private:
 
 	// All MySQL sentences
 	const string selectAll = "select * from ";
+	const string selectCoutID = "select count(id) from ";
+	const string selectJsonLength = "select JSON_LENGTH (";
+	const string selectJsonExtract = "select JSON_EXTRACT (";
 	const string select_id_tema = "select nombre from ";
 	const string select_name_normal_model = "select nombre_modelo from ";
 	const string select_id_preguta_normal = "select id from ";
@@ -52,6 +55,7 @@ private:
 	const string select_id_question_specific_normal_model = "select id, pregunta from ";
 	const string select_cod_asign = "select cod_asign from ";
 	const string select_id_tema_reverse = "select id_tema from ";
+	const string select_id_reference = "select id_reference from ";
 	const string select_max_id_theme = "select max(id_tema) from ";
 	const string select_max_id_question = "select max(id) from ";
 
@@ -80,7 +84,10 @@ public:
 	bool insertNewTestModification(vector <string> allDataNewModification);
 	bool updateNormalQuestionsNewModel(vector <string> allQuestionsNewNormalModel);
 	bool updateTestQuestionsNewModel(vector <string> allQuestionsNewTestModel);
+
 	void activeNormalModification(string idNormalModification);
+	void deleteNormalModification(string idNormalModification);
+	void deleteNormalQuestion(string idNormalModification);
 
 	string insertNewNormalModel(vector <string> allDataNormalModel);
 	string insertNewTestModel(vector <string> allDataTestModel);
