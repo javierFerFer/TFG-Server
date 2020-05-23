@@ -404,6 +404,18 @@ void SocketObject::launchReadThread() {
 
 							}
 						}
+					} else if (title.compare("updateNormalModification") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("updateNormalModification") != 0) {
+								dataBaseConnection.activeNormalModification(dataOfMessage);
+								//sendMoreSingleDataMessage("allThemesNames", allThemes, pCipher);
+							}
+						}
 					} else if (title.compare("addNewNormalModification") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {

@@ -80,6 +80,7 @@ public:
 	bool insertNewTestModification(vector <string> allDataNewModification);
 	bool updateNormalQuestionsNewModel(vector <string> allQuestionsNewNormalModel);
 	bool updateTestQuestionsNewModel(vector <string> allQuestionsNewTestModel);
+	void activeNormalModification(string idNormalModification);
 
 	string insertNewNormalModel(vector <string> allDataNormalModel);
 	string insertNewTestModel(vector <string> allDataTestModel);

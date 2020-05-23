@@ -396,6 +396,18 @@ bool DataBaseConnect::updateTestQuestionsNewModel(vector<string> allQuestionsNew
     }
 }
 
+void DataBaseConnect::activeNormalModification(string idNormalModification) {
+    try {
+        string updateQuery = "update " + normal_question_table + " left join " + normal_question_modification_table + " on preguntas_tipo_normal.id = modificaciones_pendientes_normal.id_reference set preguntas_tipo_normal.pregunta = modificaciones_pendientes_normal.pregunta where modificaciones_pendientes_normal.id = " + idNormalModification;
+        mysql_query(conn, updateQuery.data());
+
+        string deleteModification = "delete from " + normal_question_modification_table + " where id = " + idNormalModification;
+        mysql_query(conn, deleteModification.data());
+    } catch (...) {
+        
+    }
+}
+
 string DataBaseConnect::insertNewNormalModel(vector<string> allDataNormalModel) {
     try {
         string max_ID;
