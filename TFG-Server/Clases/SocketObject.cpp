@@ -448,6 +448,17 @@ void SocketObject::launchReadThread() {
 								dataBaseConnection.activeNormalModification(dataOfMessage);
 							}
 						}
+					} else if (title.compare("updateTestModification") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("updateTestModification") != 0) {
+								dataBaseConnection.activeTestModification(dataOfMessage);
+							}
+						}
 					} else if (title.compare("deleteNormalModification") == 0) {
 						for (auto& element : jsonObjT) {
 
@@ -457,6 +468,17 @@ void SocketObject::launchReadThread() {
 
 							if (dataOfMessage.compare("deleteNormalModification") != 0) {
 								dataBaseConnection.deleteNormalModification(dataOfMessage);
+							}
+						}
+					} else if (title.compare("deleteTestModification") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("deleteTestModification") != 0) {
+								dataBaseConnection.deleteTestModification(dataOfMessage);
 							}
 						}
 					} else if (title.compare("deleteNormalQuestion") == 0) {
@@ -470,6 +492,18 @@ void SocketObject::launchReadThread() {
 								dataBaseConnection.deleteNormalQuestion(dataOfMessage);
 							}
 						}
+					} else if (title.compare("deleteTestQuestion") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("deleteTestQuestion") != 0) {
+								dataBaseConnection.deleteTestQuestion(dataOfMessage);
+							}
+						}
+					
 					} else if (title.compare("addNewNormalModification") == 0) {
 						for (auto& data : jsonObjT) {
 							if (data.size() != 1) {

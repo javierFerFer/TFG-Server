@@ -51,7 +51,7 @@ private:
 	const string select_id_specific_subject_normal_questions = "select id from ";
 	const string select_id_question_specific_subject_test_questions = "select id, pregunta , respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta from ";
 	const string select_id_id_reference_question_normal = "select modificaciones_pendientes_normal.id, preguntas_tipo_normal.pregunta, modificaciones_pendientes_normal.pregunta from ";
-	const string select_id_id_reference_question_test = "select id, id_reference , pregunta , respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta from ";
+	const string select_id_id_reference_question_test = "select id, id_reference, pregunta , respuesta_A, respuesta_B, respuesta_C, respuesta_D, respuesta_correcta from ";
 	const string selectAllNormalDataModels = "select id, nombre_modelo, descripcion, autor_email from ";
 	const string select_id_question_specific_normal_model = "select id, pregunta from ";
 	const string select_cod_asign = "select cod_asign from ";
@@ -87,8 +87,11 @@ public:
 	bool updateTestQuestionsNewModel(vector <string> allQuestionsNewTestModel);
 
 	void activeNormalModification(string idNormalModification);
+	void activeTestModification(string idTestModification);
 	void deleteNormalModification(string idNormalModification);
+	void deleteTestModification(string idTestModification);
 	void deleteNormalQuestion(string idNormalModification);
+	void deleteTestQuestion(string idTestModification);
 
 	string insertNewNormalModel(vector <string> allDataNormalModel);
 	string insertNewTestModel(vector <string> allDataTestModel);
