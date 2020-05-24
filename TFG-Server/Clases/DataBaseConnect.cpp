@@ -752,7 +752,7 @@ vector<string> DataBaseConnect::getAllNamesOfThemes(string subjectParam) {
     vector <string> allThemes;
 
     string namesQuery = selectThemes + themesTableName + "where cod_asign = ( "  + select_cod_asign + subjectsTableNameWithOutSpaces + " where nombre_asign = '" + subjectParam + "')";
-    cout << "Consulta " << namesQuery << endl;
+    cout << "Consulta pipo " << namesQuery << endl;
     
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
@@ -825,6 +825,34 @@ vector<string> DataBaseConnect::getAllNormalQuestionsForModification(string emai
 
 }
 
+vector<string> DataBaseConnect::getAllTestQuestionsForModification(string emailUser) {
+    vector <string> allData;
+    vector <string> allTestQuest;
+    vector <string> allNamesOfThemes;
+    vector <string> allSubjectsOfUser = getAllNamesOfSubjects(emailUser);
+
+
+    for (int counterOfSubjects = 0; counterOfSubjects < allSubjectsOfUser.size(); counterOfSubjects++) {
+        vector <string> NamesOfThemes = getAllNamesOfThemes(allSubjectsOfUser[counterOfSubjects]);
+        allNamesOfThemes.insert(allNamesOfThemes.end(), NamesOfThemes.begin(), NamesOfThemes.end());
+    }
+
+    // ID de preguntas que tienen al menos una modificación pendiente
+    for (int counterOfThemes = 0; counterOfThemes < allNamesOfThemes.size(); counterOfThemes++) {
+        vector <string> testQuesions = getAllTestQuestionsSpecificThemeWithoutName(allNamesOfThemes[counterOfThemes]);
+        allTestQuest.insert(allTestQuest.end(), testQuesions.begin(), testQuesions.end());
+    }
+
+    for (int counterQuestions = 0; counterQuestions < allTestQuest.size(); counterQuestions++) {
+        vector <string> tempData = getAllTestQuestionsFromID(allTestQuest[counterQuestions]);
+        allData.insert(allData.end(), tempData.begin(), tempData.end());
+
+    }
+
+    return allData;
+
+}
+
 vector<string> DataBaseConnect::getAllTestQuestions(string nameOfSubjectParam) {
     vector <string> allQuestionsSpecificSubject;
 
@@ -849,6 +877,31 @@ vector<string> DataBaseConnect::getAllTestQuestions(string nameOfSubjectParam) {
 
 
     return allQuestionsSpecificSubject;
+}
+
+vector<string> DataBaseConnect::getAllTestQuestionsFromID(string id) {
+    vector <string> allTestQuestions;
+
+    string query = select_id_question_specific_subject_test_questions + test_question_table + "where id = " + id;
+    cout << "Consulta  BUENA " << query << endl;
+
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allTestQuestions.push_back(row[i]);
+            }
+        }
+    }
+
+
+    return allTestQuestions;
 }
 
 vector<string> DataBaseConnect::getAllNormalQuestionsSpecificTheme(string nameOfTheme) {
@@ -882,6 +935,29 @@ vector<string> DataBaseConnect::getAllNormalQuestionsSpecificThemeWithoutName(st
 
     string namesQuery = select_id_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente = ( " + select_id_tema_reverse + themesTableName + " where nombre = '" + nameOfTheme + "')";
     cout << "Consulta" << namesQuery << endl;
+
+    mysql_query(conn, namesQuery.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    // Fetch all rows from the result
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allNormalQuestionsSpecificTheme.push_back(row[i]);
+            }
+        }
+    }
+
+    return allNormalQuestionsSpecificTheme;
+}
+
+vector<string> DataBaseConnect::getAllTestQuestionsSpecificThemeWithoutName(string nameOfTheme) {
+    vector <string> allNormalQuestionsSpecificTheme;
+
+    string namesQuery = "select DISTINCT preguntas_tipo_test.id from " + test_question_table + " left join " + test_question_modification_table + " on preguntas_tipo_test.id = modificaciones_pendientes_test.id_reference where preguntas_tipo_test.tema_perteneciente = (select id_tema from temas where nombre = '" + nameOfTheme + "') AND preguntas_tipo_test.id = modificaciones_pendientes_test.id_reference";
 
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
@@ -1029,4 +1105,25 @@ vector<string> DataBaseConnect::getAllNormalModificationsQuestions(string idRefe
         }
     }
     return allDataNormalModifications;
+}
+
+vector<string> DataBaseConnect::getAllTestModForIdReference(string idReference) {
+    vector <string> allDataTestModifications;
+
+    string query = select_id_id_reference_question_test + test_question_modification_table + " where id_reference = " + idReference;
+
+    mysql_query(conn, query.data());
+    res = mysql_store_result(conn);
+
+    // get the number of the columns
+    int num_fields = mysql_num_fields(res);
+    while ((row = mysql_fetch_row(res))) {
+        for (int i = 0; i < num_fields; i++) {
+            // Make sure row[i] is valid!
+            if (row[i] != NULL) {
+                allDataTestModifications.push_back(row[i]);
+            }
+        }
+    }
+    return allDataTestModifications;
 }

@@ -404,6 +404,39 @@ void SocketObject::launchReadThread() {
 
 							}
 						}
+					} else if (title.compare("getAllTestQuestionsForMod") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllTestQuestionsForMod") != 0) {
+
+								vector <string> allQuestionsForModification = dataBaseConnection.getAllTestQuestionsForModification(dataOfMessage);
+								// Según la longitud del vector, 
+								if (allQuestionsForModification.size() == 0) {
+									sendSigleMessage("TestForModificationQuestionsNotFound", "", pCipher);
+								} else {
+									sendMoreSingleDataMessage("allTestForModificationQuestions", allQuestionsForModification, pCipher);
+								}
+
+							}
+						}
+					} else if (title.compare("getAllTestModifications") == 0) {
+						for (auto& element : jsonObjT) {
+
+							string dataOfMessage = element;
+							// Limpieza de '"' en el título recibido
+							dataOfMessage.erase(remove(dataOfMessage.begin(), dataOfMessage.end(), '"'), dataOfMessage.end());
+
+							if (dataOfMessage.compare("getAllTestModifications") != 0) {
+
+								vector <string> allTestModifications = dataBaseConnection.getAllTestModForIdReference(dataOfMessage);
+								// Según la longitud del vector, 
+								sendMoreSingleDataMessage("allTestModifications", allTestModifications, pCipher);
+							}
+						}
 					} else if (title.compare("updateNormalModification") == 0) {
 						for (auto& element : jsonObjT) {
 
@@ -1098,7 +1131,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 	valueOfQuestionString.append(")");
 
 	// Revisar ese -1 al final
-	for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 7) - 1; counterPages++) {
+	for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 7); counterPages++) {
 		PdfPage* pPage;
 		const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo
 		PdfFont* pFont = document.CreateFont("Arial"); // LiberationSerif has polish characters 
@@ -1123,6 +1156,45 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 				painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 180.0, 300.0, 100.0, subjectPDF);
 
 				externalCounter++;
+				if (((allQuestions.size() - 1) / 7) == 1) {
+					int index = externalCounter;
+
+					double size = 350;
+
+
+					pFont->SetFontSize(12);
+					tempStringAppend = "";
+					tempStringAppend.append("Pregunta: ");
+					tempStringAppend.append(allQuestions[externalCounter]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("\n");
+					tempStringAppend.append("A    ");
+					tempStringAppend.append(allQuestions[externalCounter + 1]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("B    ");
+					tempStringAppend.append(allQuestions[externalCounter + 2]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("C    ");
+					tempStringAppend.append(allQuestions[externalCounter + 3]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("D    ");
+					tempStringAppend.append(allQuestions[externalCounter + 4]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("\n");
+					if (generateWithNotAnswer) {
+						tempStringAppend.append("Opción correcta:   ");
+						tempStringAppend.append(allQuestions[externalCounter + 5]);
+						tempStringAppend.append("\n");
+					}
+					tempStringAppend.append(valueOfQuestionString);
+
+					tempString = tempStringAppend.c_str();
+
+					PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+					painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0);
+					painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0, tempPString);
+				}
+
 			} else {
 				// Primera página en ser credada
 				pPage = document.CreatePage(PdfPage::CreateStandardPageSize(ePdfPageSize_A4));
@@ -1149,6 +1221,45 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 				painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 230.0, 300.0, 100.0);
 				painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 230.0, 300.0, 100.0, subjectPDF);
 				externalCounter++;
+
+				if (((allQuestions.size() - 1) / 7) == 1) {
+					int index = externalCounter;
+
+					double size = 350;
+
+
+					pFont->SetFontSize(12);
+					tempStringAppend = "";
+					tempStringAppend.append("Pregunta: ");
+					tempStringAppend.append(allQuestions[externalCounter]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("\n");
+					tempStringAppend.append("A    ");
+					tempStringAppend.append(allQuestions[externalCounter + 1]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("B    ");
+					tempStringAppend.append(allQuestions[externalCounter + 2]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("C    ");
+					tempStringAppend.append(allQuestions[externalCounter + 3]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("D    ");
+					tempStringAppend.append(allQuestions[externalCounter + 4]);
+					tempStringAppend.append("\n");
+					tempStringAppend.append("\n");
+					if (generateWithNotAnswer) {
+						tempStringAppend.append("Opción correcta:   ");
+						tempStringAppend.append(allQuestions[externalCounter + 5]);
+						tempStringAppend.append("\n");
+					}
+					tempStringAppend.append(valueOfQuestionString);
+
+					tempString = tempStringAppend.c_str();
+
+					PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+					painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0);
+					painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0, tempPString);
+				}
 			}
 			
 
