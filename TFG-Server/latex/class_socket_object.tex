@@ -1,0 +1,375 @@
+\hypertarget{class_socket_object}{}\doxysection{Referencia de la Clase Socket\+Object}
+\label{class_socket_object}\index{SocketObject@{SocketObject}}
+
+
+Clase \mbox{\hyperlink{class_socket_object}{Socket\+Object}}, gestiona cada hilo de conexión al servidor.~\newline
+ \mbox{\hyperlink{class_socket_object}{Socket\+Object}} class, manages each connection thread to the server.  
+
+
+
+
+{\ttfamily \#include $<$Socket\+Object.\+h$>$}
+
+\doxysubsection*{Métodos públicos}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_socket_object_a679dedf0d19798216cf57b396c0d5308}{Socket\+Object}} (sockaddr\+\_\+in address, int send\+Receive\+Data, vector$<$ thread $>$ \&all\+Sockets\+Param)
+\begin{DoxyCompactList}\small\item\em Constructor de la clase.~\newline
+ Constructor of the class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_acc3a911fe7c7cbdbdcc93784340e923a}{launch\+Read\+Thread}} ()
+\begin{DoxyCompactList}\small\item\em Inicia el hilo para procesar los datos de la conexión.~\newline
+ Initialize the thread to process al data of connection. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_ad87f88ec895570762d729d8903b2466a}{time\+Out\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Comprueba la inactividad del usuario, si el usuario pasa el límite establecido, se cierra la conexión.~\newline
+ Check the inactivity of user, if the user pass the limit of the time, his connection will be closed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_a5ce2f5967f64f7c8f8d67ff531290707}{remove\+Thread}} (thread\+::id id)
+\begin{DoxyCompactList}\small\item\em Borra el hilo concurrente de la lista de conexiones en base a su ID.~\newline
+ Delete concurrent thread of list with all connections based on his ID. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_a2c2f9640a426fa19dd013e199d6c49e3}{spawn}} ()
+\begin{DoxyCompactList}\small\item\em Lanza el hilo Time\+Out como hilo independiente.~\newline
+ Throw time\+Out thread. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_a00fdedde6438ada60f97179eee490e02}{send\+Sigle\+Message}} (string title\+Param, string message\+Param, Poco\+::\+Crypto\+::\+Cipher $\ast$cipher\+Param)
+\begin{DoxyCompactList}\small\item\em Permite enviar un objeto \mbox{\hyperlink{class_json_single_data}{Json\+Single\+Data}} encriptado en A\+ES 256-\/C\+BC.~\newline
+ Allow to send \mbox{\hyperlink{class_json_single_data}{Json\+Single\+Data}} object encrypted with A\+E\+S-\/256-\/\+C\+BC key. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_ad582c7241d6e34cfccf8070efe16525f}{send\+More\+Single\+Data\+Message}} (string title\+Param, vector$<$ string $>$message\+Param, Poco\+::\+Crypto\+::\+Cipher $\ast$cipher\+Param)
+\begin{DoxyCompactList}\small\item\em Permite enviar un objeto \mbox{\hyperlink{class_json_object_array}{Json\+Object\+Array}} encriptado en A\+ES 256-\/C\+BC.~\newline
+ Allow to send \mbox{\hyperlink{class_json_object_array}{Json\+Object\+Array}} object encrypted with A\+E\+S-\/256-\/\+C\+BC key. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_af0d94867be5ea1eed4b7aeab62af3609}{generate\+Normal\+Exam}} (vector$<$ string $>$ all\+Questions)
+\begin{DoxyCompactList}\small\item\em Permite la generación de examenes de tipo normal.~\newline
+ Allow generate normal exams. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_object_ab426ef5d98779063e5521ee953668b3a}{generate\+Test\+Exam}} (vector$<$ string $>$ all\+Questions, bool generate\+With\+Not\+Answer)
+\begin{DoxyCompactList}\small\item\em Permite generar exámenes de tipo test.~\newline
+ Allow to generate test exams. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_socket_object_a513d232f3214a4a71877460f7fd842ad}{generate\+Passwd}} ()
+\begin{DoxyCompactList}\small\item\em Genera la clase A\+E\+S-\/256-\/\+C\+BC de 32 dígitos usada en la comunicación cliente-\/servidor.~\newline
+ Generate A\+E\+S-\/256-\/\+C\+BC key with 32 digits that is used in the client-\/server communication. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_socket_object_a8fd218f63f9228e795f4a6d00c539539}{get\+Result\+Of\+Commands}} (string console\+Command)
+\begin{DoxyCompactList}\small\item\em Obtiene el resultado de ejecutar un comando.~\newline
+ Get result of execute a command. \end{DoxyCompactList}\item 
+vector$<$ string $>$ \mbox{\hyperlink{class_socket_object_a2850ca8cfb5b4cb7f1558a40df23897a}{split\+Line\+To\+Line}} (string result\+Of\+Command)
+\begin{DoxyCompactList}\small\item\em Genera un listado de linneas obtenidas al ejecutar un comando.~\newline
+ Generate a list of lines obtained by executing a command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Atributos públicos}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ thread $>$ \& \mbox{\hyperlink{class_socket_object_a4510b95d0e38ca03b251c72a8f8663db}{all\+Sockets}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Descripción detallada}
+Clase \mbox{\hyperlink{class_socket_object}{Socket\+Object}}, gestiona cada hilo de conexión al servidor.~\newline
+ \mbox{\hyperlink{class_socket_object}{Socket\+Object}} class, manages each connection thread to the server. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentación del constructor y destructor}
+\mbox{\Hypertarget{class_socket_object_a679dedf0d19798216cf57b396c0d5308}\label{class_socket_object_a679dedf0d19798216cf57b396c0d5308}} 
+\index{SocketObject@{SocketObject}!SocketObject@{SocketObject}}
+\index{SocketObject@{SocketObject}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{SocketObject()}{SocketObject()}}
+{\footnotesize\ttfamily Socket\+Object\+::\+Socket\+Object (\begin{DoxyParamCaption}\item[{sockaddr\+\_\+in}]{address,  }\item[{int}]{send\+Receive\+Data,  }\item[{vector$<$ thread $>$ \&}]{all\+Sockets\+Param }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructor de la clase.~\newline
+ Constructor of the class. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}[1]{Parámetros}
+ & {\em address,sockaddr\+\_\+in} & Estructura de socket.~\newline
+ Structure of socket. ~\newline
+ \\
+\hline
+ & {\em send\+Receive\+Data,int} & Valor del socket -\/-\/$>$ 0 = no funciona, 1 = funcionando.~\newline
+ Value of socket -\/-\/$>$ 0 = don\textquotesingle{}t work, 1 = working. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em all\+Sockets\+Param,vector$<$thread$>$} & Hilo socket.~\newline
+ socket thread. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Documentación de las funciones miembro}
+\mbox{\Hypertarget{class_socket_object_af0d94867be5ea1eed4b7aeab62af3609}\label{class_socket_object_af0d94867be5ea1eed4b7aeab62af3609}} 
+\index{SocketObject@{SocketObject}!generateNormalExam@{generateNormalExam}}
+\index{generateNormalExam@{generateNormalExam}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{generateNormalExam()}{generateNormalExam()}}
+{\footnotesize\ttfamily void Socket\+Object\+::generate\+Normal\+Exam (\begin{DoxyParamCaption}\item[{vector$<$ string $>$}]{all\+Questions }\end{DoxyParamCaption})}
+
+
+
+Permite la generación de examenes de tipo normal.~\newline
+ Allow generate normal exams. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parámetros}
+{\em all\+Questions,vector$<$string$>$} & Todas las preguntas.~\newline
+ All normal questions. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_socket_object_a513d232f3214a4a71877460f7fd842ad}\label{class_socket_object_a513d232f3214a4a71877460f7fd842ad}} 
+\index{SocketObject@{SocketObject}!generatePasswd@{generatePasswd}}
+\index{generatePasswd@{generatePasswd}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{generatePasswd()}{generatePasswd()}}
+{\footnotesize\ttfamily string Socket\+Object\+::generate\+Passwd (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Genera la clase A\+E\+S-\/256-\/\+C\+BC de 32 dígitos usada en la comunicación cliente-\/servidor.~\newline
+ Generate A\+E\+S-\/256-\/\+C\+BC key with 32 digits that is used in the client-\/server communication. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+\begin{DoxyReturn}{Devuelve}
+string, la contraseña.~\newline
+ The password. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_socket_object_ab426ef5d98779063e5521ee953668b3a}\label{class_socket_object_ab426ef5d98779063e5521ee953668b3a}} 
+\index{SocketObject@{SocketObject}!generateTestExam@{generateTestExam}}
+\index{generateTestExam@{generateTestExam}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{generateTestExam()}{generateTestExam()}}
+{\footnotesize\ttfamily void Socket\+Object\+::generate\+Test\+Exam (\begin{DoxyParamCaption}\item[{vector$<$ string $>$}]{all\+Questions,  }\item[{bool}]{generate\+With\+Not\+Answer }\end{DoxyParamCaption})}
+
+
+
+Permite generar exámenes de tipo test.~\newline
+ Allow to generate test exams. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parámetros}
+{\em all\+Questions,vector$<$string$>$} & Todas las preguntas.~\newline
+ All questions. \\
+\hline
+{\em generate\+With\+Not\+Answer,bool} & True si se genera el examen con las respuestas de las preguntas, false en caso contrario.~\newline
+ True if the exam contains the answer of the questions, false in the opposite case. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_socket_object_a8fd218f63f9228e795f4a6d00c539539}\label{class_socket_object_a8fd218f63f9228e795f4a6d00c539539}} 
+\index{SocketObject@{SocketObject}!getResultOfCommands@{getResultOfCommands}}
+\index{getResultOfCommands@{getResultOfCommands}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{getResultOfCommands()}{getResultOfCommands()}}
+{\footnotesize\ttfamily bool Socket\+Object\+::get\+Result\+Of\+Commands (\begin{DoxyParamCaption}\item[{string}]{console\+Command }\end{DoxyParamCaption})}
+
+
+
+Obtiene el resultado de ejecutar un comando.~\newline
+ Get result of execute a command. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parámetros}
+{\em cmd\+Command,string} & Comando.~\newline
+ Command.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+string, El resultado de la ejecución del comando.~\newline
+ The result of execute this command. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_socket_object_acc3a911fe7c7cbdbdcc93784340e923a}\label{class_socket_object_acc3a911fe7c7cbdbdcc93784340e923a}} 
+\index{SocketObject@{SocketObject}!launchReadThread@{launchReadThread}}
+\index{launchReadThread@{launchReadThread}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{launchReadThread()}{launchReadThread()}}
+{\footnotesize\ttfamily void Socket\+Object\+::launch\+Read\+Thread (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Inicia el hilo para procesar los datos de la conexión.~\newline
+ Initialize the thread to process al data of connection. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020 
+\end{DoxyDate}
+\mbox{\Hypertarget{class_socket_object_a5ce2f5967f64f7c8f8d67ff531290707}\label{class_socket_object_a5ce2f5967f64f7c8f8d67ff531290707}} 
+\index{SocketObject@{SocketObject}!removeThread@{removeThread}}
+\index{removeThread@{removeThread}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{removeThread()}{removeThread()}}
+{\footnotesize\ttfamily void Socket\+Object\+::remove\+Thread (\begin{DoxyParamCaption}\item[{thread\+::id}]{id }\end{DoxyParamCaption})}
+
+
+
+Borra el hilo concurrente de la lista de conexiones en base a su ID.~\newline
+ Delete concurrent thread of list with all connections based on his ID. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parámetros}
+{\em id,Thread\+::id} & ID del hilo.~\newline
+ ID of thread. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_socket_object_ad582c7241d6e34cfccf8070efe16525f}\label{class_socket_object_ad582c7241d6e34cfccf8070efe16525f}} 
+\index{SocketObject@{SocketObject}!sendMoreSingleDataMessage@{sendMoreSingleDataMessage}}
+\index{sendMoreSingleDataMessage@{sendMoreSingleDataMessage}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{sendMoreSingleDataMessage()}{sendMoreSingleDataMessage()}}
+{\footnotesize\ttfamily void Socket\+Object\+::send\+More\+Single\+Data\+Message (\begin{DoxyParamCaption}\item[{string}]{title\+Param,  }\item[{vector$<$ string $>$}]{message\+Param,  }\item[{Poco\+::\+Crypto\+::\+Cipher $\ast$}]{cipher\+Param }\end{DoxyParamCaption})}
+
+
+
+Permite enviar un objeto \mbox{\hyperlink{class_json_object_array}{Json\+Object\+Array}} encriptado en A\+ES 256-\/C\+BC.~\newline
+ Allow to send \mbox{\hyperlink{class_json_object_array}{Json\+Object\+Array}} object encrypted with A\+E\+S-\/256-\/\+C\+BC key. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}[1]{Parámetros}
+ & {\em title\+Param,string} & Título del objeto.~\newline
+ Title of the object. \\
+\hline
+ & {\em parameter2,vector$<$string$>$} & lista de datos del objeto.~\newline
+ list of data of the object. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em cipher\+Param,Poco\+::\+Crypto\+::\+Cipher} & Si no es nulo, el objeto Cipher usado en la encriptación.~\newline
+ If non-\/null, the cipher object used to encrypt. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_socket_object_a00fdedde6438ada60f97179eee490e02}\label{class_socket_object_a00fdedde6438ada60f97179eee490e02}} 
+\index{SocketObject@{SocketObject}!sendSigleMessage@{sendSigleMessage}}
+\index{sendSigleMessage@{sendSigleMessage}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{sendSigleMessage()}{sendSigleMessage()}}
+{\footnotesize\ttfamily void Socket\+Object\+::send\+Sigle\+Message (\begin{DoxyParamCaption}\item[{string}]{title\+Param,  }\item[{string}]{message\+Param,  }\item[{Poco\+::\+Crypto\+::\+Cipher $\ast$}]{cipher\+Param }\end{DoxyParamCaption})}
+
+
+
+Permite enviar un objeto \mbox{\hyperlink{class_json_single_data}{Json\+Single\+Data}} encriptado en A\+ES 256-\/C\+BC.~\newline
+ Allow to send \mbox{\hyperlink{class_json_single_data}{Json\+Single\+Data}} object encrypted with A\+E\+S-\/256-\/\+C\+BC key. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}[1]{Parámetros}
+ & {\em title\+Param,string} & Título del objeto.~\newline
+ Title of the object. \\
+\hline
+ & {\em message\+Param,string} & Mensaje del objecto.~\newline
+ Message of the object. \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em cipher\+Param,Poco\+::\+Crypto\+::\+Cipher} & Si no es nulo, el objeto Cipher usado en la encriptación.~\newline
+ If non-\/null, the cipher object used to encrypt. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_socket_object_a2c2f9640a426fa19dd013e199d6c49e3}\label{class_socket_object_a2c2f9640a426fa19dd013e199d6c49e3}} 
+\index{SocketObject@{SocketObject}!spawn@{spawn}}
+\index{spawn@{spawn}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{spawn()}{spawn()}}
+{\footnotesize\ttfamily void Socket\+Object\+::spawn (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Lanza el hilo Time\+Out como hilo independiente.~\newline
+ Throw time\+Out thread. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020 
+\end{DoxyDate}
+\mbox{\Hypertarget{class_socket_object_a2850ca8cfb5b4cb7f1558a40df23897a}\label{class_socket_object_a2850ca8cfb5b4cb7f1558a40df23897a}} 
+\index{SocketObject@{SocketObject}!splitLineToLine@{splitLineToLine}}
+\index{splitLineToLine@{splitLineToLine}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{splitLineToLine()}{splitLineToLine()}}
+{\footnotesize\ttfamily vector$<$ string $>$ Socket\+Object\+::split\+Line\+To\+Line (\begin{DoxyParamCaption}\item[{string}]{result\+Of\+Command }\end{DoxyParamCaption})}
+
+
+
+Genera un listado de linneas obtenidas al ejecutar un comando.~\newline
+ Generate a list of lines obtained by executing a command. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parámetros}
+{\em sentence,string} & Resultado de ejecutar un comando.~\newline
+ Result to execute a command.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Devuelve}
+vector$<$string$>$, listado de líneas obtenidas.~\newline
+ List of lines. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_socket_object_ad87f88ec895570762d729d8903b2466a}\label{class_socket_object_ad87f88ec895570762d729d8903b2466a}} 
+\index{SocketObject@{SocketObject}!timeOutData@{timeOutData}}
+\index{timeOutData@{timeOutData}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{timeOutData()}{timeOutData()}}
+{\footnotesize\ttfamily void Socket\+Object\+::time\+Out\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Comprueba la inactividad del usuario, si el usuario pasa el límite establecido, se cierra la conexión.~\newline
+ Check the inactivity of user, if the user pass the limit of the time, his connection will be closed. 
+
+\begin{DoxyAuthor}{Autor}
+Javier Fernández Fernández 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+22/04/2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Documentación de los datos miembro}
+\mbox{\Hypertarget{class_socket_object_a4510b95d0e38ca03b251c72a8f8663db}\label{class_socket_object_a4510b95d0e38ca03b251c72a8f8663db}} 
+\index{SocketObject@{SocketObject}!allSockets@{allSockets}}
+\index{allSockets@{allSockets}!SocketObject@{SocketObject}}
+\doxysubsubsection{\texorpdfstring{allSockets}{allSockets}}
+{\footnotesize\ttfamily vector$<$thread$>$\& Socket\+Object\+::all\+Sockets}
+
+
+
+La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Headers/\mbox{\hyperlink{_socket_object_8h}{Socket\+Object.\+h}}\item 
+C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Clases/\mbox{\hyperlink{_socket_object_8cpp}{Socket\+Object.\+cpp}}\end{DoxyCompactItemize}

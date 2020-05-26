@@ -1,0 +1,586 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TFG-Server_doc: Referencia de la Clase SocketObject</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">TFG-Server_doc
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Documentación del servidor del proyecto de TFG</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.18 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Buscar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="#pub-attribs">Atributos públicos</a> &#124;
+<a href="class_socket_object-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia de la Clase SocketObject</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Clase <a class="el" href="class_socket_object.html" title="Clase SocketObject, gestiona cada hilo de conexión al servidor.  SocketObject class,...">SocketObject</a>, gestiona cada hilo de conexión al servidor.<br  />
+ <a class="el" href="class_socket_object.html" title="Clase SocketObject, gestiona cada hilo de conexión al servidor.  SocketObject class,...">SocketObject</a> class, manages each connection thread to the server.  
+ <a href="class_socket_object.html#details">Más...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_socket_object_8h_source.html">SocketObject.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:a679dedf0d19798216cf57b396c0d5308"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a679dedf0d19798216cf57b396c0d5308">SocketObject</a> (sockaddr_in address, int sendReceiveData, vector&lt; thread &gt; &amp;allSocketsParam)</td></tr>
+<tr class="memdesc:a679dedf0d19798216cf57b396c0d5308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor de la clase.<br  />
+ Constructor of the class.  <a href="class_socket_object.html#a679dedf0d19798216cf57b396c0d5308">Más...</a><br /></td></tr>
+<tr class="separator:a679dedf0d19798216cf57b396c0d5308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc3a911fe7c7cbdbdcc93784340e923a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#acc3a911fe7c7cbdbdcc93784340e923a">launchReadThread</a> ()</td></tr>
+<tr class="memdesc:acc3a911fe7c7cbdbdcc93784340e923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inicia el hilo para procesar los datos de la conexión.<br  />
+ Initialize the thread to process al data of connection.  <a href="class_socket_object.html#acc3a911fe7c7cbdbdcc93784340e923a">Más...</a><br /></td></tr>
+<tr class="separator:acc3a911fe7c7cbdbdcc93784340e923a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad87f88ec895570762d729d8903b2466a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#ad87f88ec895570762d729d8903b2466a">timeOutData</a> ()</td></tr>
+<tr class="memdesc:ad87f88ec895570762d729d8903b2466a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comprueba la inactividad del usuario, si el usuario pasa el límite establecido, se cierra la conexión.<br  />
+ Check the inactivity of user, if the user pass the limit of the time, his connection will be closed.  <a href="class_socket_object.html#ad87f88ec895570762d729d8903b2466a">Más...</a><br /></td></tr>
+<tr class="separator:ad87f88ec895570762d729d8903b2466a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce2f5967f64f7c8f8d67ff531290707"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a5ce2f5967f64f7c8f8d67ff531290707">removeThread</a> (thread::id id)</td></tr>
+<tr class="memdesc:a5ce2f5967f64f7c8f8d67ff531290707"><td class="mdescLeft">&#160;</td><td class="mdescRight">Borra el hilo concurrente de la lista de conexiones en base a su ID.<br  />
+ Delete concurrent thread of list with all connections based on his ID.  <a href="class_socket_object.html#a5ce2f5967f64f7c8f8d67ff531290707">Más...</a><br /></td></tr>
+<tr class="separator:a5ce2f5967f64f7c8f8d67ff531290707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c2f9640a426fa19dd013e199d6c49e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a2c2f9640a426fa19dd013e199d6c49e3">spawn</a> ()</td></tr>
+<tr class="memdesc:a2c2f9640a426fa19dd013e199d6c49e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lanza el hilo TimeOut como hilo independiente.<br  />
+ Throw timeOut thread.  <a href="class_socket_object.html#a2c2f9640a426fa19dd013e199d6c49e3">Más...</a><br /></td></tr>
+<tr class="separator:a2c2f9640a426fa19dd013e199d6c49e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00fdedde6438ada60f97179eee490e02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a00fdedde6438ada60f97179eee490e02">sendSigleMessage</a> (string titleParam, string messageParam, Poco::Crypto::Cipher *cipherParam)</td></tr>
+<tr class="memdesc:a00fdedde6438ada60f97179eee490e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permite enviar un objeto <a class="el" href="class_json_single_data.html" title="Clase modelo de objeto JSON con un título y un solo mensaje.  Model class of JSON object with one tit...">JsonSingleData</a> encriptado en AES 256-CBC.<br  />
+ Allow to send <a class="el" href="class_json_single_data.html" title="Clase modelo de objeto JSON con un título y un solo mensaje.  Model class of JSON object with one tit...">JsonSingleData</a> object encrypted with AES-256-CBC key.  <a href="class_socket_object.html#a00fdedde6438ada60f97179eee490e02">Más...</a><br /></td></tr>
+<tr class="separator:a00fdedde6438ada60f97179eee490e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad582c7241d6e34cfccf8070efe16525f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#ad582c7241d6e34cfccf8070efe16525f">sendMoreSingleDataMessage</a> (string titleParam, vector&lt; string &gt;messageParam, Poco::Crypto::Cipher *cipherParam)</td></tr>
+<tr class="memdesc:ad582c7241d6e34cfccf8070efe16525f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permite enviar un objeto <a class="el" href="class_json_object_array.html" title="Modelo de datos JSON con título y lista de elementos.  Model of JSON data with title and list with so...">JsonObjectArray</a> encriptado en AES 256-CBC.<br  />
+ Allow to send <a class="el" href="class_json_object_array.html" title="Modelo de datos JSON con título y lista de elementos.  Model of JSON data with title and list with so...">JsonObjectArray</a> object encrypted with AES-256-CBC key.  <a href="class_socket_object.html#ad582c7241d6e34cfccf8070efe16525f">Más...</a><br /></td></tr>
+<tr class="separator:ad582c7241d6e34cfccf8070efe16525f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d94867be5ea1eed4b7aeab62af3609"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#af0d94867be5ea1eed4b7aeab62af3609">generateNormalExam</a> (vector&lt; string &gt; allQuestions)</td></tr>
+<tr class="memdesc:af0d94867be5ea1eed4b7aeab62af3609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permite la generación de examenes de tipo normal.<br  />
+ Allow generate normal exams.  <a href="class_socket_object.html#af0d94867be5ea1eed4b7aeab62af3609">Más...</a><br /></td></tr>
+<tr class="separator:af0d94867be5ea1eed4b7aeab62af3609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab426ef5d98779063e5521ee953668b3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#ab426ef5d98779063e5521ee953668b3a">generateTestExam</a> (vector&lt; string &gt; allQuestions, bool generateWithNotAnswer)</td></tr>
+<tr class="memdesc:ab426ef5d98779063e5521ee953668b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permite generar exámenes de tipo test.<br  />
+ Allow to generate test exams.  <a href="class_socket_object.html#ab426ef5d98779063e5521ee953668b3a">Más...</a><br /></td></tr>
+<tr class="separator:ab426ef5d98779063e5521ee953668b3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a513d232f3214a4a71877460f7fd842ad"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a513d232f3214a4a71877460f7fd842ad">generatePasswd</a> ()</td></tr>
+<tr class="memdesc:a513d232f3214a4a71877460f7fd842ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genera la clase AES-256-CBC de 32 dígitos usada en la comunicación cliente-servidor.<br  />
+ Generate AES-256-CBC key with 32 digits that is used in the client-server communication.  <a href="class_socket_object.html#a513d232f3214a4a71877460f7fd842ad">Más...</a><br /></td></tr>
+<tr class="separator:a513d232f3214a4a71877460f7fd842ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fd218f63f9228e795f4a6d00c539539"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a8fd218f63f9228e795f4a6d00c539539">getResultOfCommands</a> (string consoleCommand)</td></tr>
+<tr class="memdesc:a8fd218f63f9228e795f4a6d00c539539"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtiene el resultado de ejecutar un comando.<br  />
+ Get result of execute a command.  <a href="class_socket_object.html#a8fd218f63f9228e795f4a6d00c539539">Más...</a><br /></td></tr>
+<tr class="separator:a8fd218f63f9228e795f4a6d00c539539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2850ca8cfb5b4cb7f1558a40df23897a"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a2850ca8cfb5b4cb7f1558a40df23897a">splitLineToLine</a> (string resultOfCommand)</td></tr>
+<tr class="memdesc:a2850ca8cfb5b4cb7f1558a40df23897a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Genera un listado de linneas obtenidas al ejecutar un comando.<br  />
+ Generate a list of lines obtained by executing a command.  <a href="class_socket_object.html#a2850ca8cfb5b4cb7f1558a40df23897a">Más...</a><br /></td></tr>
+<tr class="separator:a2850ca8cfb5b4cb7f1558a40df23897a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Atributos públicos</h2></td></tr>
+<tr class="memitem:a4510b95d0e38ca03b251c72a8f8663db"><td class="memItemLeft" align="right" valign="top">vector&lt; thread &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_socket_object.html#a4510b95d0e38ca03b251c72a8f8663db">allSockets</a></td></tr>
+<tr class="separator:a4510b95d0e38ca03b251c72a8f8663db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Clase <a class="el" href="class_socket_object.html" title="Clase SocketObject, gestiona cada hilo de conexión al servidor.  SocketObject class,...">SocketObject</a>, gestiona cada hilo de conexión al servidor.<br  />
+ <a class="el" href="class_socket_object.html" title="Clase SocketObject, gestiona cada hilo de conexión al servidor.  SocketObject class,...">SocketObject</a> class, manages each connection thread to the server. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020 </dd></dl>
+</div><h2 class="groupheader">Documentación del constructor y destructor</h2>
+<a id="a679dedf0d19798216cf57b396c0d5308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a679dedf0d19798216cf57b396c0d5308">&#9670;&nbsp;</a></span>SocketObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SocketObject::SocketObject </td>
+          <td>(</td>
+          <td class="paramtype">sockaddr_in&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sendReceiveData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; thread &gt; &amp;&#160;</td>
+          <td class="paramname"><em>allSocketsParam</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor de la clase.<br  />
+ Constructor of the class. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">address,sockaddr_in</td><td>Estructura de socket.<br  />
+ Structure of socket. <br  />
+ </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">sendReceiveData,int</td><td>Valor del socket --&gt; 0 = no funciona, 1 = funcionando.<br  />
+ Value of socket --&gt; 0 = don't work, 1 = working. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">allSocketsParam,vector&lt;thread&gt;</td><td>Hilo socket.<br  />
+ socket thread. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a id="af0d94867be5ea1eed4b7aeab62af3609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d94867be5ea1eed4b7aeab62af3609">&#9670;&nbsp;</a></span>generateNormalExam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::generateNormalExam </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>allQuestions</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permite la generación de examenes de tipo normal.<br  />
+ Allow generate normal exams. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allQuestions,vector&lt;string&gt;</td><td>Todas las preguntas.<br  />
+ All normal questions. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a513d232f3214a4a71877460f7fd842ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a513d232f3214a4a71877460f7fd842ad">&#9670;&nbsp;</a></span>generatePasswd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string SocketObject::generatePasswd </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Genera la clase AES-256-CBC de 32 dígitos usada en la comunicación cliente-servidor.<br  />
+ Generate AES-256-CBC key with 32 digits that is used in the client-server communication. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="section return"><dt>Devuelve</dt><dd>string, la contraseña.<br  />
+ The password. </dd></dl>
+
+</div>
+</div>
+<a id="ab426ef5d98779063e5521ee953668b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab426ef5d98779063e5521ee953668b3a">&#9670;&nbsp;</a></span>generateTestExam()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::generateTestExam </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>allQuestions</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>generateWithNotAnswer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permite generar exámenes de tipo test.<br  />
+ Allow to generate test exams. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allQuestions,vector&lt;string&gt;</td><td>Todas las preguntas.<br  />
+ All questions. </td></tr>
+    <tr><td class="paramname">generateWithNotAnswer,bool</td><td>True si se genera el examen con las respuestas de las preguntas, false en caso contrario.<br  />
+ True if the exam contains the answer of the questions, false in the opposite case. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8fd218f63f9228e795f4a6d00c539539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fd218f63f9228e795f4a6d00c539539">&#9670;&nbsp;</a></span>getResultOfCommands()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool SocketObject::getResultOfCommands </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>consoleCommand</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtiene el resultado de ejecutar un comando.<br  />
+ Get result of execute a command. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmdCommand,string</td><td>Comando.<br  />
+ Command.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>string, El resultado de la ejecución del comando.<br  />
+ The result of execute this command. </dd></dl>
+
+</div>
+</div>
+<a id="acc3a911fe7c7cbdbdcc93784340e923a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc3a911fe7c7cbdbdcc93784340e923a">&#9670;&nbsp;</a></span>launchReadThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::launchReadThread </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Inicia el hilo para procesar los datos de la conexión.<br  />
+ Initialize the thread to process al data of connection. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020 </dd></dl>
+
+</div>
+</div>
+<a id="a5ce2f5967f64f7c8f8d67ff531290707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce2f5967f64f7c8f8d67ff531290707">&#9670;&nbsp;</a></span>removeThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::removeThread </td>
+          <td>(</td>
+          <td class="paramtype">thread::id&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Borra el hilo concurrente de la lista de conexiones en base a su ID.<br  />
+ Delete concurrent thread of list with all connections based on his ID. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id,Thread::id</td><td>ID del hilo.<br  />
+ ID of thread. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad582c7241d6e34cfccf8070efe16525f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad582c7241d6e34cfccf8070efe16525f">&#9670;&nbsp;</a></span>sendMoreSingleDataMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::sendMoreSingleDataMessage </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>titleParam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vector&lt; string &gt;&#160;</td>
+          <td class="paramname"><em>messageParam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Poco::Crypto::Cipher *&#160;</td>
+          <td class="paramname"><em>cipherParam</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permite enviar un objeto <a class="el" href="class_json_object_array.html" title="Modelo de datos JSON con título y lista de elementos.  Model of JSON data with title and list with so...">JsonObjectArray</a> encriptado en AES 256-CBC.<br  />
+ Allow to send <a class="el" href="class_json_object_array.html" title="Modelo de datos JSON con título y lista de elementos.  Model of JSON data with title and list with so...">JsonObjectArray</a> object encrypted with AES-256-CBC key. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">titleParam,string</td><td>Título del objeto.<br  />
+ Title of the object. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">parameter2,vector&lt;string&gt;</td><td>lista de datos del objeto.<br  />
+ list of data of the object. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">cipherParam,Poco::Crypto::Cipher</td><td>Si no es nulo, el objeto Cipher usado en la encriptación.<br  />
+ If non-null, the cipher object used to encrypt. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a00fdedde6438ada60f97179eee490e02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00fdedde6438ada60f97179eee490e02">&#9670;&nbsp;</a></span>sendSigleMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::sendSigleMessage </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>titleParam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>messageParam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Poco::Crypto::Cipher *&#160;</td>
+          <td class="paramname"><em>cipherParam</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Permite enviar un objeto <a class="el" href="class_json_single_data.html" title="Clase modelo de objeto JSON con un título y un solo mensaje.  Model class of JSON object with one tit...">JsonSingleData</a> encriptado en AES 256-CBC.<br  />
+ Allow to send <a class="el" href="class_json_single_data.html" title="Clase modelo de objeto JSON con un título y un solo mensaje.  Model class of JSON object with one tit...">JsonSingleData</a> object encrypted with AES-256-CBC key. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">titleParam,string</td><td>Título del objeto.<br  />
+ Title of the object. </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">messageParam,string</td><td>Mensaje del objecto.<br  />
+ Message of the object. </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">cipherParam,Poco::Crypto::Cipher</td><td>Si no es nulo, el objeto Cipher usado en la encriptación.<br  />
+ If non-null, the cipher object used to encrypt. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2c2f9640a426fa19dd013e199d6c49e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c2f9640a426fa19dd013e199d6c49e3">&#9670;&nbsp;</a></span>spawn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::spawn </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Lanza el hilo TimeOut como hilo independiente.<br  />
+ Throw timeOut thread. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020 </dd></dl>
+
+</div>
+</div>
+<a id="a2850ca8cfb5b4cb7f1558a40df23897a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2850ca8cfb5b4cb7f1558a40df23897a">&#9670;&nbsp;</a></span>splitLineToLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; string &gt; SocketObject::splitLineToLine </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>resultOfCommand</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Genera un listado de linneas obtenidas al ejecutar un comando.<br  />
+ Generate a list of lines obtained by executing a command. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020</dd></dl>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sentence,string</td><td>Resultado de ejecutar un comando.<br  />
+ Result to execute a command.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>vector&lt;string&gt;, listado de líneas obtenidas.<br  />
+ List of lines. </dd></dl>
+
+</div>
+</div>
+<a id="ad87f88ec895570762d729d8903b2466a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad87f88ec895570762d729d8903b2466a">&#9670;&nbsp;</a></span>timeOutData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SocketObject::timeOutData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Comprueba la inactividad del usuario, si el usuario pasa el límite establecido, se cierra la conexión.<br  />
+ Check the inactivity of user, if the user pass the limit of the time, his connection will be closed. </p>
+<dl class="section author"><dt>Autor</dt><dd>Javier Fernández Fernández </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>22/04/2020 </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Documentación de los datos miembro</h2>
+<a id="a4510b95d0e38ca03b251c72a8f8663db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4510b95d0e38ca03b251c72a8f8663db">&#9670;&nbsp;</a></span>allSockets</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;thread&gt;&amp; SocketObject::allSockets</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
+<li>C:/Users/javie/Desktop/Desarrollo/TFG/TFG-Server/TFG-Server/Headers/<a class="el" href="_socket_object_8h_source.html">SocketObject.h</a></li>
+<li>C:/Users/javie/Desktop/Desarrollo/TFG/TFG-Server/TFG-Server/Clases/<a class="el" href="_socket_object_8cpp.html">SocketObject.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>

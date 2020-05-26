@@ -1,3 +1,9 @@
+/**********************************************************************************************//**
+ * @file	TFG-Server\Headers\Menu.h.
+ *
+ * @brief	Declaración de la clase menu.\n
+ * 			Declaration on menu class.
+ **************************************************************************************************/
 
 #include <iostream>
 #include <fstream>
@@ -8,6 +14,16 @@
 #include <openssl/err.h>
 #include "../Headers/MasterSocket.h"
 using namespace std;
+
+/**********************************************************************************************//**
+ * @class	Menu
+ *
+ * @brief	Menu del panel de control del servidor.\n
+ * 			Menu of admin panel in server.
+ *
+ * @author	Javier Fernández Fernández
+ * @date	22/04/2020
+ **************************************************************************************************/
 
 class Menu {
 
@@ -76,22 +92,202 @@ private:
 	bool checkMenuServer = false;
 
 public:
+
+	/**********************************************************************************************//**
+	 * @fn	Menu::Menu();
+	 *
+	 * @brief	Constructor por defecto de la clase.\n
+	 * 			Default constructor of the class.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 **************************************************************************************************/
+
 	Menu();
 
+	/**********************************************************************************************//**
+	 * @fn	void Menu::mostrarMenu();
+	 *
+	 * @brief	Muestra el menú de opciones al administrador.\n
+	 * 			Show all menu options.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 **************************************************************************************************/
+
 	void mostrarMenu();
+
+	/**********************************************************************************************//**
+	 * @fn	void Menu::checkPort();
+	 *
+	 * @brief	Comprueba si el puerto que usa el programa está abierto.\n
+	 * 			Check if port that server use is open or closed.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 **************************************************************************************************/
+
 	void checkPort();
+
+	/**********************************************************************************************//**
+	 * @fn	void Menu::checkProgramPort(vector <string> vectorParam);
+	 *
+	 * @brief	Comprueba si el puerto que usa el programa está abierto.\n
+	 * 			Check if port that server use is open or closed.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 *
+	 * @param 	vectorParam, vector<string> Vector con las líneas obtenidas al ejecutar el comando que obtiene la lista de puertos del servidor.\n
+	 * 										List with all lines when program execute a command to get a list with all ports in this server.
+	 **************************************************************************************************/
+
 	void checkProgramPort(vector <string> vectorParam);
+
+	/**********************************************************************************************//**
+	 * @fn	void Menu::resetPortVariables();
+	 *
+	 * @brief	Resetea las variables de comprobación de puertos.\n
+	 * 			Reset all check port variables.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 **************************************************************************************************/
+
 	void resetPortVariables();
+
+	/**********************************************************************************************//**
+	 * @fn	void Menu::checkServerRunning();
+	 *
+	 * @brief	Comprueba si el servidor está funcionando.\n
+	 * 			Check if server is running.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 **************************************************************************************************/
+
 	void checkServerRunning();
+
+	/**********************************************************************************************//**
+	 * @fn	void Menu::createServer();
+	 *
+	 * @brief	Crea el servidor.\n
+	 * 			Create the server.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 **************************************************************************************************/
+
 	void createServer();
+
+	/**********************************************************************************************//**
+	 * @fn	void Menu::execServer();
+	 *
+	 * @brief	Ejecuta el servidor.\n
+	 * 			Execute the server.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 **************************************************************************************************/
+
 	void execServer();
 
+	/**********************************************************************************************//**
+	 * @fn	bool Menu::execCommand(string command);
+	 *
+	 * @brief	Permite ejecutar comandos de consola.\n
+	 * 			Allow to excecute command lines.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 *
+	 * @param 	command, string Comando a ejecutar.\n
+	 * 							Command to execute.
+	 *
+	 * @returns	True si lo ejecuta correctamente, en caso contrario false.\n
+	 * 			True if execute successfully, in the opposite case, false.
+	 **************************************************************************************************/
+
 	bool execCommand(string command);
+
+	/**********************************************************************************************//**
+	 * @fn	bool Menu::countServerProcess();
+	 *
+	 * @brief	Cuenta el número de servicios del sistema.\n
+	 * 			Count server process.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 *
+	 * @returns	True si lo ejecuta correctamente, en caso contrario false.\n
+	 * 			True if execute successfully, in the opposite case, false.
+	 **************************************************************************************************/
+
 	bool countServerProcess();
+
+	/**********************************************************************************************//**
+	 * @fn	bool Menu::searchServiceProgram();
+	 *
+	 * @brief	Busca el servicio del servidor en los procesos del sistema.\n
+	 * 			Search server(this program) process in all process of the server.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 *
+	 * @returns	True si lo encuentra, false si no.\n
+	 * 			True if found, false if not.
+	 **************************************************************************************************/
+
 	bool searchServiceProgram();
 
+	/**********************************************************************************************//**
+	 * @fn	string Menu::getNameProgram();
+	 *
+	 * @brief	Obtiene el nombre del proceso de ejecución del programa.\n
+	 * 			Get the name of process of this program.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 *
+	 * @returns	string, El nombre del proceso.\n
+	 * 					The name of process.
+	 **************************************************************************************************/
+
 	string getNameProgram();
+
+	/**********************************************************************************************//**
+	 * @fn	vector<string> Menu::splitLineToLine(string sentence);
+	 *
+	 * @brief	Genera un listado de linneas obtenidas al ejecutar un comando.\n
+	 * 			Generate a list of lines obtained by executing a command.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 *
+	 * @param 	sentence, string Resultado de ejecutar un comando.\n
+	 * 							 Result to execute a command.
+	 *
+	 * @returns	vector<string>, listado de líneas obtenidas.\n
+	 * 							List of lines.
+	 **************************************************************************************************/
+
 	vector<string> splitLineToLine(string sentence);
+
+	/**********************************************************************************************//**
+	 * @fn	string Menu::getResultOfCommand(string cmdCommand);
+	 *
+	 * @brief	Obtiene el resultado de ejecutar un comando.\n
+	 * 			Get result of execute a command.
+	 *
+	 * @author	Javier Fernández Fernández
+	 * @date	22/04/2020
+	 *
+	 * @param 	cmdCommand, string	Comando.\n
+	 * 								Command.
+	 *
+	 * @returns string, El resultado de la ejecución del comando.\n
+	 * 					The result of execute this command.
+	 **************************************************************************************************/
 
 	string getResultOfCommand(string cmdCommand);
 };

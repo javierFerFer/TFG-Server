@@ -27,8 +27,6 @@ class DataBaseConnect {
 
 private:
 
-
-	/** @brief	The connection */
 	MYSQL* conn; /* Puntero de la conexión a la base de datos*/
 	MYSQL_RES* res; /* puntero donde se almacena los resultados de las consultas*/
 	MYSQL_ROW row;
@@ -235,7 +233,7 @@ public:
 	/**********************************************************************************************//**
 	 * @fn	bool DataBaseConnect::insertNewQuestion(vector <string> allNewQuestionData);
 	 *
-	 * @brief	Inserta una nueva pregunta de tipo normal./n
+	 * @brief	Inserta una nueva pregunta de tipo normal.\n
 	 * 			Insert new normal question.
 	 *
 	 * @author	Javier Fernández Fernández
@@ -253,7 +251,7 @@ public:
 	/**********************************************************************************************//**
 	 * @fn	bool DataBaseConnect::insertNewTestQuestion(vector <string> allNewQuestionData);
 	 *
-	 * @brief	Inserta una nueva pregunta de tipo test./n
+	 * @brief	Inserta una nueva pregunta de tipo test.\n
 	 * 			Insert new test question.
 	 *
 	 * @author	Javier Fernández Fernández
@@ -350,7 +348,7 @@ public:
 	 * @author	Javier Fernández Fernández
 	 * @date	24/04/2020
 	 *
-	 * @param 	idNormalModification, string	ID de la modificación.
+	 * @param 	idNormalModification, string	ID de la modificación.\n
 	 * 											ID of modification.
 	 **************************************************************************************************/
 
@@ -476,11 +474,11 @@ public:
 	 * @author	Javier Fernández Fernández
 	 * @date	24/04/2020
 	 *
-	 * @param 	emailParam, string	Email del usuario a buscar.
+	 * @param 	emailParam, string	Email del usuario a buscar.\n
 	 * 								User email to use.
 	 *
-	 * @returns	string, Si lo encuentra, retorna el correo del usuario.\n
-	 * 					Si no lo encuentra, retorna un string vacio --> ""
+	 * @returns	string, Si lo encuentra, retorna el correo del usuario. Si no lo encuentra, retorna un string vacio --> "".\n
+	 * 					If found, return email of user, in the opposite case, return empty string like this --> "".
 	 **************************************************************************************************/
 
 	string nameQuery(string emailParam);
@@ -497,7 +495,7 @@ public:
 	 * @param 	value, string	Valor para la consulta.\n
 	 * 							Value for to query.
 	 *
-	 * @returns string, Valor recibido de la consulta.
+	 * @returns string, Valor recibido de la consulta.\n
 	 * 					Value of query.
 	 **************************************************************************************************/
 
@@ -515,7 +513,7 @@ public:
 	 * @param 	emailParam, string	Email del usuario a buscar.\n
 	 * 								Email of user to find.
 	 *
-	 * @returns	string, Si lo encuentra, retorna el correo, si no lo encuentra, retorna un string vacio --> ""
+	 * @returns	string, Si lo encuentra, retorna el correo, si no lo encuentra, retorna un string vacio --> "".\n
 	 * 					If find, return email of user, if not, return empty string like this --> ""
 	 **************************************************************************************************/
 
@@ -530,10 +528,10 @@ public:
 	 * @author	Javier Fernández Fernández
 	 * @date	24/04/2020
 	 *
-	 * @param 	emailParam, string	Email del profesor.
+	 * @param 	emailParam, string	Email del profesor.\n
 	 * 								Email of theacher.
 	 *
-	 * @returns	vector<string>, Todos los nombres de las asignaturas.
+	 * @returns	vector<string>, Todos los nombres de las asignaturas.\n
 	 * 							All names of subjects.
 	 **************************************************************************************************/
 
@@ -551,7 +549,7 @@ public:
 	 * @param 	subjectParam, string	Tema a buscar.\n
 	 * 									Theme to find.
 	 *
-	 * @returns	vector<string>, Todos los nombres de los temas.
+	 * @returns	vector<string>, Todos los nombres de los temas.\n
 	 * 							All names of themes.
 	 **************************************************************************************************/
 
@@ -638,10 +636,11 @@ public:
 	 * @author	Javier Fernández Fernández
 	 * @date	24/04/2020
 	 *
-	 * @param 	id, string	ID de la pregunta.
+	 * @param 	id, string	ID de la pregunta.\n
 	 * 						ID of question.
 	 *
-	 * @returns	vector<string>, Todos los datos de la pregunta encontrada.
+	 * @returns	vector<string>, Todos los datos de la pregunta encontrada.\n
+	 * 							All data of found question.
 	 **************************************************************************************************/
 
 	vector <string> getAllTestQuestionsFromID(string id);
@@ -766,7 +765,7 @@ public:
 	 * @param 	idModel, string	ID del modelo.\n
 	 * 							ID of model.
 	 *
-	 * @returns	vector<string>, Todas las preguntas asociadas al modelo.
+	 * @returns	vector<string>, Todas las preguntas asociadas al modelo.\n
 	 * 							All questions of model.
 	 **************************************************************************************************/
 
@@ -784,7 +783,7 @@ public:
 	 * @param 	idModel, string	ID del modelo.\n
 	 * 							ID of model.
 	 *
-	 * @returns	vector<string>, Todas las preguntas asociadas al modelo.
+	 * @returns	vector<string>, Todas las preguntas asociadas al modelo.\n
 	 * 							All questions of model.
 	 **************************************************************************************************/
 
