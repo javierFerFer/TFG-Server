@@ -32,7 +32,6 @@ DataBaseConnect::DataBaseConnect() {
 bool DataBaseConnect::loginQuery(string emailParam, string passwdParam) {
 
     string loginQueryString = selectAll + teachersTableName + "where email = BINARY " + "'" + emailParam + "' and passwd = " + "BINARY '" + passwdParam +"'";
-    cout << "Consulta " << loginQueryString << endl;
     mysql_query(conn, loginQueryString.data());
     res = mysql_store_result(conn);
 
@@ -52,7 +51,6 @@ bool DataBaseConnect::loginQuery(string emailParam, string passwdParam) {
 
 bool DataBaseConnect::checkNameOfThemeExist(string nameOfThemeParam) {
     string loginQuery = select_id_tema + themesTableName + "where nombre = BINARY " + "'" + nameOfThemeParam + "'";
-    cout << "Consulta " << loginQuery << endl;
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 
@@ -67,7 +65,6 @@ bool DataBaseConnect::checkNameOfThemeExist(string nameOfThemeParam) {
 
 bool DataBaseConnect::checkNameOfQuestionExist(string nameOfQuestionParam) {
     string loginQuery = select_id_preguta_normal + normal_question_table + "where pregunta = BINARY " + "'" + nameOfQuestionParam + "'";
-    cout << "Consulta " << loginQuery << endl;
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 
@@ -82,7 +79,6 @@ bool DataBaseConnect::checkNameOfQuestionExist(string nameOfQuestionParam) {
 
 bool DataBaseConnect::checkNameOfNormalQuestionExist(string nameOfNormalModel) {
     string queryString = select_name_normal_model + normalModelsTableName + "where nombre_modelo = BINARY " + "'" + nameOfNormalModel + "'";
-    cout << "Consulta AQUII" << queryString << endl;
     mysql_query(conn, queryString.data());
     res = mysql_store_result(conn);
 
@@ -98,7 +94,6 @@ bool DataBaseConnect::checkNameOfNormalQuestionExist(string nameOfNormalModel) {
 
 bool DataBaseConnect::checkNameOfTestQuestionExist(string nameOfTestModel) {
     string queryString = select_name_normal_model + testModelsTableName + "where nombre_modelo = BINARY " + "'" + nameOfTestModel + "'";
-    cout << "Consulta AQUII" << queryString << endl;
     mysql_query(conn, queryString.data());
     res = mysql_store_result(conn);
 
@@ -272,7 +267,6 @@ bool DataBaseConnect::insertNewTestQuestion(vector<string> allNewQuestionData) {
                 }
             
                 string insertQuestion = insertNewTestQuestionQuery + to_string(stoi(max_ID) + 1) + ", '" + allNewQuestionData[0]  + "', '" + allNewQuestionData[1]  + "', '" + allNewQuestionData[2] + "', '" + allNewQuestionData[3]  + "', '" + allNewQuestionData[4]  + "', '" + allNewQuestionData[5] + "' , " + id_tema + ", null)";
-                cout << "CONSULTA: " << insertQuestion << endl;
                 
                 mysql_query(conn, insertQuestion.data());
                 res = mysql_store_result(conn);
@@ -505,8 +499,6 @@ void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
                 for (int counterMod = 0; counterMod < allNumbersOfModels.size(); counterMod++) {
                     string getCountOfQuestions = selectCoutID + normal_question_table +  " where JSON_CONTAINS(modelo_perteneciente, " + "'" + '"' + allNumbersOfModels[counterMod] + '"' + "'" + ")";
 
-                    cout << "CONSULTA " << getCountOfQuestions << endl;
-
                     mysql_query(conn, getCountOfQuestions.data());
                     res = mysql_store_result(conn);
 
@@ -626,8 +618,6 @@ void DataBaseConnect::deleteTestQuestion(string idTestModification) {
 
                 for (int counterMod = 0; counterMod < allNumbersOfModels.size(); counterMod++) {
                     string getCountOfQuestions = selectCoutID + test_question_table + " where JSON_CONTAINS(modelo_perteneciente, " + "'" + '"' + allNumbersOfModels[counterMod] + '"' + "'" + ")";
-
-                    cout << "CONSULTA " << getCountOfQuestions << endl;
 
                     mysql_query(conn, getCountOfQuestions.data());
                     res = mysql_store_result(conn);
@@ -769,7 +759,6 @@ string DataBaseConnect::insertNewTestModel(vector<string> allDataTestModel) {
 
 string DataBaseConnect::nameQuery(string emailParam) {
     string loginQuery = selectName + teachersTableName + "where email = BINARY " + "'" + emailParam + "'";
-    cout << "Consulta " << loginQuery << endl;
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 
@@ -840,7 +829,6 @@ vector<string> DataBaseConnect::getAllNamesOfSubjects(string emailParam) {
     for (int counter = 0; counter < 5; counter++) {
         string allSubjectsQuery = selectSubject + teachersTableName + ", " + subjects + "where " + teachersTableNameWithOutSpaces + ".email = '" + emailParam + "' and "
             + teachersTableNameWithOutSpaces + ".asign_" + to_string((counter + 1)) + " = " + subjectsTableNameWithOutSpaces + ".cod_asign";
-        cout << "Consulta " << allSubjectsQuery << endl;
         mysql_query(conn, allSubjectsQuery.data());
         res = mysql_store_result(conn);
 
@@ -864,7 +852,6 @@ vector<string> DataBaseConnect::getAllNamesOfThemes(string subjectParam) {
     vector <string> allThemes;
 
     string namesQuery = selectThemes + themesTableName + "where cod_asign = ( "  + select_cod_asign + subjectsTableNameWithOutSpaces + " where nombre_asign = '" + subjectParam + "')";
-    cout << "Consulta pipo " << namesQuery << endl;
     
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
@@ -886,7 +873,6 @@ vector<string> DataBaseConnect::getAllNormalQuestions(string nameOfSubjectParam)
 
     string query = select_id_question_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente in ( " + select_id_tema_reverse + 
         themesTableName + " where cod_asign = (" + select_cod_asign + subjects + " where nombre_asign = '" + nameOfSubjectParam + "'))";
-    cout << "Consulta  " << query << endl;
 
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
@@ -964,7 +950,6 @@ vector<string> DataBaseConnect::getAllTestQuestions(string nameOfSubjectParam) {
 
     string query = select_id_question_specific_subject_test_questions + test_question_table + "where tema_perteneciente in ( " + select_id_tema_reverse +
         themesTableName + " where cod_asign = (" + select_cod_asign + subjects + " where nombre_asign = '" + nameOfSubjectParam + "'))";
-    cout << "Consulta  ACA" << query << endl;
 
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
@@ -986,7 +971,6 @@ vector<string> DataBaseConnect::getAllTestQuestionsFromID(string id) {
     vector <string> allTestQuestions;
 
     string query = select_id_question_specific_subject_test_questions + test_question_table + "where id = " + id;
-    cout << "Consulta  BUENA " << query << endl;
 
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
@@ -1009,7 +993,6 @@ vector<string> DataBaseConnect::getAllNormalQuestionsSpecificTheme(string nameOf
     vector <string> allNormalQuestionsSpecificTheme;
 
     string namesQuery = select_id_question_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente = ( " + select_id_tema_reverse + themesTableName + " where nombre = '" + nameOfTheme + "')";
-    cout << "Consulta" << namesQuery << endl;
 
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
@@ -1031,7 +1014,6 @@ vector<string> DataBaseConnect::getAllNormalQuestionsSpecificThemeWithoutName(st
     vector <string> allNormalQuestionsSpecificTheme;
 
     string namesQuery = select_id_specific_subject_normal_questions + normal_question_table + "where tema_perteneciente = ( " + select_id_tema_reverse + themesTableName + " where nombre = '" + nameOfTheme + "')";
-    cout << "Consulta" << namesQuery << endl;
 
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
@@ -1072,7 +1054,6 @@ vector<string> DataBaseConnect::getAllTestQuestionsSpecificTheme(string nameOfTh
     vector <string> allTestQuestionsSpecificTheme;
 
     string namesQuery = select_id_question_specific_subject_test_questions + test_question_table + "where tema_perteneciente = ( " + select_id_tema_reverse + themesTableName + " where nombre = '" + nameOfTheme + "')";
-    cout << "Consulta" << namesQuery << endl;
 
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);

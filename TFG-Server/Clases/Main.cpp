@@ -7,7 +7,7 @@ using namespace std;
 
 
 int main() {
-	Menu t;
-	//MasterSocket t;
+	//Menu t;
+	MasterSocket t;
 	return 0;
 }

@@ -20,7 +20,7 @@ void SocketObject::launchReadThread() {
 	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	setlocale(LC_ALL, "");
 
-	printf("Se ha conectado: %s:%d\n", inet_ntoa(clientSocket.sin_addr), clientSocket.sin_port);
+	//printf("Se ha conectado: %s:%d\n", inet_ntoa(clientSocket.sin_addr), clientSocket.sin_port);
 
 	valread = read(sendReceiveDataSocket, buffer, 1024);
 
@@ -706,7 +706,6 @@ void SocketObject::launchReadThread() {
 							serverMessage.erase(remove(serverMessage.begin(), serverMessage.end(), '"'), serverMessage.end());
 
 							if (serverMessage.compare("sendNormalExam") != 0) {
-								cout << "ACAA " << "echo «datos de examen de tipo normal» | mail -s «examen» " + serverMessage + " -A '" + nameOfPDFStr + "'" << endl;
 								getResultOfCommands("echo «datos de examen de tipo normal» | mail -s «examen» " + serverMessage + " -A '" + nameOfPDFStr + "'");
 								std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 								getResultOfCommands("rm -r '" + nameOfPDFStr + "'");
@@ -818,7 +817,6 @@ void SocketObject::launchReadThread() {
 	} catch (...) {
 		// En caso de error, se corta la conexión
 		// Mandar mensaje de cierre de conexión al cliente
-		cout << "ha saltado el catch" << endl;
 		checkThreadFunction = false;
 		checkTimeOut = false;
 		removeThread(this_thread::get_id());
@@ -836,7 +834,7 @@ void SocketObject::timeOutData() {
 		if (timeOut >= maxTimeOut) {
 			checkTimeOut = false;
 		}
-		cout << timeOut << endl;
+		//cout << timeOut << endl;
 	}
 }
 
@@ -1589,7 +1587,7 @@ void SocketObject::removeThread(thread::id id) {
 			iter->detach();
 			allSockets.erase(iter);
 		}
-		cout << "conexiones activas " << allSockets.size() << endl;
+		//cout << "conexiones activas " << allSockets.size() << endl;
 	} catch (...) {
 		cout << "No se ha podido borrar el objeto del array de conexiones" << endl;
 	}

@@ -11,7 +11,6 @@ MasterSocket::MasterSocket() {
 		int opt = 1;
 		int addrlen = sizeof(address);
 		char buffer[1024] = { 0 };
-		char* hello = "Hola, vengo desde el servidor";
 
 		// Creación del socket
 		if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
