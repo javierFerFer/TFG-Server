@@ -4,30 +4,16 @@
 #include "../Headers/JsonSingleData.h"
 #include <csetjmp>
 
-
-#include "../Libraries/pdf/pdf.h"
-#include "../Libraries/pdf/metrics.h"
 #include <iomanip>
 
 using namespace std;
 using namespace PoDoFo;
 
-jmp_buf env;
-
-#ifdef HPDF_DLL
-void __stdcall
-#else
-void
-#endif
-error_handler(HPDF_STATUS   error_no,
-	HPDF_STATUS   detail_no,
-	void* user_data) {
-	printf("ERROR: error_no=%04X, detail_no=%u\n", (HPDF_UINT)error_no,
-		(HPDF_UINT)detail_no);
-	longjmp(env, 1);
-}
 
 int no = 0;
+string nameOfPDFStr;
+string nameOfPDFStrWithAnswers;
+string nameOfPDFStrWithOutAnswers;
 
 void SocketObject::launchReadThread() {
 	try {
@@ -101,11 +87,6 @@ void SocketObject::launchReadThread() {
 
 				decrypted = pCipher->decryptString(userData, Poco::Crypto::Cipher::ENC_BASE64);
 
-
-
-				//cout << "AQUI BRO" << decrypted <<endl;
-
-
 				nlohmann::json jsonObjT;
 				std::stringstream(decrypted) >> jsonObjT;
 
@@ -138,7 +119,6 @@ void SocketObject::launchReadThread() {
 							}
 						}
 					} else if (title.compare("test") == 0) {
-						// nada
 						break;
 					} else if (title.compare("client_disconnect") == 0) {
 						// Fin de conexión
@@ -156,8 +136,6 @@ void SocketObject::launchReadThread() {
 								string nameOfUser = dataBaseConnection.nameQuery(dataOfMessage);
 								if (nameOfUser.length() != 0) {
 									sendSigleMessage("userNameData", nameOfUser, pCipher);
-								} else {
-									// Nombre no encontrado, cierre de conexión del cliente
 								}
 							}
 						}
@@ -376,7 +354,7 @@ void SocketObject::launchReadThread() {
 							if (dataOfMessage.compare("getAllNormalQuestionsSpecificNameOfSUbject") != 0) {
 
 								vector <string> allQuestions = dataBaseConnection.getAllNormalQuestions(dataOfMessage);
-								// Según la longitud del vector, 
+
 								if (allQuestions.size() == 0) {
 									sendSigleMessage("normalQuestionsNotFound", "", pCipher);
 								} else {
@@ -395,7 +373,7 @@ void SocketObject::launchReadThread() {
 							if (dataOfMessage.compare("getAllNormalQuestionsForMod") != 0) {
 
 								vector <string> allQuestionsForModification = dataBaseConnection.getAllNormalQuestionsForModification(dataOfMessage);
-								// Según la longitud del vector, 
+
 								if (allQuestionsForModification.size() == 0) {
 									sendSigleMessage("normalForModificationQuestionsNotFound", "", pCipher);
 								} else {
@@ -414,7 +392,7 @@ void SocketObject::launchReadThread() {
 							if (dataOfMessage.compare("getAllTestQuestionsForMod") != 0) {
 
 								vector <string> allQuestionsForModification = dataBaseConnection.getAllTestQuestionsForModification(dataOfMessage);
-								// Según la longitud del vector, 
+
 								if (allQuestionsForModification.size() == 0) {
 									sendSigleMessage("TestForModificationQuestionsNotFound", "", pCipher);
 								} else {
@@ -433,7 +411,7 @@ void SocketObject::launchReadThread() {
 							if (dataOfMessage.compare("getAllTestModifications") != 0) {
 
 								vector <string> allTestModifications = dataBaseConnection.getAllTestModForIdReference(dataOfMessage);
-								// Según la longitud del vector, 
+
 								sendMoreSingleDataMessage("allTestModifications", allTestModifications, pCipher);
 							}
 						}
@@ -528,7 +506,7 @@ void SocketObject::launchReadThread() {
 							if (dataOfMessage.compare("getAllTestQuestionsSpecificNameOfSUbject") != 0) {
 
 								vector <string> allQuestions = dataBaseConnection.getAllTestQuestions(dataOfMessage);
-								// Según la longitud del vector, 
+
 								if (allQuestions.size() == 0) {
 									sendSigleMessage("TestQuestionsNotFound", "", pCipher);
 								} else {
@@ -561,7 +539,7 @@ void SocketObject::launchReadThread() {
 							if (dataOfMessage.compare("getAllNormalQuestionsSpecificTheme") != 0) {
 
 								vector <string> allQuestions = dataBaseConnection.getAllNormalQuestionsSpecificTheme(dataOfMessage);
-								// Según la longitud del vector, 
+
 								if (allQuestions.size() == 0) {
 									sendSigleMessage("normalQuestionsCreateExamNotFound", "", pCipher);
 								} else {
@@ -580,7 +558,7 @@ void SocketObject::launchReadThread() {
 							if (dataOfMessage.compare("getAllTestQuestionsSpecificTheme") != 0) {
 
 								vector <string> allQuestions = dataBaseConnection.getAllTestQuestionsSpecificTheme(dataOfMessage);
-								// Según la longitud del vector, 
+
 								if (allQuestions.size() == 0) {
 									sendSigleMessage("testQuestionsCreateExamNotFound", "", pCipher);
 								} else {
@@ -728,9 +706,10 @@ void SocketObject::launchReadThread() {
 							serverMessage.erase(remove(serverMessage.begin(), serverMessage.end(), '"'), serverMessage.end());
 
 							if (serverMessage.compare("sendNormalExam") != 0) {
-								getResultOfCommands("echo «datos de examen de tipo normal» | mail -s «examen» " + serverMessage + " -A " + passwd + ".pdf");
+								cout << "ACAA " << "echo «datos de examen de tipo normal» | mail -s «examen» " + serverMessage + " -A '" + nameOfPDFStr + "'" << endl;
+								getResultOfCommands("echo «datos de examen de tipo normal» | mail -s «examen» " + serverMessage + " -A '" + nameOfPDFStr + "'");
 								std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-								getResultOfCommands("rm -r " + passwd + ".pdf");
+								getResultOfCommands("rm -r '" + nameOfPDFStr + "'");
 
 							}
 						}
@@ -742,12 +721,12 @@ void SocketObject::launchReadThread() {
 
 							if (serverMessage.compare("sendTestExam") != 0) {
 
-								getResultOfCommands("echo «datos de examen de tipo Test» | mail -s «examen_con_respuesta» " + serverMessage + " -A " + passwd + "_con_respuesta.pdf");
+								getResultOfCommands("echo «datos de examen de tipo Test» | mail -s «examen_con_respuesta» " + serverMessage + " -A '" + nameOfPDFStrWithAnswers + "'");
 								std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-								getResultOfCommands("rm -r " + passwd + "_con_respuesta.pdf");
-								getResultOfCommands("echo «datos de examen de tipo Test» | mail -s «examen_sin_respuesta» " + serverMessage + " -A " + passwd + "_sin_respuesta.pdf");
+								getResultOfCommands("rm -r '" + nameOfPDFStrWithAnswers + "'");
+								getResultOfCommands("echo «datos de examen de tipo Test» | mail -s «examen_sin_respuesta» " + serverMessage + " -A '" + nameOfPDFStrWithOutAnswers + "'");
 								std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-								getResultOfCommands("rm -r " + passwd + "_sin_respuesta.pdf");
+								getResultOfCommands("rm -r '" + nameOfPDFStrWithOutAnswers + "'");
 							}
 						}
 					} else if (title.compare("getAllNormalModels") == 0) {
@@ -819,39 +798,14 @@ void SocketObject::launchReadThread() {
 							}
 						}
 					}
-
-
-					// Solo debe leer el título
 					break;
-					//if (element.size() != 1) {
-					//	// Guarda datos recibidos
-					//	vector <string> allData(begin(element), end(element));
-					//	internalJsonObject->B_Content = allData;
-					//} else {
-					//	// Guarda titulo
-					//	string title = element;
-					//	internalJsonObject->A_Title  = element;
-					//}
-					//break;
 				}
 
-				// crear Json con los datos de la clase
-				//nlohmann::json jsonObjVicer;
-				//jsonObjVicer["Title"] = internalJsonObject->A_Title;
-				//jsonObjVicer["Content"] = internalJsonObject->B_Content;
-
-
-				// Revisión del contenido
-
-				// Convertimos el json en un string
-				//string bar = jsonObjVicer.dump();
-
 			} else {
+			// Cierre de conexión al pasar el tiempo de time-out
 				checkThreadFunction = false;
 				checkTimeOut = false;
 				sendSigleMessage("connectionStatus", "closedForTimeOut", pCipher);
-				// Mandará mensaje de time out al cliente y se cierra
-				// la conexión
 			}
 		}
 
@@ -860,12 +814,6 @@ void SocketObject::launchReadThread() {
 		checkThreadFunction = false;
 		checkTimeOut = false;
 	}
-	// Encriptado/desencriptado
-	//std::string encrypted = pCipher->encryptString(plainText, Poco::Crypto::Cipher::ENC_BASE64); //Base64-encoded output
-	//cout << "plainText=" << plainText << endl;
-	//cout << "encrypted=" << encrypted << endl;
-	//std::string decrypted = pCipher->decryptString(encrypted, Poco::Crypto::Cipher::ENC_BASE64);
-	//cout << "decrypted=" << decrypted << endl;
 	removeThread(this_thread::get_id());
 	} catch (...) {
 		// En caso de error, se corta la conexión
@@ -947,7 +895,10 @@ void SocketObject::sendMoreSingleDataMessage(string titleParam, vector<string> m
 }
 
 void SocketObject::generateNormalExam(vector<string> allQuestions) {
-	string nameOfPDFStr = passwd;
+	nameOfPDFStr = "Tema ";
+	nameOfPDFStr.append(allQuestions[allQuestions.size() - 1]);
+	nameOfPDFStr.append(" - ");
+	nameOfPDFStr.append(passwd);
 	nameOfPDFStr.append(".pdf");
 
 	PdfStreamedDocument document(nameOfPDFStr.c_str());
@@ -987,13 +938,11 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 
 			tempString = "Fecha:\n\nNombre:\n\nApellidos: ";
 
-			//cout << "ACAAAA" << tempString << endl;
 
-			PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 
 			pFont->SetFontSize(12);
 			painter.SetFont(pFont);
-			//painter.DrawText(100.0, pPage->GetPageSize().GetHeight() - 100.0, pString);
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0, pString);
 
@@ -1002,7 +951,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 			tempString = tempStringAppend.c_str();
 
 			pFont->SetFontSize(20);
-			PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 270.0, 300.0, 100.0);
 			painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 270.0, 300.0, 100.0, subjectPDF);
 
@@ -1019,7 +968,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 
 			tempString = tempStringAppend.c_str();
 
-			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0, tempPString);
 
@@ -1034,7 +983,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 			tempStringAppend.append(allQuestions[externalCounter + 2]);
 			tempStringAppend.append(valueOfQuestionString);
 
-			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0, tempPStringSecondQuestion);
 
@@ -1059,7 +1008,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 
 			tempString = tempStringAppend.c_str();
 
-			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 100.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 100.0, tempPString);
 
@@ -1076,7 +1025,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 
 			tempString = tempStringAppend.c_str();
 
-			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0, tempPStringSecondQuestion);
 
@@ -1104,7 +1053,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 
 			tempString = tempStringAppend.c_str();
 
-			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 100.0, tempPString);
 
@@ -1119,7 +1068,7 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 			tempStringAppend.append(allQuestions[externalCounter + 2]);
 			tempStringAppend.append(valueOfQuestionString);
 
-			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 100.0, tempPStringSecondQuestion);
 
@@ -1128,17 +1077,24 @@ void SocketObject::generateNormalExam(vector<string> allQuestions) {
 	}
 	painter.FinishPage();
 	document.Close();
-	// Envio de aviso al usuario de examen generado correctamente
-
-	// Envio por correo del fichero en base al correo del usuario
 }
 
 void SocketObject::generateTestExam(vector <string> allQuestions, bool generateWithNotAnswer) {
-	string nameOfPDFStr = passwd;
 	if (generateWithNotAnswer) {
+		nameOfPDFStr = "Tema ";
+		nameOfPDFStr.append(allQuestions[allQuestions.size() - 1]);
+		nameOfPDFStr.append(" - ");
+		nameOfPDFStr.append(passwd);
 		nameOfPDFStr.append("_con_respuesta.pdf");
 	} else {
-		nameOfPDFStr.append("_sin_respuesta.pdf");
+		nameOfPDFStrWithOutAnswers = "Tema ";
+		nameOfPDFStrWithOutAnswers.append(allQuestions[allQuestions.size() - 1]);
+		nameOfPDFStrWithOutAnswers.append(" - ");
+		nameOfPDFStrWithOutAnswers.append(passwd);
+		nameOfPDFStrWithOutAnswers.append("_sin_respuesta.pdf");
+		nameOfPDFStrWithAnswers = nameOfPDFStr;
+		nameOfPDFStr = nameOfPDFStrWithOutAnswers;
+
 	}
 
 	PdfStreamedDocument document(nameOfPDFStr.c_str());
@@ -1167,8 +1123,8 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 	// Revisar ese -1 al final
 	for (int counterPages = 0; counterPages < ((allQuestions.size() - 1) / 7); counterPages++) {
 		PdfPage* pPage;
-		const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // required for UTF8 characterspodo
-		PdfFont* pFont = document.CreateFont("Arial"); // LiberationSerif has polish characters 
+		const PdfEncoding* pEncoding = new PdfIdentityEncoding(); // Necesario para castear el texto a UTF-8
+		PdfFont* pFont = document.CreateFont("Arial");
 		const char* tempString;
 
 		if (counterPages == 0) {
@@ -1185,7 +1141,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 				tempString = tempStringAppend.c_str();
 
 				pFont->SetFontSize(20);
-				PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+				PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 				painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 180.0, 300.0, 100.0);
 				painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 180.0, 300.0, 100.0, subjectPDF);
 
@@ -1224,7 +1180,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 
 					tempString = tempStringAppend.c_str();
 
-					PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+					PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 					painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0);
 					painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0, tempPString);
 				}
@@ -1236,13 +1192,10 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 
 				tempString = "Fecha:\n\nNombre:\n\nApellidos: ";
 
-				//cout << "ACAAAA" << tempString << endl;
-
-				PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+				PdfString pString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 
 				pFont->SetFontSize(12);
 				painter.SetFont(pFont);
-				//painter.DrawText(100.0, pPage->GetPageSize().GetHeight() - 100.0, pString);
 				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0);
 				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 140.0, 300.0, 100.0, pString);
 
@@ -1251,7 +1204,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 				tempString = tempStringAppend.c_str();
 
 				pFont->SetFontSize(20);
-				PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+				PdfString subjectPDF(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 				painter.Rectangle(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 230.0, 300.0, 100.0);
 				painter.DrawMultiLineText(pPage->GetPageSize().GetWidth() * 0.25, pPage->GetPageSize().GetHeight() - 230.0, 300.0, 100.0, subjectPDF);
 				externalCounter++;
@@ -1290,7 +1243,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 
 					tempString = tempStringAppend.c_str();
 
-					PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+					PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 					painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0);
 					painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0, tempPString);
 				}
@@ -1337,7 +1290,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 
 			tempString = tempStringAppend.c_str();
 
-			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 170.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 250.0, 500.0, 170.0, tempPString);
 
@@ -1378,7 +1331,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 
 			tempString = tempStringAppend.c_str();
 
-			PdfString tempPStringTwo(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString tempPStringTwo(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0, tempPStringTwo);
 
@@ -1414,7 +1367,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 			}
 			tempStringAppend.append(valueOfQuestionString);
 
-			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+			PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0, tempPStringSecondQuestion);
 
@@ -1463,7 +1416,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 
 			tempString = tempStringAppend.c_str();
 
-			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+			PdfString tempPString(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 			painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0);
 			painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - size, 500.0, 170.0, tempPString);
 
@@ -1501,7 +1454,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 
 				tempString = tempStringAppend.c_str();
 
-				PdfString tempPStringTwo(reinterpret_cast<const pdf_utf8*>(tempString)); // Need to cast input string into pdf_utf8
+				PdfString tempPStringTwo(reinterpret_cast<const pdf_utf8*>(tempString)); // Necesario para castear el texto a UTF-8
 				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0);
 				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 450, 500.0, 170.0, tempPStringTwo);
 
@@ -1537,7 +1490,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 				}
 				tempStringAppend.append(valueOfQuestionString);
 
-				PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+				PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Necesario para castear el texto a UTF-8
 				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0);
 				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0, tempPStringSecondQuestion);
 
@@ -1574,7 +1527,7 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 				}
 				tempStringAppend.append(valueOfQuestionString);
 
-				PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Need to cast input string into pdf_utf8
+				PdfString tempPStringSecondQuestion(reinterpret_cast<const pdf_utf8*>(tempStringAppend.c_str())); // Necesario para castear el texto a UTF-8
 				painter.Rectangle(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0);
 				painter.DrawMultiLineText(60.0, pPage->GetPageSize().GetHeight() - 650.0, 500.0, 170.0, tempPStringSecondQuestion);
 
@@ -1586,12 +1539,6 @@ void SocketObject::generateTestExam(vector <string> allQuestions, bool generateW
 	}
 	painter.FinishPage();
 	document.Close();
-	// Envio de aviso al usuario de examen generado correctamente
-
-
-	//sendSigleMessage("normalExamCreatedSucces", "", pCipher);
-
-	// Envio por correo del fichero en base al correo del usuario
 
 }
 
@@ -1604,7 +1551,6 @@ string SocketObject::generatePasswd() {
 		randomNumber = (rand() % 9) + 1;
 		randomPasswd += to_string(randomNumber);
 	}
-	//string clave = "01234567891234560123456789123456";
 	return randomPasswd;
 }
 
@@ -1642,7 +1588,6 @@ void SocketObject::removeThread(thread::id id) {
 		if (iter != allSockets.end()) {
 			iter->detach();
 			allSockets.erase(iter);
-			//cout << sendReceiveDataSocket << endl;
 		}
 		cout << "conexiones activas " << allSockets.size() << endl;
 	} catch (...) {

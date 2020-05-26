@@ -1,4 +1,4 @@
-//todos los include de la clase
+
 #include "../Headers/Main.h"
 #include "../Headers/Menu.h"
 #include <sstream>
@@ -52,12 +52,7 @@
 
 #endif  /* _COLORS_ */
 
-/*
-Main del programa
 
-*/
-
-// Constructor de la clase, se ejecuta al crear un objeto de la misma
 Menu::Menu(){
 
 	checkPort();

@@ -2,12 +2,12 @@
 using namespace std;
 
 
-
-
-
 DataBaseConnect::DataBaseConnect() {
 
-    /* INITIALIZE CONNECTION HANDLER, DO NOT CHANGE */
+    /*
+    Inicialización de la conexión con la base de datos
+    Se establece la codificación en UTF-8
+    */
 
     conn = mysql_init(NULL);
     mysql_options(conn, MYSQL_SET_CHARSET_NAME, "utf8mb4");
@@ -15,13 +15,17 @@ DataBaseConnect::DataBaseConnect() {
 
     
 
-    /* THIS CONNECTS TO SERVER, DO NOT CHANGE ANYTHING HERE */
+    /*
+    Conexión con la base de datos
+    */
     mysql_real_connect(conn, opt_host_name, opt_user_name, opt_password,
         opt_db_name, opt_port_num, opt_socket_name, opt_flags);
     /* show tables in the database (test for errors also) */
     
 
-    /* disconnect from server */
+    /*
+    Desconexión con la base de datos
+    */
     //mysql_close(conn);
 }
 
@@ -34,9 +38,9 @@ bool DataBaseConnect::loginQuery(string emailParam, string passwdParam) {
 
     
 
-    // get the number of the columns
+    // Obtiene el número de columnas
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+    // Almacena todos los resultados de la fila
     if ((row = mysql_fetch_row(res))) {
         return true;
     } else {
@@ -52,10 +56,8 @@ bool DataBaseConnect::checkNameOfThemeExist(string nameOfThemeParam) {
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 
-
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         return true;
     } else {
@@ -69,10 +71,8 @@ bool DataBaseConnect::checkNameOfQuestionExist(string nameOfQuestionParam) {
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 
-
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         return true;
     } else {
@@ -87,9 +87,8 @@ bool DataBaseConnect::checkNameOfNormalQuestionExist(string nameOfNormalModel) {
     res = mysql_store_result(conn);
 
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         return true;
     } else {
@@ -104,9 +103,8 @@ bool DataBaseConnect::checkNameOfTestQuestionExist(string nameOfTestModel) {
     res = mysql_store_result(conn);
 
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         return true;
     } else {
@@ -120,9 +118,8 @@ bool DataBaseConnect::checkNameOfQuestionTestExist(string nameOfQuestionParam) {
     res = mysql_store_result(conn);
 
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         return true;
     } else {
@@ -142,12 +139,11 @@ bool DataBaseConnect::insertNewTheme(vector<string> allNewThemeData) {
                 mysql_query(conn, get_max_id_query.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 int num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             max_ID = row[i];
                         } else {
@@ -160,12 +156,11 @@ bool DataBaseConnect::insertNewTheme(vector<string> allNewThemeData) {
                 mysql_query(conn, get_cod_asign_query.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             cod_asign = row[i];
                         }
@@ -196,12 +191,11 @@ bool DataBaseConnect::insertNewQuestion(vector<string> allNewQuestionData) {
                 mysql_query(conn, get_max_id_query.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 int num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             max_ID = row[i];
                         } else {
@@ -214,12 +208,11 @@ bool DataBaseConnect::insertNewQuestion(vector<string> allNewQuestionData) {
                 mysql_query(conn, get_cod_theme.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             id_tema = row[i];
                         }
@@ -250,12 +243,11 @@ bool DataBaseConnect::insertNewTestQuestion(vector<string> allNewQuestionData) {
                 mysql_query(conn, get_max_id_query.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 int num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             max_ID = row[i];
                         } else {
@@ -268,12 +260,11 @@ bool DataBaseConnect::insertNewTestQuestion(vector<string> allNewQuestionData) {
                 mysql_query(conn, get_cod_theme.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             id_tema = row[i];
                         }
@@ -304,12 +295,11 @@ bool DataBaseConnect::insertNewNormalModification(vector<string> allDataNewModif
                 mysql_query(conn, get_max_id_query.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 int num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             max_ID = row[i];
                         } else {
@@ -340,12 +330,11 @@ bool DataBaseConnect::insertNewTestModification(vector<string> allDataNewModific
                 mysql_query(conn, get_max_id_query.data());
                 res = mysql_store_result(conn);
 
-                // get the number of the columns
                 int num_fields = mysql_num_fields(res);
-                // Fetch all rows from the result
+
                 if ((row = mysql_fetch_row(res))) {
                     for (int i = 0; i < num_fields; i++) {
-                        // Make sure row[i] is valid!
+
                         if (row[i] != NULL) {
                             max_ID = row[i];
                         } else {
@@ -448,11 +437,10 @@ void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
         mysql_query(conn, query.data());
         res = mysql_store_result(conn);
 
-        // get the number of the columns
         int num_fields = mysql_num_fields(res);
         if ((row = mysql_fetch_row(res))) {
             for (int i = 0; i < num_fields; i++) {
-                // Make sure row[i] is valid!
+
                 if (row[i] != NULL) {
                     internalID = row[i];
                 } else {
@@ -472,11 +460,10 @@ void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
             mysql_query(conn, getLengthJSON.data());
             res = mysql_store_result(conn);
 
-            // get the number of the columns
             num_fields = mysql_num_fields(res);
             if ((row = mysql_fetch_row(res))) {
                 for (int i = 0; i < num_fields; i++) {
-                    // Make sure row[i] is valid!
+
                     if (row[i] != NULL) {
                         lengthJSONModels = row[i];
                     } else {
@@ -494,7 +481,7 @@ void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
                     mysql_query(conn, getNumberOfModel.data());
                     res = mysql_store_result(conn);
 
-                    // get the number of the columns
+
                     num_fields = mysql_num_fields(res);
                     if ((row = mysql_fetch_row(res))) {
                         for (int i = 0; i < num_fields; i++) {
@@ -515,7 +502,6 @@ void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
                 res = mysql_store_result(conn);
 
                 // Comprobación de que el modelo/s a los que pertenecía dicha pregunta tienen al menos una pregunta asociada
-
                 for (int counterMod = 0; counterMod < allNumbersOfModels.size(); counterMod++) {
                     string getCountOfQuestions = selectCoutID + normal_question_table +  " where JSON_CONTAINS(modelo_perteneciente, " + "'" + '"' + allNumbersOfModels[counterMod] + '"' + "'" + ")";
 
@@ -524,7 +510,7 @@ void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
                     mysql_query(conn, getCountOfQuestions.data());
                     res = mysql_store_result(conn);
 
-                    // get the number of the columns
+
                     num_fields = mysql_num_fields(res);
                     if ((row = mysql_fetch_row(res))) {
                         for (int i = 0; i < num_fields; i++) {
@@ -539,6 +525,7 @@ void DataBaseConnect::deleteNormalQuestion(string idNormalModification) {
 
                 if (allNumbersOfModels.size() != 0) {
                     for (int counterOfModelsToDelete = 0; counterOfModelsToDelete < allNumbersOfModelsToDelete.size(); counterOfModelsToDelete++) {
+
                         // Borrado de todos los modelos normales sin preguntas asociadas
                         string deleteQuery = "delete from modelo_normal where id = " + allNumbersOfModelsToDelete[counterOfModelsToDelete];
 
@@ -572,11 +559,10 @@ void DataBaseConnect::deleteTestQuestion(string idTestModification) {
         mysql_query(conn, query.data());
         res = mysql_store_result(conn);
 
-        // get the number of the columns
         int num_fields = mysql_num_fields(res);
         if ((row = mysql_fetch_row(res))) {
             for (int i = 0; i < num_fields; i++) {
-                // Make sure row[i] is valid!
+
                 if (row[i] != NULL) {
                     internalID = row[i];
                 } else {
@@ -596,11 +582,10 @@ void DataBaseConnect::deleteTestQuestion(string idTestModification) {
             mysql_query(conn, getLengthJSON.data());
             res = mysql_store_result(conn);
 
-            // get the number of the columns
             num_fields = mysql_num_fields(res);
             if ((row = mysql_fetch_row(res))) {
                 for (int i = 0; i < num_fields; i++) {
-                    // Make sure row[i] is valid!
+
                     if (row[i] != NULL) {
                         lengthJSONModels = row[i];
                     } else {
@@ -618,7 +603,6 @@ void DataBaseConnect::deleteTestQuestion(string idTestModification) {
                     mysql_query(conn, getNumberOfModel.data());
                     res = mysql_store_result(conn);
 
-                    // get the number of the columns
                     num_fields = mysql_num_fields(res);
                     if ((row = mysql_fetch_row(res))) {
                         for (int i = 0; i < num_fields; i++) {
@@ -648,13 +632,12 @@ void DataBaseConnect::deleteTestQuestion(string idTestModification) {
                     mysql_query(conn, getCountOfQuestions.data());
                     res = mysql_store_result(conn);
 
-                    // get the number of the columns
                     num_fields = mysql_num_fields(res);
                     if ((row = mysql_fetch_row(res))) {
                         for (int i = 0; i < num_fields; i++) {
                             string tempData = row[i];
                             if (tempData.compare("0") == 0) {
-                                // Borrado del modelo
+
                                 allNumbersOfModelsToDelete.push_back(allNumbersOfModels[counterMod]);
                             }
                         }
@@ -697,12 +680,9 @@ string DataBaseConnect::insertNewNormalModel(vector<string> allDataNormalModel) 
         mysql_query(conn, get_max_id_query.data());
         res = mysql_store_result(conn);
 
-        // get the number of the columns
         int num_fields = mysql_num_fields(res);
-        // Fetch all rows from the result
         if ((row = mysql_fetch_row(res))) {
             for (int i = 0; i < num_fields; i++) {
-                // Make sure row[i] is valid!
                 if (row[i] != NULL) {
                     max_ID = row[i];
                 } else {
@@ -716,12 +696,11 @@ string DataBaseConnect::insertNewNormalModel(vector<string> allDataNormalModel) 
         mysql_query(conn, get_cod_theme.data());
         res = mysql_store_result(conn);
 
-        // get the number of the columns
         num_fields = mysql_num_fields(res);
-        // Fetch all rows from the result
+
         if ((row = mysql_fetch_row(res))) {
             for (int i = 0; i < num_fields; i++) {
-                // Make sure row[i] is valid!
+
                 if (row[i] != NULL) {
                     id_tema = row[i];
                 }
@@ -749,12 +728,11 @@ string DataBaseConnect::insertNewTestModel(vector<string> allDataTestModel) {
         mysql_query(conn, get_max_id_query.data());
         res = mysql_store_result(conn);
 
-        // get the number of the columns
         int num_fields = mysql_num_fields(res);
-        // Fetch all rows from the result
+
         if ((row = mysql_fetch_row(res))) {
             for (int i = 0; i < num_fields; i++) {
-                // Make sure row[i] is valid!
+
                 if (row[i] != NULL) {
                     max_ID = row[i];
                 } else {
@@ -768,12 +746,11 @@ string DataBaseConnect::insertNewTestModel(vector<string> allDataTestModel) {
         mysql_query(conn, get_cod_theme.data());
         res = mysql_store_result(conn);
 
-        // get the number of the columns
         num_fields = mysql_num_fields(res);
-        // Fetch all rows from the result
+
         if ((row = mysql_fetch_row(res))) {
             for (int i = 0; i < num_fields; i++) {
-                // Make sure row[i] is valid!
+
                 if (row[i] != NULL) {
                     id_tema = row[i];
                 }
@@ -796,14 +773,11 @@ string DataBaseConnect::nameQuery(string emailParam) {
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 
-
-
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
+
             if (row[i] != NULL) {
                 return row[i];
             } else {
@@ -820,14 +794,11 @@ string DataBaseConnect::select(string value) {
     mysql_query(conn, loginQuery.data());
     res = mysql_store_result(conn);
 
-
-
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
+
             if (row[i] != NULL) {
                 return row[i];
             } else {
@@ -846,14 +817,11 @@ string DataBaseConnect::checkUserPermissionsToChange(string emailParam) {
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-
-
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
+
     if ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
+
             if (row[i] != NULL) {
                 return row[i];
             } else {
@@ -876,12 +844,11 @@ vector<string> DataBaseConnect::getAllNamesOfSubjects(string emailParam) {
         mysql_query(conn, allSubjectsQuery.data());
         res = mysql_store_result(conn);
 
-        // get the number of the columns
         int num_fields = mysql_num_fields(res);
-        // Fetch all rows from the result
+
         if ((row = mysql_fetch_row(res))) {
             for (int i = 0; i < num_fields; i++) {
-                // Make sure row[i] is valid!
+
                 if (row[i] != NULL) {
                     allSubjects.push_back(row[i]);
                 }
@@ -902,12 +869,9 @@ vector<string> DataBaseConnect::getAllNamesOfThemes(string subjectParam) {
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allThemes.push_back(row[i]);
             }
@@ -927,12 +891,9 @@ vector<string> DataBaseConnect::getAllNormalQuestions(string nameOfSubjectParam)
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allQuestionsSpecificSubject.push_back(row[i]);
             }
@@ -1008,12 +969,9 @@ vector<string> DataBaseConnect::getAllTestQuestions(string nameOfSubjectParam) {
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allQuestionsSpecificSubject.push_back(row[i]);
             }
@@ -1033,12 +991,9 @@ vector<string> DataBaseConnect::getAllTestQuestionsFromID(string id) {
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allTestQuestions.push_back(row[i]);
             }
@@ -1059,12 +1014,9 @@ vector<string> DataBaseConnect::getAllNormalQuestionsSpecificTheme(string nameOf
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allNormalQuestionsSpecificTheme.push_back(row[i]);
             }
@@ -1084,12 +1036,9 @@ vector<string> DataBaseConnect::getAllNormalQuestionsSpecificThemeWithoutName(st
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allNormalQuestionsSpecificTheme.push_back(row[i]);
             }
@@ -1107,12 +1056,9 @@ vector<string> DataBaseConnect::getAllTestQuestionsSpecificThemeWithoutName(stri
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allNormalQuestionsSpecificTheme.push_back(row[i]);
             }
@@ -1131,12 +1077,9 @@ vector<string> DataBaseConnect::getAllTestQuestionsSpecificTheme(string nameOfTh
     mysql_query(conn, namesQuery.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
-    // Fetch all rows from the result
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allTestQuestionsSpecificTheme.push_back(row[i]);
             }
@@ -1155,11 +1098,9 @@ vector<string> DataBaseConnect::getAllNormalModels(string nameOfSubject) {
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allDataNormalModels.push_back(row[i]);
             }
@@ -1176,11 +1117,9 @@ vector<string> DataBaseConnect::getAllTestModels(string nameOfSubject) {
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allDataTestModels.push_back(row[i]);
             }
@@ -1197,11 +1136,9 @@ vector<string> DataBaseConnect::getAllQuestionsOfSpecificNormalModel(string idMo
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allDataNormalModelsQuestions.push_back(row[i]);
             }
@@ -1218,11 +1155,9 @@ vector<string> DataBaseConnect::getAllQuestionsOfSpecificTestModel(string idMode
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allDataTestModelsQuestions.push_back(row[i]);
             }
@@ -1239,11 +1174,9 @@ vector<string> DataBaseConnect::getAllNormalModificationsQuestions(string idRefe
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allDataNormalModifications.push_back(row[i]);
             }
@@ -1260,11 +1193,9 @@ vector<string> DataBaseConnect::getAllTestModForIdReference(string idReference) 
     mysql_query(conn, query.data());
     res = mysql_store_result(conn);
 
-    // get the number of the columns
     int num_fields = mysql_num_fields(res);
     while ((row = mysql_fetch_row(res))) {
         for (int i = 0; i < num_fields; i++) {
-            // Make sure row[i] is valid!
             if (row[i] != NULL) {
                 allDataTestModifications.push_back(row[i]);
             }

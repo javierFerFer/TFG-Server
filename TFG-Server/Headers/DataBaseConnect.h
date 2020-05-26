@@ -10,19 +10,19 @@ class DataBaseConnect {
 
 private:
 
-	MYSQL* conn; /* pointer to connection handler */
-	MYSQL_RES* res; /* holds the result set */
+	MYSQL* conn; /* Puntero de la conexión a la base de datos*/
+	MYSQL_RES* res; /* puntero donde se almacena los resultados de las consultas*/
 	MYSQL_ROW row;
 
-	char* opt_host_name = "localhost"; /* HOST */
-	char* opt_user_name = "root"; /* USERNAME */
-	char* opt_password = "Luna1000"; /* PASSWORD */
-	unsigned int opt_port_num = 3306; /* PORT */
-	char* opt_socket_name = NULL; /* SOCKET NAME, DO NOT CHANGE */
-	char* opt_db_name = "tfg_server"; /* DATABASE NAME */
-	unsigned int opt_flags = 0; /* CONNECTION FLAGS, DO NOT CHANGE */
+	char* opt_host_name = "localhost"; /* host */
+	char* opt_user_name = "root"; /* usuario */
+	char* opt_password = "Luna1000"; /* Contraseña */
+	unsigned int opt_port_num = 3306; /* puerto */
+	char* opt_socket_name = NULL; /* Nombre del socket, no cambiar */
+	char* opt_db_name = "tfg_server"; /* Nombre de la base de datos */
+	unsigned int opt_flags = 0; /* Flags de la base de datos, no tocar */
 
-	// All tables here
+	// Todas las tablas aquí
 	const string teachersTableName = " profesorado ";
 	const string teachersTableNameWithOutSpaces = "profesorado";
 	const string subjects = " asignaturas ";
@@ -35,7 +35,7 @@ private:
 	const string test_question_modification_table = "modificaciones_pendientes_test ";
 	const string test_question_table = "preguntas_tipo_test ";
 
-	// All MySQL sentences
+	// Todas las sentencias MYSQL aquí
 	const string selectAll = "select * from ";
 	const string selectCoutID = "select count(id) from ";
 	const string selectJsonLength = "select JSON_LENGTH (";
@@ -60,6 +60,7 @@ private:
 	const string select_max_id_theme = "select max(id_tema) from ";
 	const string select_max_id_question = "select max(id) from ";
 
+	// Todos los insert aquí
 	const string insertNewThemeSentence = "insert into " + themesTableName + "(id_tema, nombre, cod_asign) values( ";
 	const string insertNewQuestionQuery = "insert into " + normal_question_table + "(id, pregunta, tema_perteneciente, modelo_perteneciente) values( ";
 	const string insertNewModificationQuestionQuery = "insert into " + normal_question_modification_table + "(id, id_reference, pregunta) values( ";

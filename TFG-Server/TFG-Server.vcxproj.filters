@@ -2,7 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="Headers\Main.h" />
-    <ClInclude Include="Headers\ThreadTest.h" />
     <ClInclude Include="Headers\Menu.h" />
     <ClInclude Include="Headers\SocketObject.h" />
     <ClInclude Include="Headers\MasterSocket.h" />
@@ -10,19 +9,14 @@
     <ClInclude Include="Libraries\json.hpp" />
     <ClInclude Include="Headers\JsonObjectArray.h" />
     <ClInclude Include="Headers\JsonSingleData.h" />
-    <ClInclude Include="Libraries\pdf\metrics.h" />
-    <ClInclude Include="Libraries\pdf\pdf.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Clases\Main.cpp" />
-    <ClCompile Include="Clases\ThreadTest.cpp" />
     <ClCompile Include="Clases\Menu.cpp" />
     <ClCompile Include="Clases\SocketObject.cpp" />
     <ClCompile Include="Clases\MasterSocket.cpp" />
     <ClCompile Include="Clases\DataBaseConnect.cpp" />
     <ClCompile Include="Clases\JsonObjectArray.cpp" />
     <ClCompile Include="Clases\JsonSingleData.cpp" />
-    <ClCompile Include="Libraries\pdf\metrics.cpp" />
-    <ClCompile Include="Libraries\pdf\pdf.cpp" />
   </ItemGroup>
 </Project>
