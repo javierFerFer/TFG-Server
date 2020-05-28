@@ -11,7 +11,7 @@ var indexSectionsWithContent =
   8: "abcdeijklmnoprsuv",
   9: ":bdo",
   10: "_bcfijknpru",
-  11: "l"
+  11: "d"
 };
 
 var indexSectionNames =
@@ -32,17 +32,17 @@ var indexSectionNames =
 
 var indexSectionLabels =
 {
-  0: "Todo",
-  1: "Clases",
+  0: "All",
+  1: "Classes",
   2: "Namespaces",
-  3: "Archivos",
-  4: "Funciones",
+  3: "Files",
+  4: "Functions",
   5: "Variables",
-  6: "typedefs",
-  7: "Enumeraciones",
-  8: "Valores de enumeraciones",
-  9: "Amigas",
-  10: "defines",
-  11: "Páginas"
+  6: "Typedefs",
+  7: "Enumerations",
+  8: "Enumerator",
+  9: "Friends",
+  10: "Macros",
+  11: "Pages"
 };
 

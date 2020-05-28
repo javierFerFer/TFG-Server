@@ -1,4 +1,4 @@
-\hypertarget{class_socket_object}{}\doxysection{Referencia de la Clase Socket\+Object}
+\hypertarget{class_socket_object}{}\doxysection{Socket\+Object Class Reference}
 \label{class_socket_object}\index{SocketObject@{SocketObject}}
 
 
@@ -10,7 +10,7 @@ Clase \mbox{\hyperlink{class_socket_object}{Socket\+Object}}, gestiona cada hilo
 
 {\ttfamily \#include $<$Socket\+Object.\+h$>$}
 
-\doxysubsection*{Métodos públicos}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_socket_object_a679dedf0d19798216cf57b396c0d5308}{Socket\+Object}} (sockaddr\+\_\+in address, int send\+Receive\+Data, vector$<$ thread $>$ \&all\+Sockets\+Param)
@@ -49,26 +49,26 @@ bool \mbox{\hyperlink{class_socket_object_a8fd218f63f9228e795f4a6d00c539539}{get
 vector$<$ string $>$ \mbox{\hyperlink{class_socket_object_a2850ca8cfb5b4cb7f1558a40df23897a}{split\+Line\+To\+Line}} (string result\+Of\+Command)
 \begin{DoxyCompactList}\small\item\em Genera un listado de linneas obtenidas al ejecutar un comando.~\newline
  Generate a list of lines obtained by executing a command. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Atributos públicos}
+\doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 vector$<$ thread $>$ \& \mbox{\hyperlink{class_socket_object_a4510b95d0e38ca03b251c72a8f8663db}{all\+Sockets}}
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Descripción detallada}
+\doxysubsection{Detailed Description}
 Clase \mbox{\hyperlink{class_socket_object}{Socket\+Object}}, gestiona cada hilo de conexión al servidor.~\newline
  \mbox{\hyperlink{class_socket_object}{Socket\+Object}} class, manages each connection thread to the server. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020 
 \end{DoxyDate}
 
 
-\doxysubsection{Documentación del constructor y destructor}
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{class_socket_object_a679dedf0d19798216cf57b396c0d5308}\label{class_socket_object_a679dedf0d19798216cf57b396c0d5308}} 
 \index{SocketObject@{SocketObject}!SocketObject@{SocketObject}}
 \index{SocketObject@{SocketObject}!SocketObject@{SocketObject}}
@@ -80,14 +80,14 @@ Javier Fernández Fernández
 Constructor de la clase.~\newline
  Constructor of the class. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
  & {\em address,sockaddr\+\_\+in} & Estructura de socket.~\newline
  Structure of socket. ~\newline
  \\
@@ -101,7 +101,7 @@ Javier Fernández Fernández
 \end{DoxyParams}
 
 
-\doxysubsection{Documentación de las funciones miembro}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{class_socket_object_af0d94867be5ea1eed4b7aeab62af3609}\label{class_socket_object_af0d94867be5ea1eed4b7aeab62af3609}} 
 \index{SocketObject@{SocketObject}!generateNormalExam@{generateNormalExam}}
 \index{generateNormalExam@{generateNormalExam}!SocketObject@{SocketObject}}
@@ -113,14 +113,14 @@ Javier Fernández Fernández
 Permite la generación de examenes de tipo normal.~\newline
  Allow generate normal exams. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}{Parámetros}
+\begin{DoxyParams}{Parameters}
 {\em all\+Questions,vector$<$string$>$} & Todas las preguntas.~\newline
  All normal questions. \\
 \hline
@@ -136,13 +136,13 @@ Javier Fernández Fernández
 Genera la clase A\+E\+S-\/256-\/\+C\+BC de 32 dígitos usada en la comunicación cliente-\/servidor.~\newline
  Generate A\+E\+S-\/256-\/\+C\+BC key with 32 digits that is used in the client-\/server communication. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 string, la contraseña.~\newline
  The password. 
 \end{DoxyReturn}
@@ -157,14 +157,14 @@ string, la contraseña.~\newline
 Permite generar exámenes de tipo test.~\newline
  Allow to generate test exams. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}{Parámetros}
+\begin{DoxyParams}{Parameters}
 {\em all\+Questions,vector$<$string$>$} & Todas las preguntas.~\newline
  All questions. \\
 \hline
@@ -183,19 +183,19 @@ Javier Fernández Fernández
 Obtiene el resultado de ejecutar un comando.~\newline
  Get result of execute a command. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}{Parámetros}
+\begin{DoxyParams}{Parameters}
 {\em cmd\+Command,string} & Comando.~\newline
  Command.\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 string, El resultado de la ejecución del comando.~\newline
  The result of execute this command. 
 \end{DoxyReturn}
@@ -210,10 +210,10 @@ string, El resultado de la ejecución del comando.~\newline
 Inicia el hilo para procesar los datos de la conexión.~\newline
  Initialize the thread to process al data of connection. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020 
 \end{DoxyDate}
 \mbox{\Hypertarget{class_socket_object_a5ce2f5967f64f7c8f8d67ff531290707}\label{class_socket_object_a5ce2f5967f64f7c8f8d67ff531290707}} 
@@ -227,14 +227,14 @@ Javier Fernández Fernández
 Borra el hilo concurrente de la lista de conexiones en base a su ID.~\newline
  Delete concurrent thread of list with all connections based on his ID. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}{Parámetros}
+\begin{DoxyParams}{Parameters}
 {\em id,Thread\+::id} & ID del hilo.~\newline
  ID of thread. \\
 \hline
@@ -250,14 +250,14 @@ Javier Fernández Fernández
 Permite enviar un objeto \mbox{\hyperlink{class_json_object_array}{Json\+Object\+Array}} encriptado en A\+ES 256-\/C\+BC.~\newline
  Allow to send \mbox{\hyperlink{class_json_object_array}{Json\+Object\+Array}} object encrypted with A\+E\+S-\/256-\/\+C\+BC key. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
  & {\em title\+Param,string} & Título del objeto.~\newline
  Title of the object. \\
 \hline
@@ -279,14 +279,14 @@ Javier Fernández Fernández
 Permite enviar un objeto \mbox{\hyperlink{class_json_single_data}{Json\+Single\+Data}} encriptado en A\+ES 256-\/C\+BC.~\newline
  Allow to send \mbox{\hyperlink{class_json_single_data}{Json\+Single\+Data}} object encrypted with A\+E\+S-\/256-\/\+C\+BC key. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
  & {\em title\+Param,string} & Título del objeto.~\newline
  Title of the object. \\
 \hline
@@ -308,10 +308,10 @@ Javier Fernández Fernández
 Lanza el hilo Time\+Out como hilo independiente.~\newline
  Throw time\+Out thread. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020 
 \end{DoxyDate}
 \mbox{\Hypertarget{class_socket_object_a2850ca8cfb5b4cb7f1558a40df23897a}\label{class_socket_object_a2850ca8cfb5b4cb7f1558a40df23897a}} 
@@ -325,19 +325,19 @@ Javier Fernández Fernández
 Genera un listado de linneas obtenidas al ejecutar un comando.~\newline
  Generate a list of lines obtained by executing a command. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020
 \end{DoxyDate}
 
-\begin{DoxyParams}{Parámetros}
+\begin{DoxyParams}{Parameters}
 {\em sentence,string} & Resultado de ejecutar un comando.~\newline
  Result to execute a command.\\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 vector$<$string$>$, listado de líneas obtenidas.~\newline
  List of lines. 
 \end{DoxyReturn}
@@ -352,15 +352,15 @@ vector$<$string$>$, listado de líneas obtenidas.~\newline
 Comprueba la inactividad del usuario, si el usuario pasa el límite establecido, se cierra la conexión.~\newline
  Check the inactivity of user, if the user pass the limit of the time, his connection will be closed. 
 
-\begin{DoxyAuthor}{Autor}
+\begin{DoxyAuthor}{Author}
 Javier Fernández Fernández 
 \end{DoxyAuthor}
-\begin{DoxyDate}{Fecha}
+\begin{DoxyDate}{Date}
 22/04/2020 
 \end{DoxyDate}
 
 
-\doxysubsection{Documentación de los datos miembro}
+\doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{class_socket_object_a4510b95d0e38ca03b251c72a8f8663db}\label{class_socket_object_a4510b95d0e38ca03b251c72a8f8663db}} 
 \index{SocketObject@{SocketObject}!allSockets@{allSockets}}
 \index{allSockets@{allSockets}!SocketObject@{SocketObject}}
@@ -369,7 +369,7 @@ Javier Fernández Fernández
 
 
 
-La documentación para esta clase fue generada a partir de los siguientes ficheros\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Headers/\mbox{\hyperlink{_socket_object_8h}{Socket\+Object.\+h}}\item 
-C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Clases/\mbox{\hyperlink{_socket_object_8cpp}{Socket\+Object.\+cpp}}\end{DoxyCompactItemize}
+Headers/\mbox{\hyperlink{_socket_object_8h}{Socket\+Object.\+h}}\item 
+Clases/\mbox{\hyperlink{_socket_object_8cpp}{Socket\+Object.\+cpp}}\end{DoxyCompactItemize}

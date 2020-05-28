@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lista_20de_20obsoletos_1422',['Lista de obsoletos',['../deprecated.html',1,'']]]
+  ['deprecated_20list_1422',['Deprecated List',['../deprecated.html',1,'']]]
 ];

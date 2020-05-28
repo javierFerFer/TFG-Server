@@ -1,4 +1,4 @@
-\hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator}{}\doxysection{Referencia de la plantilla de la Clase nlohmann\+::detail\+::json\+\_\+reverse\+\_\+iterator$<$ Base $>$}
+\hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator}{}\doxysection{nlohmann\+::detail\+::json\+\_\+reverse\+\_\+iterator$<$ Base $>$ Class Template Reference}
 \label{classnlohmann_1_1detail_1_1json__reverse__iterator}\index{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}}
 
 
@@ -9,13 +9,13 @@ a template for a reverse iterator class
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-Diagrama de herencias de nlohmann\+::detail\+::json\+\_\+reverse\+\_\+iterator$<$ Base $>$\begin{figure}[H]
+Inheritance diagram for nlohmann\+::detail\+::json\+\_\+reverse\+\_\+iterator$<$ Base $>$\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{classnlohmann_1_1detail_1_1json__reverse__iterator}
 \end{center}
 \end{figure}
-\doxysubsection*{Tipos públicos}
+\doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
 using \mbox{\hyperlink{classnlohmann_1_1detail_1_1json__reverse__iterator_a9ab55987c05ec6427ad36082e351cc45}{difference\+\_\+type}} = std\+::ptrdiff\+\_\+t
@@ -24,7 +24,7 @@ using \mbox{\hyperlink{classnlohmann_1_1detail_1_1json__reverse__iterator_a6b2ef
 \begin{DoxyCompactList}\small\item\em shortcut to the reverse iterator adapter \end{DoxyCompactList}\item 
 using \mbox{\hyperlink{classnlohmann_1_1detail_1_1json__reverse__iterator_a42f51a69bac7b2aebb613b2164e457f1}{reference}} = typename Base\+::reference
 \begin{DoxyCompactList}\small\item\em the reference type for the pointed-\/to element \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Métodos públicos}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1json__reverse__iterator_a0246de16ece16293f2917dfa5d96e278}{json\+\_\+reverse\+\_\+iterator}} (const typename base\+\_\+iterator\+::iterator\+\_\+type \&it) noexcept
@@ -55,14 +55,14 @@ auto \mbox{\hyperlink{classnlohmann_1_1detail_1_1json__reverse__iterator_adc648a
 \begin{DoxyCompactList}\small\item\em return the value of an iterator \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Descripción detallada}
+\doxysubsection{Detailed Description}
 \subsubsection*{template$<$typename Base$>$\newline
 class nlohmann\+::detail\+::json\+\_\+reverse\+\_\+iterator$<$ Base $>$}
 
 a template for a reverse iterator class 
 
 
-\begin{DoxyTemplParams}{Parámetros del template}
+\begin{DoxyTemplParams}{Template Parameters}
 {\em Base} & the base iterator type to reverse. Valid types are iterator (to create reverse\+\_\+iterator) and const\+\_\+iterator (to create const\+\_\+reverse\+\_\+iterator).\\
 \hline
 \end{DoxyTemplParams}
@@ -72,12 +72,12 @@ a template for a reverse iterator class
 \item \href{https://en.cppreference.com/w/cpp/named_req/OutputIterator}{\texttt{ Output\+Iterator}}\+: It is possible to write to the pointed-\/to element (only if {\itshape Base} is iterator).
 \end{DoxyItemize}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 1.\+0.\+0 
 \end{DoxySince}
 
 
-\doxysubsection{Documentación de los \textquotesingle{}Typedef\textquotesingle{} miembros de la clase}
+\doxysubsection{Member Typedef Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a6b2ef1d632fe49bfcc22fbd1abd62395}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a6b2ef1d632fe49bfcc22fbd1abd62395}} 
 \index{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}!base\_iterator@{base\_iterator}}
 \index{base\_iterator@{base\_iterator}!nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}}
@@ -109,7 +109,7 @@ the reference type for the pointed-\/to element
 
 
 
-\doxysubsection{Documentación del constructor y destructor}
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_a0246de16ece16293f2917dfa5d96e278}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_a0246de16ece16293f2917dfa5d96e278}} 
 \index{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}!json\_reverse\_iterator@{json\_reverse\_iterator}}
 \index{json\_reverse\_iterator@{json\_reverse\_iterator}!nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}}
@@ -134,7 +134,7 @@ create reverse iterator from base class
 
 
 
-\doxysubsection{Documentación de las funciones miembro}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1json__reverse__iterator_adc648a641e8e9a1072c5abd56ad06401}\label{classnlohmann_1_1detail_1_1json__reverse__iterator_adc648a641e8e9a1072c5abd56ad06401}} 
 \index{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}!key@{key}}
 \index{key@{key}!nlohmann::detail::json\_reverse\_iterator$<$ Base $>$@{nlohmann::detail::json\_reverse\_iterator$<$ Base $>$}}
@@ -259,6 +259,6 @@ return the value of an iterator
 
 
 
-La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}
+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}
