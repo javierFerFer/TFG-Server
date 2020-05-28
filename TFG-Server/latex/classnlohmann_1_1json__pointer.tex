@@ -1,4 +1,4 @@
-\hypertarget{classnlohmann_1_1json__pointer}{}\doxysection{Referencia de la plantilla de la Clase nlohmann\+::json\+\_\+pointer$<$ Basic\+Json\+Type $>$}
+\hypertarget{classnlohmann_1_1json__pointer}{}\doxysection{nlohmann\+::json\+\_\+pointer$<$ Basic\+Json\+Type $>$ Class Template Reference}
 \label{classnlohmann_1_1json__pointer}\index{nlohmann::json\_pointer$<$ BasicJsonType $>$@{nlohmann::json\_pointer$<$ BasicJsonType $>$}}
 
 
@@ -9,7 +9,7 @@ J\+S\+ON Pointer.
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsection*{Métodos públicos}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a7f32d7c62841f0c4a6784cf741a6e4f8}{json\+\_\+pointer}} (const std\+::string \&s=\char`\"{}\char`\"{})
@@ -36,7 +36,7 @@ void \mbox{\hyperlink{classnlohmann_1_1json__pointer_ac228b13596d3c34185da9fe61b
 \begin{DoxyCompactList}\small\item\em append an unescaped token at the end of the reference pointer \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classnlohmann_1_1json__pointer_a649252bda4a2e75a0915b11a25d8bcc3}{empty}} () const noexcept
 \begin{DoxyCompactList}\small\item\em return whether pointer points to the root document \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Amigas}
+\doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classnlohmann_1_1json__pointer_ada3100cdb8700566051828f1355fa745}{basic\+\_\+json}}
@@ -53,7 +53,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1json__pointer_a6779edcf28e6f018a3bbb29c0b
 \begin{DoxyCompactList}\small\item\em compares two J\+S\+ON pointers for inequality \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Descripción detallada}
+\doxysubsection{Detailed Description}
 \subsubsection*{template$<$typename Basic\+Json\+Type$>$\newline
 class nlohmann\+::json\+\_\+pointer$<$ Basic\+Json\+Type $>$}
 
@@ -61,15 +61,15 @@ J\+S\+ON Pointer.
 
 A J\+S\+ON pointer defines a string syntax for identifying a specific value within a J\+S\+ON document. It can be used with functions {\ttfamily at} and {\ttfamily operator\mbox{[}\mbox{]}}. Furthermore, J\+S\+ON pointers are the base for J\+S\+ON patches.
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 \href{https://tools.ietf.org/html/rfc6901}{\texttt{ R\+FC 6901}}
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 2.\+0.\+0 
 \end{DoxySince}
 
 
-\doxysubsection{Documentación del constructor y destructor}
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a7f32d7c62841f0c4a6784cf741a6e4f8}\label{classnlohmann_1_1json__pointer_a7f32d7c62841f0c4a6784cf741a6e4f8}} 
 \index{nlohmann::json\_pointer$<$ BasicJsonType $>$@{nlohmann::json\_pointer$<$ BasicJsonType $>$}!json\_pointer@{json\_pointer}}
 \index{json\_pointer@{json\_pointer}!nlohmann::json\_pointer$<$ BasicJsonType $>$@{nlohmann::json\_pointer$<$ BasicJsonType $>$}}
@@ -84,12 +84,12 @@ create J\+S\+ON pointer
 Create a J\+S\+ON pointer according to the syntax described in \href{https://tools.ietf.org/html/rfc6901\#section-3}{\texttt{ Section 3 of R\+F\+C6901}}.
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em s} & string representing the J\+S\+ON pointer; if omitted, the empty string is assumed which references the whole J\+S\+ON value\\
 \hline
 \end{DoxyParams}
 
-\begin{DoxyExceptions}{Excepciones}
+\begin{DoxyExceptions}{Exceptions}
 {\em parse\+\_\+error.\+107} & if the given J\+S\+ON pointer {\itshape s} is nonempty and does not begin with a slash ({\ttfamily /}); see example below\\
 \hline
 {\em parse\+\_\+error.\+108} & if a tilde ({\ttfamily $\sim$}) in the given J\+S\+ON pointer {\itshape s} is not followed by {\ttfamily 0} (representing {\ttfamily $\sim$}) or {\ttfamily 1} (representing {\ttfamily /}); see example below\\
@@ -97,12 +97,12 @@ Create a J\+S\+ON pointer according to the syntax described in \href{https://too
 \end{DoxyExceptions}
 @liveexample\{The example shows the construction several valid J\+S\+ON pointers as well as the exceptional behavior.,\mbox{\hyperlink{classnlohmann_1_1json__pointer}{json\+\_\+pointer}}\}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 2.\+0.\+0 
 \end{DoxySince}
 
 
-\doxysubsection{Documentación de las funciones miembro}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a213bc67c32a30c68ac6bf06f5195d482}\label{classnlohmann_1_1json__pointer_a213bc67c32a30c68ac6bf06f5195d482}} 
 \index{nlohmann::json\_pointer$<$ BasicJsonType $>$@{nlohmann::json\_pointer$<$ BasicJsonType $>$}!back@{back}}
 \index{back@{back}!nlohmann::json\_pointer$<$ BasicJsonType $>$@{nlohmann::json\_pointer$<$ BasicJsonType $>$}}
@@ -114,10 +114,10 @@ const std\+::string\& \mbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann\
 
 return last reference token 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 not {\ttfamily \mbox{\hyperlink{classnlohmann_1_1json__pointer_a649252bda4a2e75a0915b11a25d8bcc3}{empty()}}} 
 \end{DoxyPrecond}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 last reference token
 \end{DoxyReturn}
 @liveexample\{The example shows the usage of {\ttfamily back}.,json\+\_\+pointer\+\_\+\+\_\+back\}
@@ -125,11 +125,11 @@ last reference token
 @complexity Constant.
 
 
-\begin{DoxyExceptions}{Excepciones}
+\begin{DoxyExceptions}{Exceptions}
 {\em out\+\_\+of\+\_\+range.\+405} & if J\+S\+ON pointer has no parent\\
 \hline
 \end{DoxyExceptions}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a649252bda4a2e75a0915b11a25d8bcc3}\label{classnlohmann_1_1json__pointer_a649252bda4a2e75a0915b11a25d8bcc3}} 
@@ -143,7 +143,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann\+::json\+\_\+poin
 
 return whether pointer points to the root document 
 
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 true iff the J\+S\+ON pointer points to the root document
 \end{DoxyReturn}
 @complexity Constant.
@@ -152,7 +152,7 @@ true iff the J\+S\+ON pointer points to the root document
 
 @liveexample\{The example shows the result of {\ttfamily empty} for different J\+S\+ON Pointers.,json\+\_\+pointer\+\_\+\+\_\+empty\}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_ae9015c658f99cf3d48a8563accc79988}\label{classnlohmann_1_1json__pointer_ae9015c658f99cf3d48a8563accc79988}} 
@@ -166,19 +166,19 @@ version 3.\+6.\+0
 
 return a string representation of the J\+S\+ON pointer 
 
-\begin{DoxyInvariant}{Invariante}
+\begin{DoxyInvariant}{Invariant}
 For each J\+S\+ON pointer {\ttfamily ptr}, it holds\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{ptr == \mbox{\hyperlink{classnlohmann_1_1json__pointer_a7f32d7c62841f0c4a6784cf741a6e4f8}{json\_pointer}}(ptr.to\_string());}
 \end{DoxyCode}
 
 \end{DoxyInvariant}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 a string representation of the J\+S\+ON pointer
 \end{DoxyReturn}
 @liveexample\{The example shows the result of {\ttfamily to\+\_\+string}.,json\+\_\+pointer\+\_\+\+\_\+to\+\_\+string\}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 2.\+0.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a7395bd0af29ac23fd3f21543c935cdfa}\label{classnlohmann_1_1json__pointer_a7395bd0af29ac23fd3f21543c935cdfa}} 
@@ -193,25 +193,25 @@ version 2.\+0.\+0
 append another J\+S\+ON pointer at the end of this J\+S\+ON pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em ptr} & J\+S\+ON pointer to append \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 J\+S\+ON pointer with {\itshape ptr} appended
 \end{DoxyReturn}
 @liveexample\{The example shows the usage of {\ttfamily operator/=}.,json\+\_\+pointer\+\_\+\+\_\+operator\+\_\+add\}
 
 @complexity Linear in the length of {\itshape ptr}.
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_abdd21567b2b1d69329af0f520335e68b}{operator/=(std\+::string)}} to append a reference token 
 
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a64c8401529131bad1e486d91d703795f}{operator/=(std\+::size\+\_\+t)}} to append an array index 
 
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a90a11fe6c7f37b1746a3ff9cb24b0d53}{operator/(const json\+\_\+pointer\&, const json\+\_\+pointer\&)}} for a binary operator
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a64c8401529131bad1e486d91d703795f}\label{classnlohmann_1_1json__pointer_a64c8401529131bad1e486d91d703795f}} 
@@ -226,25 +226,25 @@ version 3.\+6.\+0
 append an array index at the end of this J\+S\+ON pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em array\+\_\+index} & array index to append \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 J\+S\+ON pointer with {\itshape array\+\_\+index} appended
 \end{DoxyReturn}
 @liveexample\{The example shows the usage of {\ttfamily operator/=}.,json\+\_\+pointer\+\_\+\+\_\+operator\+\_\+add\}
 
 @complexity Amortized constant.
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a7395bd0af29ac23fd3f21543c935cdfa}{operator/=(const json\+\_\+pointer\&)}} to append a J\+S\+ON pointer 
 
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_abdd21567b2b1d69329af0f520335e68b}{operator/=(std\+::string)}} to append a reference token 
 
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a926c9065dbed1bedc17857a813f7a46f}{operator/(const json\+\_\+pointer\&, std\+::string)}} for a binary operator
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_abdd21567b2b1d69329af0f520335e68b}\label{classnlohmann_1_1json__pointer_abdd21567b2b1d69329af0f520335e68b}} 
@@ -259,25 +259,25 @@ version 3.\+6.\+0
 append an unescaped reference token at the end of this J\+S\+ON pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em token} & reference token to append \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 J\+S\+ON pointer with {\itshape token} appended without escaping {\itshape token} 
 \end{DoxyReturn}
 @liveexample\{The example shows the usage of {\ttfamily operator/=}.,json\+\_\+pointer\+\_\+\+\_\+operator\+\_\+add\}
 
 @complexity Amortized constant.
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a7395bd0af29ac23fd3f21543c935cdfa}{operator/=(const json\+\_\+pointer\&)}} to append a J\+S\+ON pointer 
 
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a64c8401529131bad1e486d91d703795f}{operator/=(std\+::size\+\_\+t)}} to append an array index 
 
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a9f6bc6f4d4668b4e9a19d8b8ac29da4f}{operator/(const json\+\_\+pointer\&, std\+::size\+\_\+t)}} for a binary operator
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_afdaacce1edb7145e0434e014f0e8685a}\label{classnlohmann_1_1json__pointer_afdaacce1edb7145e0434e014f0e8685a}} 
@@ -291,14 +291,14 @@ version 3.\+6.\+0
 
 returns the parent of this J\+S\+ON pointer 
 
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 parent of this J\+S\+ON pointer; in case this J\+S\+ON pointer is the root, the root itself is returned
 \end{DoxyReturn}
 @complexity Linear in the length of the J\+S\+ON pointer.
 
 @liveexample\{The example shows the result of {\ttfamily parent\+\_\+pointer} for different J\+S\+ON Pointers.,json\+\_\+pointer\+\_\+\+\_\+parent\+\_\+pointer\}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a4b1ee4d511ca195bed896a3da47e264c}\label{classnlohmann_1_1json__pointer_a4b1ee4d511ca195bed896a3da47e264c}} 
@@ -312,7 +312,7 @@ void \mbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann\+::json\+\_\+poin
 
 remove last reference token 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 not {\ttfamily \mbox{\hyperlink{classnlohmann_1_1json__pointer_a649252bda4a2e75a0915b11a25d8bcc3}{empty()}}}
 \end{DoxyPrecond}
 @liveexample\{The example shows the usage of {\ttfamily pop\+\_\+back}.,json\+\_\+pointer\+\_\+\+\_\+pop\+\_\+back\}
@@ -320,11 +320,11 @@ not {\ttfamily \mbox{\hyperlink{classnlohmann_1_1json__pointer_a649252bda4a2e75a
 @complexity Constant.
 
 
-\begin{DoxyExceptions}{Excepciones}
+\begin{DoxyExceptions}{Exceptions}
 {\em out\+\_\+of\+\_\+range.\+405} & if J\+S\+ON pointer has no parent\\
 \hline
 \end{DoxyExceptions}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a697d12b5bd6205f8866691b166b7c7dc}\label{classnlohmann_1_1json__pointer_a697d12b5bd6205f8866691b166b7c7dc}} 
@@ -339,7 +339,7 @@ void \mbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann\+::json\+\_\+poin
 append an unescaped token at the end of the reference pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em token} & token to add\\
 \hline
 \end{DoxyParams}
@@ -347,7 +347,7 @@ append an unescaped token at the end of the reference pointer
 
 @liveexample\{The example shows the result of {\ttfamily push\+\_\+back} for different J\+S\+ON Pointers.,json\+\_\+pointer\+\_\+\+\_\+push\+\_\+back\}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_ac228b13596d3c34185da9fe61b570194}\label{classnlohmann_1_1json__pointer_ac228b13596d3c34185da9fe61b570194}} 
@@ -362,7 +362,7 @@ void \mbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann\+::json\+\_\+poin
 append an unescaped token at the end of the reference pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em token} & token to add\\
 \hline
 \end{DoxyParams}
@@ -370,7 +370,7 @@ append an unescaped token at the end of the reference pointer
 
 @liveexample\{The example shows the result of {\ttfamily push\+\_\+back} for different J\+S\+ON Pointers.,json\+\_\+pointer\+\_\+\+\_\+push\+\_\+back\}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a3d4b15d32d096e3776c5d2c773b524f5}\label{classnlohmann_1_1json__pointer_a3d4b15d32d096e3776c5d2c773b524f5}} 
@@ -384,24 +384,24 @@ std\+::string \mbox{\hyperlink{classnlohmann_1_1json__pointer}{nlohmann\+::json\
 
 return a string representation of the J\+S\+ON pointer 
 
-\begin{DoxyInvariant}{Invariante}
+\begin{DoxyInvariant}{Invariant}
 For each J\+S\+ON pointer {\ttfamily ptr}, it holds\+: 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{ptr == \mbox{\hyperlink{classnlohmann_1_1json__pointer_a7f32d7c62841f0c4a6784cf741a6e4f8}{json\_pointer}}(ptr.to\_string());}
 \end{DoxyCode}
 
 \end{DoxyInvariant}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 a string representation of the J\+S\+ON pointer
 \end{DoxyReturn}
 @liveexample\{The example shows the result of {\ttfamily to\+\_\+string}.,json\+\_\+pointer\+\_\+\+\_\+to\+\_\+string\}
 
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 2.\+0.\+0 
 \end{DoxySince}
 
 
-\doxysubsection{Documentación de las funciones relacionadas y clases amigas}
+\doxysubsection{Friends And Related Function Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_ada3100cdb8700566051828f1355fa745}\label{classnlohmann_1_1json__pointer_ada3100cdb8700566051828f1355fa745}} 
 \index{nlohmann::json\_pointer$<$ BasicJsonType $>$@{nlohmann::json\_pointer$<$ BasicJsonType $>$}!basic\_json@{basic\_json}}
 \index{basic\_json@{basic\_json}!nlohmann::json\_pointer$<$ BasicJsonType $>$@{nlohmann::json\_pointer$<$ BasicJsonType $>$}}
@@ -421,13 +421,13 @@ bool operator!= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classnlohmann_1
 compares two J\+S\+ON pointers for inequality 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em lhs} & J\+S\+ON pointer to compare \\
 \hline
 \mbox{\texttt{ in}}  & {\em rhs} & J\+S\+ON pointer to compare \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 whether {\itshape lhs} is not equal {\itshape rhs} 
 \end{DoxyReturn}
 @complexity Linear in the length of the J\+S\+ON pointer
@@ -444,23 +444,23 @@ whether {\itshape lhs} is not equal {\itshape rhs}
 create a new J\+S\+ON pointer by appending the right J\+S\+ON pointer at the end of the left J\+S\+ON pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em lhs} & J\+S\+ON pointer \\
 \hline
 \mbox{\texttt{ in}}  & {\em rhs} & J\+S\+ON pointer \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 a new J\+S\+ON pointer with {\itshape rhs} appended to {\itshape lhs} 
 \end{DoxyReturn}
 @liveexample\{The example shows the usage of {\ttfamily operator/}.,json\+\_\+pointer\+\_\+\+\_\+operator\+\_\+add\+\_\+binary\}
 
 @complexity Linear in the length of {\itshape lhs} and {\itshape rhs}.
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a7395bd0af29ac23fd3f21543c935cdfa}{operator/=(const json\+\_\+pointer\&)}} to append a J\+S\+ON pointer
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a9f6bc6f4d4668b4e9a19d8b8ac29da4f}\label{classnlohmann_1_1json__pointer_a9f6bc6f4d4668b4e9a19d8b8ac29da4f}} 
@@ -475,23 +475,23 @@ version 3.\+6.\+0
 create a new J\+S\+ON pointer by appending the array-\/index-\/token at the end of the J\+S\+ON pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em ptr} & J\+S\+ON pointer \\
 \hline
 \mbox{\texttt{ in}}  & {\em array\+\_\+index} & array index \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 a new J\+S\+ON pointer with {\itshape array\+\_\+index} appended to {\itshape ptr} 
 \end{DoxyReturn}
 @liveexample\{The example shows the usage of {\ttfamily operator/}.,json\+\_\+pointer\+\_\+\+\_\+operator\+\_\+add\+\_\+binary\}
 
 @complexity Linear in the length of {\itshape ptr}.
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_a64c8401529131bad1e486d91d703795f}{operator/=(std\+::size\+\_\+t)}} to append an array index
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a926c9065dbed1bedc17857a813f7a46f}\label{classnlohmann_1_1json__pointer_a926c9065dbed1bedc17857a813f7a46f}} 
@@ -506,23 +506,23 @@ version 3.\+6.\+0
 create a new J\+S\+ON pointer by appending the unescaped token at the end of the J\+S\+ON pointer 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em ptr} & J\+S\+ON pointer \\
 \hline
 \mbox{\texttt{ in}}  & {\em token} & reference token \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 a new J\+S\+ON pointer with unescaped {\itshape token} appended to {\itshape ptr} 
 \end{DoxyReturn}
 @liveexample\{The example shows the usage of {\ttfamily operator/}.,json\+\_\+pointer\+\_\+\+\_\+operator\+\_\+add\+\_\+binary\}
 
 @complexity Linear in the length of {\itshape ptr}.
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 \mbox{\hyperlink{classnlohmann_1_1json__pointer_abdd21567b2b1d69329af0f520335e68b}{operator/=(std\+::string)}} to append a reference token
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+6.\+0 
 \end{DoxySince}
 \mbox{\Hypertarget{classnlohmann_1_1json__pointer_a4667ef558c8c3f8a646bfda0c6654653}\label{classnlohmann_1_1json__pointer_a4667ef558c8c3f8a646bfda0c6654653}} 
@@ -537,19 +537,19 @@ bool operator== (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classnlohmann_1
 compares two J\+S\+ON pointers for equality 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em lhs} & J\+S\+ON pointer to compare \\
 \hline
 \mbox{\texttt{ in}}  & {\em rhs} & J\+S\+ON pointer to compare \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 whether {\itshape lhs} is equal to {\itshape rhs} 
 \end{DoxyReturn}
 @complexity Linear in the length of the J\+S\+ON pointer
 
 @exceptionsafety No-\/throw guarantee\+: this function never throws exceptions. 
 
-La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}
+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}

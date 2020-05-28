@@ -1,4 +1,4 @@
-\hypertarget{classnlohmann_1_1detail_1_1iter__impl}{}\doxysection{Referencia de la plantilla de la Clase nlohmann\+::detail\+::iter\+\_\+impl$<$ Basic\+Json\+Type $>$}
+\hypertarget{classnlohmann_1_1detail_1_1iter__impl}{}\doxysection{nlohmann\+::detail\+::iter\+\_\+impl$<$ Basic\+Json\+Type $>$ Class Template Reference}
 \label{classnlohmann_1_1detail_1_1iter__impl}\index{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}}
 
 
@@ -9,7 +9,7 @@ a template for a bidirectional iterator for the \mbox{\hyperlink{classnlohmann_1
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsection*{Tipos públicos}
+\doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
 using \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_ad9e091f5c70b34b5b1abc1ab15fd9106}{iterator\+\_\+category}} = std\+::bidirectional\+\_\+iterator\+\_\+tag
@@ -22,7 +22,7 @@ using \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_a69e52f890ce8c556fd
 \begin{DoxyCompactList}\small\item\em defines a pointer to the type iterated over (value\+\_\+type) \end{DoxyCompactList}\item 
 using \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_a5be8001be099c6b82310f4d387b953ce}{reference}} = typename std\+::conditional$<$ std\+::is\+\_\+const$<$ Basic\+Json\+Type $>$\+::\mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_ab447c50354c6611fa2ae0100ac17845c}{value}}, typename Basic\+Json\+Type\+::const\+\_\+reference, typename Basic\+Json\+Type\+::reference $>$\+::type
 \begin{DoxyCompactList}\small\item\em defines a reference to the type iterated over (value\+\_\+type) \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Métodos públicos}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_a19aa457f9c4af1b7e3af59839132cc5c}{iter\+\_\+impl}} ()=default
@@ -77,31 +77,31 @@ const object\+\_\+t\+::key\+\_\+type \& \mbox{\hyperlink{classnlohmann_1_1detail
 \begin{DoxyCompactList}\small\item\em return the key of an object iterator \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_a5be8001be099c6b82310f4d387b953ce}{reference}} \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_ab447c50354c6611fa2ae0100ac17845c}{value}} () const
 \begin{DoxyCompactList}\small\item\em return the value of an iterator \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Amigas}
+\doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{iter\+\_\+impl}} \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_a94108d1a7563e103534f23eb5c1ee175}{operator+}} (\mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl_a2f7ea9f7022850809c60fc3263775840}{difference\+\_\+type}} i, const \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{iter\+\_\+impl}} \&it)
 \begin{DoxyCompactList}\small\item\em addition of distance and iterator \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Descripción detallada}
+\doxysubsection{Detailed Description}
 \subsubsection*{template$<$typename Basic\+Json\+Type$>$\newline
 class nlohmann\+::detail\+::iter\+\_\+impl$<$ Basic\+Json\+Type $>$}
 
 a template for a bidirectional iterator for the \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} class This class implements a both iterators (iterator and const\+\_\+iterator) for the \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} class. 
 
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 An iterator is called {\itshape initialized} when a pointer to a J\+S\+ON value has been set (e.\+g., by a constructor or a copy assignment). If the iterator is default-\/constructed, it is {\itshape uninitialized} and most methods are undefined. The library uses assertions to detect calls on uninitialized iterators.$\ast$$\ast$ @requirement The class satisfies the following concept requirements\+:
 \begin{DoxyItemize}
 \item \href{https://en.cppreference.com/w/cpp/named_req/BidirectionalIterator}{\texttt{ Bidirectional\+Iterator}}\+: The iterator that can be moved can be moved in both directions (i.\+e. incremented and decremented). 
 \end{DoxyItemize}
 \end{DoxyNote}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 1.\+0.\+0, simplified in version 2.\+0.\+9, change to bidirectional iterators in version 3.\+0.\+0 (see \href{https://github.com/nlohmann/json/issues/593}{\texttt{ https\+://github.\+com/nlohmann/json/issues/593}}) 
 \end{DoxySince}
 
 
-\doxysubsection{Documentación de los \textquotesingle{}Typedef\textquotesingle{} miembros de la clase}
+\doxysubsection{Member Typedef Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a2f7ea9f7022850809c60fc3263775840}\label{classnlohmann_1_1detail_1_1iter__impl_a2f7ea9f7022850809c60fc3263775840}} 
 \index{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}!difference\_type@{difference\_type}}
 \index{difference\_type@{difference\_type}!nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}}
@@ -155,7 +155,7 @@ the type of the values when the iterator is dereferenced
 
 
 
-\doxysubsection{Documentación del constructor y destructor}
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a19aa457f9c4af1b7e3af59839132cc5c}\label{classnlohmann_1_1detail_1_1iter__impl_a19aa457f9c4af1b7e3af59839132cc5c}} 
 \index{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}!iter\_impl@{iter\_impl}}
 \index{iter\_impl@{iter\_impl}!nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}}
@@ -179,14 +179,14 @@ allow \mbox{\hyperlink{classnlohmann_1_1basic__json}{basic\+\_\+json}} to access
 constructor for a given J\+S\+ON instance 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em object} & pointer to a J\+S\+ON object for this iterator \\
 \hline
 \end{DoxyParams}
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 object != nullptr 
 \end{DoxyPrecond}
-\begin{DoxyPostcond}{Postcondición}
+\begin{DoxyPostcond}{Postcondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPostcond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a71f84fb6e009619f12972bcf9002b8cd}\label{classnlohmann_1_1detail_1_1iter__impl_a71f84fb6e009619f12972bcf9002b8cd}} 
@@ -200,15 +200,15 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 const copy constructor 
 
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 The conventional copy constructor and copy assignment are implicitly defined. Combined with the following converting constructor and assignment, they support\+: (1) copy from iterator to iterator, (2) copy from const iterator to const iterator, and (3) conversion from iterator to const iterator. However conversion from const iterator to iterator is not defined.
 \end{DoxyNote}
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em other} & const iterator to copy from \\
 \hline
 \end{DoxyParams}
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 This copy constructor had to be defined explicitly to circumvent a bug occurring on msvc v19.\+0 compiler (VS 2015) debug build. For more information refer to\+: \href{https://github.com/nlohmann/json/issues/1608}{\texttt{ https\+://github.\+com/nlohmann/json/issues/1608}} 
 \end{DoxyNote}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a867f7eb55091be31b013adb3e46816d3}\label{classnlohmann_1_1detail_1_1iter__impl_a867f7eb55091be31b013adb3e46816d3}} 
@@ -223,16 +223,16 @@ This copy constructor had to be defined explicitly to circumvent a bug occurring
 converting constructor 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em other} & non-\/const iterator to copy from \\
 \hline
 \end{DoxyParams}
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 It is not checked whether {\itshape other} is initialized. 
 \end{DoxyNote}
 
 
-\doxysubsection{Documentación de las funciones miembro}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a15dfb2744fed2ef40c12a9e9a20d6dbc}\label{classnlohmann_1_1detail_1_1iter__impl_a15dfb2744fed2ef40c12a9e9a20d6dbc}} 
 \index{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}!key@{key}}
 \index{key@{key}!nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}}
@@ -244,7 +244,7 @@ const object\+\_\+t\+::key\+\_\+type\& \mbox{\hyperlink{classnlohmann_1_1detail_
 
 return the key of an object iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_aeab0e2b5da70b3bdebecd5b1a6ee66a6}\label{classnlohmann_1_1detail_1_1iter__impl_aeab0e2b5da70b3bdebecd5b1a6ee66a6}} 
@@ -258,7 +258,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{nlohmann\+::detail\
 
 comparison\+: not equal 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a5ca57856d9bba54a5fc51cee891de827}\label{classnlohmann_1_1detail_1_1iter__impl_a5ca57856d9bba54a5fc51cee891de827}} 
@@ -272,7 +272,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 return a reference to the value pointed to by the iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a8ef76aeb5a5032768f0f61f48ac189c0}\label{classnlohmann_1_1detail_1_1iter__impl_a8ef76aeb5a5032768f0f61f48ac189c0}} 
@@ -286,7 +286,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 add to iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_abdfe2a7f464400a7ab572782d14b922f}\label{classnlohmann_1_1detail_1_1iter__impl_abdfe2a7f464400a7ab572782d14b922f}} 
@@ -300,7 +300,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 pre-\/increment (++it) 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a7d2397773b2dce42f30f0375a6a1d850}\label{classnlohmann_1_1detail_1_1iter__impl_a7d2397773b2dce42f30f0375a6a1d850}} 
@@ -314,7 +314,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 post-\/increment (it++) 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a3eef94f9d167046e7f773aeb6b78090c}\label{classnlohmann_1_1detail_1_1iter__impl_a3eef94f9d167046e7f773aeb6b78090c}} 
@@ -328,7 +328,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 add to iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a49bf3e708a9c1c88c415011735962d06}\label{classnlohmann_1_1detail_1_1iter__impl_a49bf3e708a9c1c88c415011735962d06}} 
@@ -342,7 +342,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 return difference 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a0dd9c415b94a02ff2aa25da75e52da30}\label{classnlohmann_1_1detail_1_1iter__impl_a0dd9c415b94a02ff2aa25da75e52da30}} 
@@ -356,7 +356,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 subtract from iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a84e689fb581d651d130039f7cb81494a}\label{classnlohmann_1_1detail_1_1iter__impl_a84e689fb581d651d130039f7cb81494a}} 
@@ -370,7 +370,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 pre-\/decrement (--it) 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a1fc43e764467b8ea4a4cdd01f629d757}\label{classnlohmann_1_1detail_1_1iter__impl_a1fc43e764467b8ea4a4cdd01f629d757}} 
@@ -384,7 +384,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 post-\/decrement (it--) 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_abcc9d51bc52f2e8483bbe4018f05e978}\label{classnlohmann_1_1detail_1_1iter__impl_abcc9d51bc52f2e8483bbe4018f05e978}} 
@@ -398,7 +398,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 subtract from iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a6da3d2b34528aff328f3dcb513076dec}\label{classnlohmann_1_1detail_1_1iter__impl_a6da3d2b34528aff328f3dcb513076dec}} 
@@ -412,7 +412,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 dereference the iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a0d14cd76203e00bdcef6a64a5d055cc7}\label{classnlohmann_1_1detail_1_1iter__impl_a0d14cd76203e00bdcef6a64a5d055cc7}} 
@@ -426,7 +426,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{nlohmann\+::detail\
 
 comparison\+: smaller 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_ac6f71b36d7c87e427d1fee83f2600fad}\label{classnlohmann_1_1detail_1_1iter__impl_ac6f71b36d7c87e427d1fee83f2600fad}} 
@@ -440,7 +440,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{nlohmann\+::detail\
 
 comparison\+: less than or equal 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a9a5cd7864a8f848ef107d3f5a330f5e7}\label{classnlohmann_1_1detail_1_1iter__impl_a9a5cd7864a8f848ef107d3f5a330f5e7}} 
@@ -455,14 +455,14 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 converting assignment 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em other} & const iterator to copy from \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 const/non-\/const iterator 
 \end{DoxyReturn}
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 It is not checked whether {\itshape other} is initialized. 
 \end{DoxyNote}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a7159ed1cfe7c423a2baef8bea0c94509}\label{classnlohmann_1_1detail_1_1iter__impl_a7159ed1cfe7c423a2baef8bea0c94509}} 
@@ -477,14 +477,14 @@ It is not checked whether {\itshape other} is initialized.
 converting assignment 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em other} & non-\/const iterator to copy from \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 const/non-\/const iterator 
 \end{DoxyReturn}
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 It is not checked whether {\itshape other} is initialized. 
 \end{DoxyNote}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a2b592605b63ae7f5401996ffa3b14393}\label{classnlohmann_1_1detail_1_1iter__impl_a2b592605b63ae7f5401996ffa3b14393}} 
@@ -498,7 +498,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{nlohmann\+::detail\
 
 comparison\+: equal 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_aaf3620b8dfa4bed8a9ac2b51dd55dbd7}\label{classnlohmann_1_1detail_1_1iter__impl_aaf3620b8dfa4bed8a9ac2b51dd55dbd7}} 
@@ -512,7 +512,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{nlohmann\+::detail\
 
 comparison\+: greater than 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a634f85da575cb60b012a687efa26e11a}\label{classnlohmann_1_1detail_1_1iter__impl_a634f85da575cb60b012a687efa26e11a}} 
@@ -526,7 +526,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1iter__impl}{nlohmann\+::detail\
 
 comparison\+: greater than or equal 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_ac0b9276f1102ed4b9cd3f5f56287e3ce}\label{classnlohmann_1_1detail_1_1iter__impl_ac0b9276f1102ed4b9cd3f5f56287e3ce}} 
@@ -540,7 +540,7 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 access to successor 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_ab447c50354c6611fa2ae0100ac17845c}\label{classnlohmann_1_1detail_1_1iter__impl_ab447c50354c6611fa2ae0100ac17845c}} 
@@ -554,12 +554,12 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 return the value of an iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 
 
-\doxysubsection{Documentación de las funciones relacionadas y clases amigas}
+\doxysubsection{Friends And Related Function Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1iter__impl_a94108d1a7563e103534f23eb5c1ee175}\label{classnlohmann_1_1detail_1_1iter__impl_a94108d1a7563e103534f23eb5c1ee175}} 
 \index{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}!operator+@{operator+}}
 \index{operator+@{operator+}!nlohmann::detail::iter\_impl$<$ BasicJsonType $>$@{nlohmann::detail::iter\_impl$<$ BasicJsonType $>$}}
@@ -571,11 +571,11 @@ The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}.
 
 addition of distance and iterator 
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 The iterator is initialized; i.\+e. {\ttfamily m\+\_\+object != nullptr}. 
 \end{DoxyPrecond}
 
 
-La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}
+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}

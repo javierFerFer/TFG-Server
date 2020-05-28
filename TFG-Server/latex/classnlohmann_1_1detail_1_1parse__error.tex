@@ -1,4 +1,4 @@
-\hypertarget{classnlohmann_1_1detail_1_1parse__error}{}\doxysection{Referencia de la Clase nlohmann\+::detail\+::parse\+\_\+error}
+\hypertarget{classnlohmann_1_1detail_1_1parse__error}{}\doxysection{nlohmann\+::detail\+::parse\+\_\+error Class Reference}
 \label{classnlohmann_1_1detail_1_1parse__error}\index{nlohmann::detail::parse\_error@{nlohmann::detail::parse\_error}}
 
 
@@ -9,28 +9,28 @@ exception indicating a parse error
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-Diagrama de herencias de nlohmann\+::detail\+::parse\+\_\+error\begin{figure}[H]
+Inheritance diagram for nlohmann\+::detail\+::parse\+\_\+error\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=3.000000cm]{classnlohmann_1_1detail_1_1parse__error}
 \end{center}
 \end{figure}
-\doxysubsection*{Métodos públicos estáticos}
+\doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error}{parse\+\_\+error}} \mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error_a137ea4d27de45d8a844fd13451d40f3d}{create}} (int id\+\_\+, const \mbox{\hyperlink{structnlohmann_1_1detail_1_1position__t}{position\+\_\+t}} \&pos, const std\+::string \&what\+\_\+arg)
 \begin{DoxyCompactList}\small\item\em create a parse error exception \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error}{parse\+\_\+error}} \mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error_a9fd60ad6bce80fd99686ad332faefd37}{create}} (int id\+\_\+, std\+::size\+\_\+t byte\+\_\+, const std\+::string \&what\+\_\+arg)
 \end{DoxyCompactItemize}
-\doxysubsection*{Atributos públicos}
+\doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 const std\+::size\+\_\+t \mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error_a9505aaa1ca943be927eec7cc579592ff}{byte}}
 \begin{DoxyCompactList}\small\item\em byte index of the parse error \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Otros miembros heredados}
+\doxysubsection*{Additional Inherited Members}
 
 
-\doxysubsection{Descripción detallada}
+\doxysubsection{Detailed Description}
 exception indicating a parse error 
 
 This exception is thrown by the library when a parse error occurs. Parse errors can occur during the deserialization of J\+S\+ON text, C\+B\+OR, Message\+Pack, as well as when using J\+S\+ON Patch.
@@ -65,12 +65,12 @@ json.\+exception.\+parse\+\_\+error.\+114 &parse error\+: Unsupported B\+S\+ON r
 \end{longtabu}
 
 
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 For an input with n bytes, 1 is the index of the first character and n+1 is the index of the terminating null byte or the end of file. This also holds true when reading a byte vector (C\+B\+OR or Message\+Pack).
 \end{DoxyNote}
 @liveexample\{The following code shows how a {\ttfamily \mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error}{parse\+\_\+error}}} exception can be caught.,\mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error}{parse\+\_\+error}}\}
 
-\begin{DoxySeeAlso}{Ver también}
+\begin{DoxySeeAlso}{See also}
 -\/ \mbox{\hyperlink{classnlohmann_1_1detail_1_1exception}{exception}} for the base class of the library exceptions 
 
 -\/ \mbox{\hyperlink{classnlohmann_1_1detail_1_1invalid__iterator}{invalid\+\_\+iterator}} for exceptions indicating errors with iterators 
@@ -81,12 +81,12 @@ For an input with n bytes, 1 is the index of the first character and n+1 is the 
 
 -\/ \mbox{\hyperlink{classnlohmann_1_1detail_1_1other__error}{other\+\_\+error}} for exceptions indicating other library errors
 \end{DoxySeeAlso}
-\begin{DoxySince}{Desde}
+\begin{DoxySince}{Since}
 version 3.\+0.\+0 
 \end{DoxySince}
 
 
-\doxysubsection{Documentación de las funciones miembro}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1parse__error_a137ea4d27de45d8a844fd13451d40f3d}\label{classnlohmann_1_1detail_1_1parse__error_a137ea4d27de45d8a844fd13451d40f3d}} 
 \index{nlohmann::detail::parse\_error@{nlohmann::detail::parse\_error}!create@{create}}
 \index{create@{create}!nlohmann::detail::parse\_error@{nlohmann::detail::parse\_error}}
@@ -98,7 +98,7 @@ version 3.\+0.\+0
 create a parse error exception 
 
 
-\begin{DoxyParams}[1]{Parámetros}
+\begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in}}  & {\em id\+\_\+} & the id of the exception \\
 \hline
 \mbox{\texttt{ in}}  & {\em pos} & the position where the error occurred (or with chars\+\_\+read\+\_\+total=0 if the position cannot be determined) \\
@@ -106,7 +106,7 @@ create a parse error exception
 \mbox{\texttt{ in}}  & {\em what\+\_\+arg} & the explanatory string \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1parse__error}{parse\+\_\+error}} object 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1parse__error_a9fd60ad6bce80fd99686ad332faefd37}\label{classnlohmann_1_1detail_1_1parse__error_a9fd60ad6bce80fd99686ad332faefd37}} 
@@ -117,7 +117,7 @@ create a parse error exception
 
 
 
-\doxysubsection{Documentación de los datos miembro}
+\doxysubsection{Member Data Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1parse__error_a9505aaa1ca943be927eec7cc579592ff}\label{classnlohmann_1_1detail_1_1parse__error_a9505aaa1ca943be927eec7cc579592ff}} 
 \index{nlohmann::detail::parse\_error@{nlohmann::detail::parse\_error}!byte@{byte}}
 \index{byte@{byte}!nlohmann::detail::parse\_error@{nlohmann::detail::parse\_error}}
@@ -130,11 +130,11 @@ byte index of the parse error
 
 The byte index of the last read character in the input file.
 
-\begin{DoxyNote}{Nota}
+\begin{DoxyNote}{Note}
 For an input with n bytes, 1 is the index of the first character and n+1 is the index of the terminating null byte or the end of file. This also holds true when reading a byte vector (C\+B\+OR or Message\+Pack). 
 \end{DoxyNote}
 
 
-La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}
+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}

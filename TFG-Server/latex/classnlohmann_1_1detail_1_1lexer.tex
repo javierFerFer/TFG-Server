@@ -1,4 +1,4 @@
-\hypertarget{classnlohmann_1_1detail_1_1lexer}{}\doxysection{Referencia de la plantilla de la Clase nlohmann\+::detail\+::lexer$<$ Basic\+Json\+Type $>$}
+\hypertarget{classnlohmann_1_1detail_1_1lexer}{}\doxysection{nlohmann\+::detail\+::lexer$<$ Basic\+Json\+Type $>$ Class Template Reference}
 \label{classnlohmann_1_1detail_1_1lexer}\index{nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}}
 
 
@@ -9,7 +9,7 @@ lexical analysis
 
 {\ttfamily \#include $<$json.\+hpp$>$}
 
-\doxysubsection*{Tipos públicos}
+\doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098}{token\+\_\+type}} \{ \newline
@@ -36,7 +36,7 @@ enum \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098ad2a8e6f6721cccec0b466301dd9495a5}{token\+\_\+type\+::literal\+\_\+or\+\_\+value}}
  \}
 \begin{DoxyCompactList}\small\item\em token types for the parser \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Métodos públicos}
+\doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_ab6818e0fc05f4a52c65aeb967dd79919}{lexer}} (\mbox{\hyperlink{namespacenlohmann_1_1detail_ae132f8cd5bb24c5e9b40ad0eafedf1c2}{detail\+::input\+\_\+adapter\+\_\+t}} \&\&adapter)
@@ -69,14 +69,14 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a709afd52def2e258dac0b8a6
 \begin{DoxyCompactList}\small\item\em skip the U\+T\+F-\/8 byte order mark \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098}{token\+\_\+type}} \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_aac3041cd2b9291e64fee38db422863c9}{scan}} ()
 \end{DoxyCompactItemize}
-\doxysubsection*{Métodos públicos estáticos}
+\doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{json_8hpp_a5f2aaec3b681d0a72f7d6e90b70cdcd1}{J\+S\+O\+N\+\_\+\+H\+E\+D\+L\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N\+S\+\_\+\+N\+O\+N\+\_\+\+N\+U\+LL}} static \mbox{\hyperlink{json_8hpp_a0d17bf1a54fc45a04ced6d3aa86a96e3}{J\+S\+O\+N\+\_\+\+H\+E\+D\+L\+E\+Y\+\_\+\+C\+O\+N\+ST}} const char $\ast$ \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_adb831e1f692a45c2281ed3d59ddf1e17}{token\+\_\+type\+\_\+name}} (const \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098}{token\+\_\+type}} t) noexcept
 \begin{DoxyCompactList}\small\item\em return name of values of type token\+\_\+type (only used for errors) \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\doxysubsection{Descripción detallada}
+\doxysubsection{Detailed Description}
 \subsubsection*{template$<$typename Basic\+Json\+Type$>$\newline
 class nlohmann\+::detail\+::lexer$<$ Basic\+Json\+Type $>$}
 
@@ -84,7 +84,7 @@ lexical analysis
 
 This class organizes the lexical analysis during J\+S\+ON deserialization. 
 
-\doxysubsection{Documentación de las enumeraciones miembro de la clase}
+\doxysubsection{Member Enumeration Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098}\label{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098}} 
 \index{nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}!token\_type@{token\_type}}
 \index{token\_type@{token\_type}!nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}}
@@ -96,7 +96,7 @@ enum \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f
 
 token types for the parser 
 
-\begin{DoxyEnumFields}{Valores de enumeraciones}
+\begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{uninitialized@{uninitialized}!nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}}\index{nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}!uninitialized@{uninitialized}}}\mbox{\Hypertarget{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098a42dd1a73d072bb6bf3f494f22b15db8e}\label{classnlohmann_1_1detail_1_1lexer_a3f313cdbe187cababfc5e06f0b69b098a42dd1a73d072bb6bf3f494f22b15db8e}} 
 uninitialized&indicating the scanner is uninitialized \\
 \hline
@@ -168,7 +168,7 @@ literal\+\_\+or\+\_\+value&a literal or the begin of a value (only for diagnosti
 \end{DoxyEnumFields}
 
 
-\doxysubsection{Documentación del constructor y destructor}
+\doxysubsection{Constructor \& Destructor Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1lexer_ab6818e0fc05f4a52c65aeb967dd79919}\label{classnlohmann_1_1detail_1_1lexer_ab6818e0fc05f4a52c65aeb967dd79919}} 
 \index{nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}!lexer@{lexer}}
 \index{lexer@{lexer}!nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}}
@@ -199,7 +199,7 @@ literal\+\_\+or\+\_\+value&a literal or the begin of a value (only for diagnosti
 
 
 
-\doxysubsection{Documentación de las funciones miembro}
+\doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1lexer_a8fe3f97ee5059d557097bbcc88f0fbe8}\label{classnlohmann_1_1detail_1_1lexer_a8fe3f97ee5059d557097bbcc88f0fbe8}} 
 \index{nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}!get\_error\_message@{get\_error\_message}}
 \index{get\_error\_message@{get\_error\_message}!nlohmann::detail::lexer$<$ BasicJsonType $>$@{nlohmann::detail::lexer$<$ BasicJsonType $>$}}
@@ -305,7 +305,7 @@ bool \mbox{\hyperlink{classnlohmann_1_1detail_1_1lexer}{nlohmann\+::detail\+::le
 
 skip the U\+T\+F-\/8 byte order mark 
 
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 true iff there is no B\+OM or the correct B\+OM has been skipped 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classnlohmann_1_1detail_1_1lexer_adb831e1f692a45c2281ed3d59ddf1e17}\label{classnlohmann_1_1detail_1_1lexer_adb831e1f692a45c2281ed3d59ddf1e17}} 
@@ -321,6 +321,6 @@ return name of values of type token\+\_\+type (only used for errors)
 
 
 
-La documentación para esta clase fue generada a partir del siguiente fichero\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/javie/\+Desktop/\+Desarrollo/\+T\+F\+G/\+T\+F\+G-\/\+Server/\+T\+F\+G-\/\+Server/\+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}
+Libraries/\mbox{\hyperlink{json_8hpp}{json.\+hpp}}\end{DoxyCompactItemize}

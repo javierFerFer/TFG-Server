@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['lista_20de_20obsoletos_442',['Lista de obsoletos',['../deprecated.html',1,'']]],
   ['launchreadthread_443',['launchReadThread',['../class_socket_object.html#acc3a911fe7c7cbdbdcc93784340e923a',1,'SocketObject']]],
   ['less_3c_3a_3anlohmann_3a_3adetail_3a_3avalue_5ft_20_3e_444',['less&lt;::nlohmann::detail::value_t &gt;',['../structstd_1_1less_3_1_1nlohmann_1_1detail_1_1value__t_01_4.html',1,'std']]],
   ['lexer_445',['lexer',['../classnlohmann_1_1detail_1_1lexer.html',1,'nlohmann::detail::lexer&lt; BasicJsonType &gt;'],['../classnlohmann_1_1detail_1_1lexer.html#ab6818e0fc05f4a52c65aeb967dd79919',1,'nlohmann::detail::lexer::lexer(detail::input_adapter_t &amp;&amp;adapter)'],['../classnlohmann_1_1detail_1_1lexer.html#a2e8ce2a0d266d148b69dfbcc2e4ad71a',1,'nlohmann::detail::lexer::lexer(const lexer &amp;)=delete'],['../classnlohmann_1_1detail_1_1lexer.html#a9045348915010649fad1f15e80b6e34d',1,'nlohmann::detail::lexer::lexer(lexer &amp;&amp;)=delete']]],

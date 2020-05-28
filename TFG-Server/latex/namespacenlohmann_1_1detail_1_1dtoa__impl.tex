@@ -1,11 +1,11 @@
-\hypertarget{namespacenlohmann_1_1detail_1_1dtoa__impl}{}\doxysection{Referencia del Namespace nlohmann\+::detail\+::dtoa\+\_\+impl}
+\hypertarget{namespacenlohmann_1_1detail_1_1dtoa__impl}{}\doxysection{nlohmann\+::detail\+::dtoa\+\_\+impl Namespace Reference}
 \label{namespacenlohmann_1_1detail_1_1dtoa__impl}\index{nlohmann::detail::dtoa\_impl@{nlohmann::detail::dtoa\_impl}}
 
 
 implements the Grisu2 algorithm for binary to decimal floating-\/point conversion.  
 
 
-\doxysubsection*{Clases}
+\doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structnlohmann_1_1detail_1_1dtoa__impl_1_1boundaries}{boundaries}}
@@ -14,7 +14,7 @@ struct \mbox{\hyperlink{structnlohmann_1_1detail_1_1dtoa__impl_1_1cached__power}
 \item 
 struct \mbox{\hyperlink{structnlohmann_1_1detail_1_1dtoa__impl_1_1diyfp}{diyfp}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Funciones}
+\doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 {\footnotesize template$<$typename Target , typename Source $>$ }\\Target \mbox{\hyperlink{namespacenlohmann_1_1detail_1_1dtoa__impl_a1c5d30eb51e5e994a3f48bde104d2ce8}{reinterpret\+\_\+bits}} (const Source source)
@@ -46,7 +46,7 @@ constexpr int \mbox{\hyperlink{namespacenlohmann_1_1detail_1_1dtoa__impl_a4a750f
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Descripción detallada}
+\doxysubsection{Detailed Description}
 implements the Grisu2 algorithm for binary to decimal floating-\/point conversion. 
 
 This implementation is a slightly modified version of the reference implementation which may be obtained from \href{http://florian.loitsch.com/publications}{\texttt{ http\+://florian.\+loitsch.\+com/publications}} (bench.\+tar.\+gz).
@@ -58,7 +58,7 @@ For a detailed description of the algorithm see\+:
 \mbox{[}1\mbox{]} Loitsch, \char`\"{}\+Printing Floating-\/\+Point Numbers Quickly and Accurately with
     Integers\char`\"{}, Proceedings of the A\+CM S\+I\+G\+P\+L\+AN 2010 Conference on Programming Language Design and Implementation, P\+L\+DI 2010 \mbox{[}2\mbox{]} Burger, Dybvig, \char`\"{}\+Printing Floating-\/\+Point Numbers Quickly and Accurately\char`\"{}, Proceedings of the A\+CM S\+I\+G\+P\+L\+AN 1996 Conference on Programming Language Design and Implementation, P\+L\+DI 1996 
 
-\doxysubsection{Documentación de las funciones}
+\doxysubsection{Function Documentation}
 \mbox{\Hypertarget{namespacenlohmann_1_1detail_1_1dtoa__impl_ad90f19ed10d8133b727df4b9bc5ddf5c}\label{namespacenlohmann_1_1detail_1_1dtoa__impl_ad90f19ed10d8133b727df4b9bc5ddf5c}} 
 \index{nlohmann::detail::dtoa\_impl@{nlohmann::detail::dtoa\_impl}!append\_exponent@{append\_exponent}}
 \index{append\_exponent@{append\_exponent}!nlohmann::detail::dtoa\_impl@{nlohmann::detail::dtoa\_impl}}
@@ -69,10 +69,10 @@ For a detailed description of the algorithm see\+:
 
 appends a decimal representation of e to buf 
 
-\begin{DoxyReturn}{Devuelve}
+\begin{DoxyReturn}{Returns}
 a pointer to the element following the exponent. 
 \end{DoxyReturn}
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 -\/1000 $<$ e $<$ 1000 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{namespacenlohmann_1_1detail_1_1dtoa__impl_a22b6e37654ac93c6d0d9c06ec1bf5ded}\label{namespacenlohmann_1_1detail_1_1dtoa__impl_a22b6e37654ac93c6d0d9c06ec1bf5ded}} 
@@ -84,7 +84,7 @@ a pointer to the element following the exponent.
 
 Compute the (normalized) diyfp representing the input number \textquotesingle{}value\textquotesingle{} and its boundaries.
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 value must be finite and positive 
 \end{DoxyPrecond}
 \mbox{\Hypertarget{namespacenlohmann_1_1detail_1_1dtoa__impl_a36ded358763b5dbcea9867660fbe4e28}\label{namespacenlohmann_1_1detail_1_1dtoa__impl_a36ded358763b5dbcea9867660fbe4e28}} 
@@ -105,7 +105,7 @@ prettify v = buf $\ast$ 10$^\wedge$decimal\+\_\+exponent
 
 If v is in the range \mbox{[}10$^\wedge$min\+\_\+exp, 10$^\wedge$max\+\_\+exp) it will be printed in fixed-\/point notation. Otherwise it will be printed in exponential notation.
 
-\begin{DoxyPrecond}{Precondición}
+\begin{DoxyPrecond}{Precondition}
 min\+\_\+exp $<$ 0 
 
 max\+\_\+exp $>$ 0 
@@ -152,7 +152,7 @@ Target nlohmann\+::detail\+::dtoa\+\_\+impl\+::reinterpret\+\_\+bits (\begin{Dox
 
 
 
-\doxysubsection{Documentación de las variables}
+\doxysubsection{Variable Documentation}
 \mbox{\Hypertarget{namespacenlohmann_1_1detail_1_1dtoa__impl_ac1ea1316de0b4a219f707c76b1db1966}\label{namespacenlohmann_1_1detail_1_1dtoa__impl_ac1ea1316de0b4a219f707c76b1db1966}} 
 \index{nlohmann::detail::dtoa\_impl@{nlohmann::detail::dtoa\_impl}!kAlpha@{kAlpha}}
 \index{kAlpha@{kAlpha}!nlohmann::detail::dtoa\_impl@{nlohmann::detail::dtoa\_impl}}
